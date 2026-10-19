@@ -1,75 +1,37 @@
-Looking to report an issue/bug or make a feature request? Please refer to the [README file](https://github.com/animiruorg/Animiru#issues-feature-requests-and-contributing).
+<!-- Modified for Yume on 2026-10-19: local workflow, attribution and review policy. -->
+# Contribuindo com o Yume
 
----
+Yume deriva do Animiru. Consulte o [guia original e seus créditos](docs/upstream/CONTRIBUTING.md), a [origem](docs/UPSTREAM.md), o [código de conduta](CODE_OF_CONDUCT.md) e o [progresso](docs/PROGRESS.md). O fork remoto e seus canais ainda aguardam confirmação. Problemas específicos do Yume devem ser tratados no futuro repositório Yume, sem encaminhar automaticamente seus usuários ao suporte upstream.
 
-Thanks for your interest in contributing to Animiru!
+## Branches e commits
 
+- `main`: base local de integração; criada no SHA auditado, sem reescrever commits herdados.
+- `chore/session-1-foundation`: documentação e configuração desta sessão.
+- Próximas mudanças: `feat/<assunto>`, `fix/<assunto>`, `docs/<assunto>` ou `chore/<assunto>`, a partir de `main`.
+- Commits pequenos com `tipo: resumo`, resumo preferencialmente até 50 caracteres e corpo explicando o motivo e a validação. Não adicionar tags de release sem autorização.
+- Não rebasear nem alterar autoria do histórico importado. Para sincronização, seguir [UPSTREAM.md](docs/UPSTREAM.md), com revisão e testes antes da integração.
 
-# Code contributions
+Os commits automatizados locais desta fundação usam `Codex (AI assistant) <codex@invalid>`, identidade explícita sem endereço pessoal. Não representa autoria humana nem uma conta GitHub. Contribuições humanas posteriores usam a identidade escolhida pelo próprio autor, preferencialmente um endereço GitHub noreply se desejado.
 
-Pull requests are welcome!
+## Mudanças e evidências
 
-If you're interested in taking on [an open issue](https://github.com/animiruorg/Animiru/issues), please comment on it so others are aware.
-You do not need to ask for permission nor an assignment.
+Antes de editar, inspecione os arquivos reais. Preserve copyright, licença, avisos e os marcadores `AM`/créditos herdados. O guia upstream pede marcação das alterações de código com `AM (<título>) --> ... <-- AM (<título>)`; esta sessão não altera código Android. Ao introduzir código futuro, documente sua origem, mantenha os créditos existentes e inclua aviso de modificação adequado ao formato do arquivo. Arquivos herdados editados nesta sessão trazem aviso datado de modificação Yume.
 
-## Prerequisites
+O PR deve explicar o problema, comportamento resultante, arquivos relevantes, riscos e validações efetivamente realizadas. Diferencie código herdado, adaptação de terceiros e assistência por IA; não declare testes, screenshots, autoria ou funcionalidades que não existem. Não inclua tokens, credenciais OAuth privadas, arquivos de assinatura, backups, bancos pessoais ou logs sem revisão.
 
-Before you start, please note that the ability to use following technologies is **required** and that existing contributors will not actively teach them to you.
+## Verificação
 
-- Basic [Android development](https://developer.android.com/)
-- [Kotlin](https://kotlinlang.org/)
+Ferramentas exigidas pelo upstream: Kotlin/Android, JDK 21 e Android SDK/NDK nas versões dos catálogos. Use o wrapper do repositório. Comandos de referência, ainda não executados nesta fundação:
 
-### Tools
+```powershell
+./gradlew.bat spotlessCheck
+./gradlew.bat testDebugUnitTest
+./gradlew.bat verifySqlDelightMigration
+./gradlew.bat assembleDebug -Penable-updater=false
+```
 
-- [Android Studio](https://developer.android.com/studio)
-- Emulator or phone with developer options enabled to test changes.
+Execute verificações proporcionais à mudança e registre limitações. Alterações de biblioteca, banco, backup, player ou identidade exigem regressão adequada. Para mudanças visuais, forneça screenshots reais e verifique temas, acessibilidade e telas grandes. `spotlessApply` modifica arquivos; revise o diff antes de incluí-los.
 
-## Keep In Mind
+## Revisão e publicação
 
-Do remember to mark each line of code that is either added or edited (excluding imports) specifying the reason behind the code.
-Surround the new code with:
-
-`AM (<Title of code>) --> <-- AM (<Title of code>)`
-
-### Credits (Added / Edited code from upstream)
-
-- **AM (REMOVE_TABBED_SCREENS)** --> Refactoring from Aniyomi code to Animiru!
-- **AM (REMOVE_ACRA_FIREBASE)** --> Refactoring from Aniyomi code to Animiru!
-- **AM (REMOVE_LIBRARIES)** --> Refactoring from Aniyomi code to Animiru!
-- **AM (BROWSE)** --> Thank you Quickdesh!
-- **AM (KEYBOARD_CONTROLS)** --> Thank you Quickdesh!
-- **AM (NAVIGATION_PILL)** --> Thank you Quickdesh!
-- **AM (TAB_HOLD)** --> Thank you Quickdesh!
-- **AM (FILE_SIZE)** --> Thank you Khaled0!
-- **AM (DISCORD_RPC)** --> Original library from dead8309/Kizzy, refactored code by 最高 man/Shivam. Thank you, both of you!
-- **AM (CUSTOM_INFORMATION)** --> Copied from SY, Thank you jobobby4/syer!
-- **AM (GROUPING)** --> Copied from SY, Thank you jobobby4/syer!
-- **AM (RECENTS)** --> Idea inspired from J2K, Thank you Jays2Kings!
-- **AM (STORAGE_SCREEN)** --> Taken from Aniyomi and refactored to fit Animiru's codebase!
-- **AM (RECENTS_FILTER_CHIP)** --> Thank you Quickdesh!
-
-## Linting
-
-To auto-fix some linting errors, run the `spotlessApply` Gradle task.
-
-## Getting help
-
-- Join [the Discord server](https://discord.gg/yDuHDMwxhv) for online help and to ask questions while developing.
-
-# Translations
-
-Translations are done externally via Weblate. See [our website](https://aniyomi.org/docs/contribute#translation) for more details.
-
-
-# Forks
-
-Forks are allowed so long as they abide by [the project's LICENSE](https://github.com/aniyomiorg/aniyomi/blob/main/LICENSE).
-
-When creating a fork, remember to:
-
-- To avoid confusion with the main app:
-    - Change the app name
-    - Change the app icon
-    - Change or disable the [app update checker](https://github.com/animiruorg/Animiru/blob/main/app/src/main/java/eu/kanade/tachiyomi/data/updater/AppUpdateChecker.kt)
-- To avoid installation conflicts:
-    - Change the `applicationId` in [`build.gradle.kts`](https://github.com/animiruorg/Animiru/blob/main/app/build.gradle.kts)
+Prepare o PR localmente com o template e evidências. Nesta execução, envio ao remoto, abertura de PR, mudança de configuração GitHub e publicação dependem de autorização explícita do proprietário. O [rascunho da fundação](docs/SESSION_1_PR.md) está pronto para revisão local. Relatos de vulnerabilidade seguem [SECURITY.md](SECURITY.md).

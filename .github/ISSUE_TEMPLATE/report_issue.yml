@@ -1,105 +1,47 @@
-name: 🐞 Issue report
-description: Report an issue in Animiru
-labels: [Bug]
+# Modified for Yume on 2026-10-19: fork diagnostics without personal data or upstream version requirements.
+name: Reportar falha no Yume
+description: Informe uma falha reproduzível; vulnerabilidades seguem SECURITY.md.
 body:
-  - type: textarea
-    id: reproduce-steps
+  - type: markdown
     attributes:
-      label: Steps to reproduce
-      description: Provide an example of the issue.
-      placeholder: |
-        Example:
-          1. First step
-          2. Second step
-          3. Issue here
-    validations:
-      required: true
-
-  - type: textarea
-    id: expected-behavior
-    attributes:
-      label: Expected behavior
-      description: Explain what you should expect to happen.
-      placeholder: |
-        Example:
-          "This should happen..."
-    validations:
-      required: true
-
-  - type: textarea
-    id: actual-behavior
-    attributes:
-      label: Actual behavior
-      description: Explain what actually happens.
-      placeholder: |
-        Example:
-          "This happened instead..."
-    validations:
-      required: true
-
-  - type: textarea
-    id: crash-logs
-    attributes:
-      label: Crash logs
-      description: |
-        If you're experiencing crashes, if possible, go to the app's **More → Settings → Advanced** page, press **Dump crash logs** and share the crash logs here.
-      placeholder: |
-        You can upload the crash log file as an attachment, or paste the crash logs in plain text if needed.
-
+      value: |
+        Não inclua tokens, backups, bancos pessoais nem logs sem remover dados sensíveis.
+        Para vulnerabilidades, siga SECURITY.md e use apenas um canal privado confirmado.
   - type: input
-    id: animiru-version
+    id: version
     attributes:
-      label: Animiru version
-      description: You can find your Animiru version in **More → About**.
-      placeholder: |
-        Example: "0.20.0.1"
+      label: Versão ou commit Yume e origem do build
+      description: Nesta fase não há APK oficial Yume; informe o SHA se compilou localmente.
     validations:
       required: true
-
   - type: input
-    id: android-version
+    id: environment
     attributes:
-      label: Android version
-      description: You can find this somewhere in your Android settings.
-      placeholder: |
-        Example: "Android 11"
+      label: Android, aparelho e variante do app
     validations:
       required: true
-
-  - type: input
-    id: device
-    attributes:
-      label: Device
-      description: List your device and model.
-      placeholder: |
-        Example: "Google Pixel 5"
-    validations:
-      required: true
-
   - type: textarea
-    id: other-details
+    id: reproduction
     attributes:
-      label: Other details
-      placeholder: |
-        Additional details and attachments.
-
+      label: Passos mínimos para reproduzir
+    validations:
+      required: true
+  - type: textarea
+    id: expected-actual
+    attributes:
+      label: Resultado esperado e observado
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidências opcionais, com dados sensíveis removidos
   - type: checkboxes
     id: acknowledgements
     attributes:
-      label: Acknowledgements
-      description: Read this carefully, we will close and ignore your issue if you skimmed through this.
+      label: Antes de enviar
       options:
-        - label: I have searched the existing issues and this is a new ticket, **NOT** a duplicate or related to another open or closed issue.
+        - label: Pesquisei issues existentes e li o estado atual no README.
           required: true
-        - label: I have written a short but informative title.
-          required: true
-        - label: If this is an issue with an extension, I should be opening an issue in the extension's repository.
-          required: true
-        - label: I have gone through the [FAQ](https://aniyomi.org/docs/faq/general) and [troubleshooting guide](https://aniyomi.org/docs/guides/troubleshooting/).
-          required: true
-        - label: I have updated the app to version **[0.20.0.1](https://github.com/animiruorg/Animiru/releases/latest)**.
-          required: true
-        - label: I have filled out all of the requested information in this form, including specific version numbers.
-          required: true
-        - label: I understand that **Animiru does not have or fix any extensions**, and I **will not receive help** for any issues related to sources or extensions.
+        - label: Este relato não contém segredos nem detalhes de vulnerabilidade explorável.
           required: true

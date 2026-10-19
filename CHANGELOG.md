@@ -1,4 +1,18 @@
-# Changelog
+<!-- Modified for Yume on 2026-10-19: prepend a separate fork changelog. -->
+# Yume changelog
+
+## Unreleased — foundation, 2026-10-19
+
+- Confirmado o nome público Yume; pacote e recursos Android ainda herdados.
+- Adicionados documentação do fork, atribuições, política de contribuição e segurança, plano de identidade, templates e regras de exclusão de arquivos locais.
+- Preservados os créditos e o histórico upstream. Nenhuma mudança funcional, build ou release Yume nesta sessão.
+- Documentação preparada com assistência do Codex; revisão e publicação pendentes do proprietário.
+
+---
+
+# Animiru changelog — histórico herdado
+
+As entradas abaixo foram preservadas do upstream e não descrevem contribuições novas do Yume.
 
 All notable changes to this project will be documented in this file.
 

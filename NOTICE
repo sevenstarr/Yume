@@ -1,0 +1,26 @@
+Yume — independent derivative of Animiru
+
+Upstream: https://github.com/animiruorg/Animiru
+Audited base: 0b9bb0a347aa7bcee226d8782d98d9abafc34b32
+Branch: animiru-new-main
+
+Animiru is derived from Aniyomi, with inherited work from Mihon,
+Tachiyomi and their contributors. Existing file headers, credits and
+the upstream commit history remain attributable to their original authors.
+
+Notices reproduced from the upstream README:
+Copyright © 2015 Javier Tomás
+Copyright © 2024 Mihon Open Source Project
+Copyright © 2024 Aniyomi Open Source Project
+
+The Apache License, Version 2.0 is provided in LICENSE.
+This informational notice was added for Yume on 2026-10-19. No NOTICE
+file was found in the audited upstream tracked tree. This notice does
+not replace component licenses or alter their terms.
+
+Yume foundation changes: project documentation, contribution and issue/PR
+templates, local-file ignore rules, and attribution records. Prepared
+with Codex assistance; no inherited Android feature is claimed as new.
+
+Yume is not endorsed by the upstream projects or metadata/content providers.
+Project names identify provenance; no trademark permission is implied.

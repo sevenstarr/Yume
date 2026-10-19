@@ -1,12 +1,21 @@
-<!--
-  Please include a summary of the change and which issue is fixed.
-  Also make sure you've tested your code and also done a self-review of it.
-  Don't forget to check all base themes and tablet mode for relevant changes.
-  
-  If your changes are visual, please provide images below:
+<!-- Modified for Yume on 2026-10-19: reviewable scope, attribution and evidence. -->
+## Problema e resultado
 
-### Images
-| Image 1 | Image 2 |
-| ------- | ------- |
-| ![](https://github.githubassets.com/images/modules/logos_page/Octocat.png) | ![](https://github.githubassets.com/images/modules/logos_page/Octocat.png) |
--->
+Descreva o problema, o comportamento resultante e a issue relacionada, se houver.
+
+## Origem das mudanças
+
+Distinga trabalho novo, adaptação upstream/terceiros e assistência por IA. Preserve créditos e avisos.
+
+## Validação
+
+Comandos realmente executados e resultados. Liste limitações e testes não realizados. Para mudanças visuais, inclua screenshots reais, temas e telas verificadas.
+
+## Revisão
+
+- [ ] Escopo pequeno e diff revisado.
+- [ ] Licença, atribuições e avisos de modificação preservados.
+- [ ] Nenhum segredo, material de assinatura, dado pessoal ou backup incluído.
+- [ ] Testes adequados registrados, ou limitações justificadas.
+- [ ] Riscos para extensões, progresso, backup, instalação e atualização avaliados quando aplicáveis.
+- [ ] Documentação/progresso atualizados quando necessário.

@@ -1,38 +1,26 @@
-name: ⭐ Feature request
-description: Suggest a feature to improve Animiru
-labels: [Feature request]
+# Modified for Yume on 2026-10-19: fork scope and status-aware feature requests.
+name: Sugestão para o Yume
+description: Proponha uma melhoria para o fork Yume.
 body:
   - type: textarea
-    id: feature-description
+    id: problem
     attributes:
-      label: Describe your suggested feature
-      description: How can Animiru be improved?
-      placeholder: |
-        Example:
-          "It should work like this..."
+      label: Problema ou necessidade
+      description: Explique o caso de uso e o resultado esperado.
     validations:
       required: true
-
   - type: textarea
-    id: other-details
+    id: proposal
     attributes:
-      label: Other details
-      placeholder: |
-        Additional details and attachments.
-
+      label: Solução sugerida e alternativas
+    validations:
+      required: true
   - type: checkboxes
     id: acknowledgements
     attributes:
-      label: Acknowledgements
-      description: Read this carefully, we will close and ignore your issue if you skimmed through this.
+      label: Antes de enviar
       options:
-        - label: I have searched the existing issues and this is a new ticket, **NOT** a duplicate or related to another open or closed issue.
+        - label: Pesquisei issues existentes e li o estado atual no README.
           required: true
-        - label: I have written a short but informative title.
-          required: true
-        - label: If this is a request regarding an extension, I should be opening an issue in the extension's repository.
-          required: true
-        - label: I have updated the app to version **[0.20.0.1](https://github.com/animiruorg/Animiru/releases/latest)**.
-          required: true
-        - label: I will fill out all of the requested information in this form.
+        - label: Esta proposta trata do Yume; problemas exclusivos de uma extensão pertencem ao projeto da extensão.
           required: true
