@@ -2,6 +2,8 @@
 
 Data: 19/10/2026. **Status: adotado para organização local.** Publicação remota e identidade de runtime permanecem pendentes. A proposta de arquitetura de metadados da sessão 0 não é transformada em contrato aceito por este ADR.
 
+Atualização posterior, na mesma data: criação do fork público `sevenstarr/Yume` autorizada pelo proprietário e executada, com origem verificada e remote `origin` configurado. O envio dos commits locais e a identidade de runtime continuam pendentes. O contexto e as decisões abaixo registram o momento da fundação inicial.
+
 ## Contexto
 
 O proprietário autorizou iniciar a sessão 1 e confirmou o nome Yume. O workspace contém um clone do Animiru e relatórios da sessão 0 fora do Git. Conta de destino, identidade visual e pacote final ainda não foram confirmados.

@@ -1,7 +1,7 @@
 <!-- Modified for Yume on 2026-10-19: fork identity, status and attribution. -->
 # Yume
 
-Derivação independente do [Animiru](https://github.com/animiruorg/Animiru), por sua vez derivado do [Aniyomi](https://github.com/aniyomiorg/aniyomi). O nome **Yume** foi confirmado pelo proprietário em 19/10/2026. A fundação está sendo preparada localmente; o fork público ainda não foi criado.
+Derivação independente do [Animiru](https://github.com/animiruorg/Animiru), por sua vez derivado do [Aniyomi](https://github.com/aniyomiorg/aniyomi). O nome **Yume** foi confirmado pelo proprietário em 19/10/2026. O [fork público sevenstarr/Yume](https://github.com/sevenstarr/Yume) foi criado com autorização explícita; os commits desta fundação ainda estão locais, sem push ou PR.
 
 O objetivo é adicionar enriquecimento **opt-in**, inicialmente com metadados e capas do AniList, preservando biblioteca, extensões, episódios, downloads e progresso. Esse recurso está planejado e **ainda não foi implementado**. O tracking AniList já existente é herdado do Animiru.
 
@@ -11,7 +11,7 @@ O objetivo é adicionar enriquecimento **opt-in**, inicialmente com metadados e 
 | --- | --- |
 | Base | `animiruorg/Animiru`, `animiru-new-main`, commit `0b9bb0a347aa7bcee226d8782d98d9abafc34b32` |
 | Sessão 0 | Reconhecimento concluído; [auditoria](docs/UPSTREAM_AUDIT.md) |
-| Sessão 1 | Fundação local; conta GitHub e identidade Android pendentes |
+| Sessão 1 | Fork público criado; fundação local; identidade Android e envio dos commits pendentes |
 | APK Yume | Nenhum build, assinatura, teste de instalação ou release |
 | Funcionalidade nova | Nenhuma; fontes, banco, player e trackers preservados |
 

@@ -1,12 +1,12 @@
 # Identidade e coexistência — proposta da sessão 1
 
-**Nome público aprovado: Yume**, em resposta do proprietário em 19/10/2026. Identidade visual, conta de destino e identificador Android ainda não aprovados. Esta sessão aplicou o nome aos documentos e templates; nenhuma identidade de runtime foi alterada.
+**Nome público aprovado: Yume**, em resposta do proprietário em 19/10/2026. A criação do fork público na conta **sevenstarr** foi autorizada e executada posteriormente no mesmo dia. Identidade visual e identificador Android ainda não aprovados. Esta sessão aplicou o nome aos documentos e templates; nenhuma identidade de runtime foi alterada.
 
 ## Matriz de mudanças futuras
 
 | Ponto real | Estado herdado | Proposta e dependência |
 | --- | --- | --- |
-| `app/build.gradle.kts` | `applicationId = "xyz.Quickdev.Animiru.mi"`; namespace `eu.kanade.tachiyomi` | Pacote exclusivo do fork; candidato `io.github.sevenstarr.yume` **somente se a conta sevenstarr for confirmada pelo proprietário**. Manter namespace/pacotes internos para limitar conflitos upstream. |
+| `app/build.gradle.kts` | `applicationId = "xyz.Quickdev.Animiru.mi"`; namespace `eu.kanade.tachiyomi` | Pacote exclusivo do fork; candidato `io.github.sevenstarr.yume`, ainda sujeito à aprovação do proprietário. Conta sevenstarr confirmada para o fork. Manter namespace/pacotes internos para limitar conflitos upstream. |
 | Variantes no mesmo arquivo | Sufixos `.dev`, `.foss`, `.preview`, `.benchmark` | Preservar separação por variante sobre o novo ID; verificar manifestos mesclados, testes e coexistência. |
 | `i18n/src/commonMain/moko-resources/base/strings.xml` | `app_name` = Animiru | Alterar para Yume junto com a identidade visual aprovada. Verificar recursos gerados e nomes por variante. |
 | `app/src/main/res/mipmap*/ic_launcher*`, `drawable*` e ícones de splash | Arte herdada | Criar ícone original aprovado, adaptativo e monocromático; não recolorir marca upstream e declarar autoria própria. Revisar também `.github/assets/logo.png` e referências de branding. Nenhuma arte nova nesta sessão. |
@@ -31,7 +31,7 @@ Assinatura do Yume deve ser gerenciada pelo proprietário fora do Git. Não gera
 
 ## Decisões necessárias
 
-- Confirmar conta GitHub do fork e se o candidato de pacote acima deve ser adotado.
+- Conta GitHub confirmada: sevenstarr. Ainda decidir se o candidato de pacote acima deve ser adotado.
 - Aprovar conceito de ícone/paleta antes de alterar assets/nome no aplicativo.
 - Aprovar a proposta de updater desativado e organizar clientes OAuth/redirects antes do primeiro APK distribuível.
 - Definir canal privado de segurança/conduta e responsável por assinatura antes de abertura pública/distribuição.

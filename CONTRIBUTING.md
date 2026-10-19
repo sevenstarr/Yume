@@ -1,7 +1,7 @@
 <!-- Modified for Yume on 2026-10-19: local workflow, attribution and review policy. -->
 # Contribuindo com o Yume
 
-Yume deriva do Animiru. Consulte o [guia original e seus créditos](docs/upstream/CONTRIBUTING.md), a [origem](docs/UPSTREAM.md), o [código de conduta](CODE_OF_CONDUCT.md) e o [progresso](docs/PROGRESS.md). O fork remoto e seus canais ainda aguardam confirmação. Problemas específicos do Yume devem ser tratados no futuro repositório Yume, sem encaminhar automaticamente seus usuários ao suporte upstream.
+Yume deriva do Animiru. Consulte o [guia original e seus créditos](docs/upstream/CONTRIBUTING.md), a [origem](docs/UPSTREAM.md), o [código de conduta](CODE_OF_CONDUCT.md) e o [progresso](docs/PROGRESS.md). O [fork público](https://github.com/sevenstarr/Yume) foi criado com autorização; canais privados e envio desta fundação permanecem pendentes. Problemas específicos do Yume devem ser tratados no repositório Yume, sem encaminhar automaticamente seus usuários ao suporte upstream.
 
 ## Branches e commits
 

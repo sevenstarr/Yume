@@ -1,0 +1,36 @@
+{
+  "session": 1,
+  "created_on": "2026-10-19",
+  "timezone": "America/Sao_Paulo",
+  "authorization": {
+    "source": "direct human reply in this chat",
+    "reply": "autorizo",
+    "scope": "create public fork sevenstarr/Yume"
+  },
+  "method": "GitHub fork form through browser UI",
+  "repository": {
+    "id": "1426233623",
+    "full_name": "sevenstarr/Yume",
+    "url": "https://github.com/sevenstarr/Yume",
+    "clone_url": "https://github.com/sevenstarr/Yume.git",
+    "visibility": "public",
+    "default_branch": "animiru-new-main",
+    "ui_forked_from": "animiruorg/Animiru",
+    "copy_default_branch_only": true
+  },
+  "verification": {
+    "github_get_repo_succeeded": true,
+    "public_visibility_confirmed_by_api": true,
+    "fork_origin_confirmed_in_repository_page": true,
+    "browser_creation_finished": true
+  },
+  "local_remote_command": "git remote add origin https://github.com/sevenstarr/Yume.git",
+  "upstream_remote": "https://github.com/animiruorg/Animiru.git",
+  "not_executed": [
+    "push local foundation commits",
+    "open pull request",
+    "change GitHub default branch or repository settings",
+    "create release or tag",
+    "start session 2"
+  ]
+}

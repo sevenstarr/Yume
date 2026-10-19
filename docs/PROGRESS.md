@@ -2,6 +2,14 @@
 
 ## Sessão 1 — Fundação do fork e identidade
 
+### Atualização posterior — criação do fork autorizada e executada
+
+Em 19/10/2026 o proprietário respondeu **“autorizo”** à criação do fork público `sevenstarr/Yume`. Repositório criado pela interface GitHub e verificado na API (ID `1426233623`, visibilidade pública) e na página, que mostra `forked from animiruorg/Animiru`. URL: https://github.com/sevenstarr/Yume.
+
+`origin` configurado localmente para `https://github.com/sevenstarr/Yume.git`; `upstream` preservado. Branch padrão remota atual: `animiru-new-main`. A autorização recebida e executada foi para criar o fork; os commits da fundação continuam locais. Nenhum push, PR, tag, release ou alteração de configurações GitHub. Evidência: [FORK_CREATION.json](evidence/FORK_CREATION.json).
+
+Pendências atuais: revisão da identidade visual/Android e autorização de envio dos commits/configuração remota quando aplicável. Sessão 2 não iniciada. O estado inicial abaixo e o JSON da primeira verificação da fundação são históricos, anteriores à criação do fork.
+
 **19/10/2026 — fundação local preparada; aceite integral pendente das decisões do proprietário. Sessão 2 não iniciada.**
 
 ### Autorização, decisões e escopo
