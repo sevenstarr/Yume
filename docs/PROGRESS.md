@@ -1,5 +1,14 @@
 # Progresso do projeto
 
+## Sessão 3 — Especificação funcional após aprovação da Etapa B
+
+**19/10/2026 — especificação produzida para revisão; arquitetura aprovada, implementação futura.** O proprietário solicitou usar a arquitetura aprovada na Etapa B, produzir a especificação funcional e fazer commit. Base: `cb86e7ff7471b4d2c0bdbc952b51b6ba6d722bd0`, branch `docs/session-3-analysis`. Essa instrução atualiza o status do ADR 0002; os registros anteriores de proposta pendente permanecem históricos.
+
+- **Entrega:** [functional-specification.md](metadata/functional-specification.md) reúne 20 requisitos funcionais e oito não funcionais, nove contratos lógicos de interface, modelos de domínio/persistência/backup, estados/comandos, oito fluxos de usuário, 22 critérios de aceitação, casos extremos, 19 conjuntos de testes planejados e tarefas para as Sessões 4–10. Onze pendências identificam calibração, hosts/links, detalhes de contrato/DDL, backup, Coil, fila, desempenho, UI, termos e limitações herdadas, sem inventar valores ou concluir testes.
+- **Coerência documental:** ADR 0002 registra a aprovação da direção pelo pedido atual; arquitetura canônica e índice histórico apontam para a especificação e distinguem aprovação arquitetural de aceite funcional/execução.
+- **Verificação:** leitura da Etapa A/B, ADR, progresso/baseline e pontos de código de modelo/SQL, transporte AniList e backup. Nos cinco documentos da entrega, 90 links locais e 27 âncoras conferidos, todos válidos; referências RF/RNF/CA/T/P sem IDs indefinidos ou duplicados e cercas balanceadas. Os 28 requisitos apontam para aceite, os 22 critérios apontam para testes e os 19 conjuntos de testes estão cobertos pelos critérios; nove interfaces e 16 tarefas conferidas. `git diff --check` e `git diff --cached --check` passaram, incluindo a especificação nova no diff staged. Sem novo acesso API/CDN, build, teste Android, migração, restore ou benchmark nesta entrega documental.
+- **Próximas sessões:** implementar e validar cliente → matcher/calibração → persistência/backup → capas → UI → sync → regressão conforme tarefas/dependências da especificação. Aprovação da arquitetura não aprova os resultados da implementação. Somente commit local solicitado, sem publicação.
+
 ## Sessão 3 — Proposta de arquitetura após a Etapa A
 
 **19/10/2026 — projeto documentado para revisão, sem implementação.** Base `4fdc01724`, branch `docs/session-3-analysis`. O pedido atual autoriza projetar o sistema e fazer commit; não equivale a aprovar o conteúdo proposto nem iniciar as sessões de implementação.

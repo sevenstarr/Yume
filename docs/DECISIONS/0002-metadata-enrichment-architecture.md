@@ -1,6 +1,12 @@
 # ADR 0002 — Camada separada de enriquecimento de metadados
 
-Data: **19/10/2026**. **Status: proposto para revisão na Sessão 3; não aceito por este registro.** Trabalho assistido pelo Codex/IA. Sem implementação.
+Data: **19/10/2026**. **Status: aceito como arquitetura da Etapa B pelo proprietário.** Trabalho assistido pelo Codex/IA. Sem implementação.
+
+## Registro de aprovação
+
+Em 19/10/2026, após o commit `cb86e7ff7471b4d2c0bdbc952b51b6ba6d722bd0`, o proprietário solicitou: “Usando a arquitetura aprovada na Etapa B, produza a especificação funcional detalhada da Sessão 3.” Essa instrução registra a aprovação da direção arquitetural e autoriza a especificação e seu commit local. A [especificação funcional](../metadata/functional-specification.md) detalha requisitos, contratos, modelos, fluxos, aceite, testes, tarefas e pendências; seu aceite funcional e a execução das sessões seguintes não são presumidos.
+
+As seções abaixo preservam o contexto da proposta original. Onde mencionam aprovação pendente, esse estado histórico foi superado por este registro. Calibração, allowlist, testes e condições de distribuição continuam pendentes nos gates próprios.
 
 ## Contexto
 

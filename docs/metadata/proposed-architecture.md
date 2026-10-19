@@ -2,6 +2,8 @@
 
 Data: **19/10/2026**, calendário `America/Sao_Paulo`. Trabalho assistido pelo Codex/IA.
 
+**Atualização de status — 19/10/2026:** arquitetura da Etapa B aprovada pelo proprietário ao solicitar a [especificação funcional da Sessão 3](functional-specification.md), conforme [registro no ADR 0002](../DECISIONS/0002-metadata-enrichment-architecture.md). O corpo abaixo preserva a proposta do commit `cb86e7ff7471b4d2c0bdbc952b51b6ba6d722bd0`; menções a revisão/aprovação pendente descrevem seu estado original. A aprovação da direção não resolve os gates empíricos ou de uso externo e não declara implementação/testes concluídos.
+
 **Status: proposta da Sessão 3 para revisão; sem implementação e sem aceite presumido.** Base: `4fdc01724`, que registra a análise da Etapa A em [current-architecture.md](current-architecture.md). Os requisitos da Sessão 3 do prompt mestre são consolidados como critérios na seção 1, para que a proposta não dependa de um arquivo pessoal externo ao repositório. Este documento substitui a direção preliminar da [Sessão 0](../ARCHITECTURE.md) nos assuntos de metadados; os comportamentos herdados continuam descritos na Etapa A. O [ADR 0002](../DECISIONS/0002-metadata-enrichment-architecture.md) resume as decisões para revisão.
 
 ## Navegação
