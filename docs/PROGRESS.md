@@ -1,5 +1,15 @@
 # Progresso do projeto
 
+## Sessão 3 — Proposta de arquitetura após a Etapa A
+
+**19/10/2026 — projeto documentado para revisão, sem implementação.** Base `4fdc01724`, branch `docs/session-3-analysis`. O pedido atual autoriza projetar o sistema e fazer commit; não equivale a aprovar o conteúdo proposto nem iniciar as sessões de implementação.
+
+- **Mudanças:** [proposed-architecture.md](metadata/proposed-architecture.md) define componentes/contratos, alternativas de provedores, identidade e ambiguidades, proteção contra falsos positivos, estados, persistência/concorrência, cache/limpeza, migração/backup, capas/fallback, integração Animiru, sync, limites, erros e plano de testes. [ADR 0002](DECISIONS/0002-metadata-enrichment-architecture.md) permanece proposto. `ARCHITECTURE.md` aponta para a proposta canônica, preservando o histórico.
+- **Evidências:** leitura da Etapa A e requisitos da Sessão 3 do prompt mestre; inspeção dos pontos centrais de código/SQL/Coil/backup; consulta a fontes oficiais AniList, Kitsu, TMDB e Coil 3.6.3. Acesso direto a páginas AniList retornou 403, mas conteúdo indexado oficial foi apresentado pela pesquisa; nenhum probe API/CDN novo foi executado.
+- **Verificação documental:** revisão de cobertura dos requisitos; checagem PowerShell de 43 links locais em quatro documentos (34 destinos distintos), todos existentes, e 13 âncoras do sumário, todas válidas; blocos cercados balanceados. `git diff --check` passou e a última migração foi reconfirmada como `147.sqm`. Não foram repetidos build, testes Android, migração, restore, benchmark ou calibração do matcher porque só há documentação.
+- **Riscos e pendências:** proposta/ADR/contratos/migração aguardam revisão; associação textual automática depende de calibração e validação separadas; allowlist precisa de confirmação por respostas oficiais; adequação aos termos antes de escala/distribuição. Pendências herdadas de backup `custom*`, capas manuais, emulação e lint continuam abertas.
+- **Próximo passo:** revisar a arquitetura antes de autorizar cliente/matcher/persistência. Nenhum contrato Kotlin, SQL, dependência, UI, worker ou comportamento alterado. Somente commit local; sem push, PR, tag ou release.
+
 ## Sessão 2 — Build de referência e regressão
 
 **19/10/2026 — baseline executado; instalação/regressão em Android pendentes por bloqueio do emulador.** Branch `chore/session-2-baseline`, derivada de `4d67e3a0e0df2b7bf964370ee1e47b2bdfa34d8e`. Código funcional upstream preservado na referência auditada `0b9bb0a347aa7bcee226d8782d98d9abafc34b32`. O pedido explícito do proprietário iniciou esta etapa; pendências visuais/publicação da sessão 1 permanecem abertas e não impediram o baseline local.

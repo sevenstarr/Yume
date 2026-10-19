@@ -1,5 +1,7 @@
 # Arquitetura preliminar — proposta da Sessão 0
 
+**Atualização da Sessão 3 — 19/10/2026:** a [arquitetura proposta de enriquecimento](metadata/proposed-architecture.md), baseada na [Etapa A](metadata/current-architecture.md), passa a ser a proposta canônica para revisão. Ela especifica contratos, identidade, matching, persistência/migração, cache, fallback, integração, erros e alternativas. O [ADR 0002](DECISIONS/0002-metadata-enrichment-architecture.md) está **proposto, não aceito**. O conteúdo abaixo permanece como registro histórico da Sessão 0; suas hipóteses são substituídas pela proposta da Sessão 3 onde divergirem. Nenhum código funcional foi implementado.
+
 **Estado: proposta de metadados, sem implementação e sem ADR de metadados aceito.** Este documento registra a direção técnica solicitada no diagnóstico; não antecipa a especificação/contratos definitivos da Sessão 3. Base: `0b9bb0a347aa7bcee226d8782d98d9abafc34b32`.
 
 Sessão 2 autorizada em 19/10/2026: preparação e verificação do [baseline de build](BUILD_BASELINE.md), sem mudança estrutural ou implementação dos componentes propostos. Os resultados de regressão devem ser consultados antes da especificação da sessão 3.
