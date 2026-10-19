@@ -2,6 +2,8 @@
 
 **Estado: proposta de metadados, sem implementação e sem ADR de metadados aceito.** Este documento registra a direção técnica solicitada no diagnóstico; não antecipa a especificação/contratos definitivos da Sessão 3. Base: `0b9bb0a347aa7bcee226d8782d98d9abafc34b32`.
 
+Sessão 2 autorizada em 19/10/2026: preparação e verificação do [baseline de build](BUILD_BASELINE.md), sem mudança estrutural ou implementação dos componentes propostos. Os resultados de regressão devem ser consultados antes da especificação da sessão 3.
+
 Atualização da sessão 1 (19/10/2026): nome público confirmado como **Yume**. O [ADR 0001](DECISIONS/0001-local-fork-foundation.md) trata apenas da organização local, branches e preservação de histórico. A [identidade Android](IDENTITY.md) está proposta e ainda não aplicada. A autorização da sessão 1 não equivale à aprovação de contratos definitivos de metadados nem inicia a sessão 3.
 
 ## Direção recomendada

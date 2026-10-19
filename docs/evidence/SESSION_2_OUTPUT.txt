@@ -1,0 +1,177 @@
+=== gradle-version-network.log (selected tail) ===
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+
+------------------------------------------------------------
+Gradle 9.7.1
+------------------------------------------------------------
+
+Build time:    2026-08-19 14:16:09 UTC
+Revision:      92f0512e7f06d84621afba191f75e265363890cf
+
+Kotlin:        2.4.0
+Groovy:        4.0.32
+Ant:           Apache Ant(TM) version 1.10.17 compiled on April 6 2026
+Launcher JVM:  21.0.11 (Oracle Corporation 21.0.11+9-LTS-211)
+Daemon JVM:    C:\Program Files\Java\jdk-21.0.11 (no Daemon JVM specified, using current Java home)
+OS:            Windows 10 10.0 amd64
+
+
+=== assembleDebug.log (selected tail) ===
+w: file:///C:/Users/Administrator/Documents/Yume/Animiru/app/src/main/java/mihon/core/migration/migrations/PrefLangMigration.kt:49:26 'constructor(p0: String!): Locale' is deprecated. Deprecated in Java.
+w: file:///C:/Users/Administrator/Documents/Yume/Animiru/app/src/main/java/mihon/core/migration/migrations/RenameKeysMigration.kt:58:41 Unchecked cast of 'Set<*>' to 'Set<String>'.
+w: file:///C:/Users/Administrator/Documents/Yume/Animiru/app/src/main/java/mihon/feature/migration/list/MigrationListScreenContent.kt:477:29 'when' is exhaustive so 'else' is redundant here.
+
+> Task :app:processDebugJavaRes
+> Task :app:compileDebugJavaWithJavac
+> Task :app:mergeDebugJavaResource
+> Task :app:dexBuilderDebug
+> Task :app:mergeProjectDexDebug
+> Task :app:packageDebug
+> Task :app:assembleDebug
+> Task :app:createDebugApkListingFileRedirect
+
+[Incubating] Problems report is available at: file:///C:/Users/Administrator/Documents/Yume/Animiru/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 25m 54s
+348 actionable tasks: 288 executed, 60 from cache
+Configuration cache entry stored.
+
+=== apk-signature.log (selected tail) ===
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): false
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+Signer #1 certificate DN: C=US, O=Android, CN=Android Debug
+Signer #1 certificate SHA-256 digest: 44999debb4cc53d32b32368e029aee42396b1e77a4358eb0173227c223eb5cc5
+Signer #1 certificate SHA-1 digest: e56478d99b15c6258e3972426dcdfb68eecf6479
+Signer #1 certificate MD5 digest: 5dd36009e99b0e22937322dc251bcf6c
+Signer #1 key algorithm: RSA
+Signer #1 key size (bits): 2048
+Signer #1 public key SHA-256 digest: cf7fd646bdb333d50297dee580b5d447341b67bfcb5695109b115bc0628e1814
+Signer #1 public key SHA-1 digest: de93d5ded522d10c0a68ecd9d1b300b303fa8a74
+Signer #1 public key MD5 digest: 226a738300a6ac60f49641f9fdadd835
+
+=== emulator-accel.log (selected tail) ===
+accel:
+6
+Android Emulator hypervisor driver is not installed on this machine
+accel
+
+=== avd-list.log (selected tail) ===
+Available Android Virtual Devices:
+    Name: yume_session2_api36
+  Device: pixel_6 (Google)
+    Path: C:\Users\Administrator\Documents\Yume\.tooling\avd\yume_session2_api36.avd
+  Target: Default Android System Image
+          Based on: Android 16.0 ("Baklava") Tag/ABI: default/x86_64
+  Sdcard: 512 MB
+
+=== adb-devices-software.log (selected tail) ===
+List of devices attached
+emulator-5580          offline transport_id:2
+
+
+=== emulator-final.log (selected tail) ===
+INFO         |   androidboot.qemu.avd_name=yume_session2_api36
+INFO         |   androidboot.qemu.camera_hq_edge_processing=0
+INFO         |   androidboot.qemu.camera_protocol_ver=1
+INFO         |   androidboot.qemu.cpuvulkan.version=4206592
+INFO         |   androidboot.qemu.gltransport.drawFlushInterval=800
+INFO         |   androidboot.qemu.gltransport.name=pipe
+INFO         |   androidboot.qemu.hwcodec.avcdec=2
+INFO         |   androidboot.qemu.hwcodec.hevcdec=2
+INFO         |   androidboot.qemu.hwcodec.vpxdec=2
+INFO         |   androidboot.qemu.settings.system.screen_off_timeout=2147483647
+INFO         |   androidboot.qemu.skin=1080x2400
+INFO         |   androidboot.qemu.virtiowifi=1
+INFO         |   androidboot.qemu.vsync=60
+INFO         |   androidboot.serialno=EMULATOR37X2X12X0
+INFO         |   androidboot.vbmeta.digest=d691872627a6e6bd3bceb7dac3a30a498d305819c117349424d61aae8093028f
+INFO         |   androidboot.vbmeta.hash_alg=sha256
+INFO         |   androidboot.vbmeta.size=6848
+INFO         |   androidboot.veritymode=enforcing
+
+=== checks/testDebugUnitTest.log (selected tail) ===
+
+MigratorTest > withinRangeMigration() PASSED
+
+MigratorTest > largeMigration() PASSED
+
+MigratorTest > sameVersion() PASSED
+
+MigratorTest > smallMigration() PASSED
+
+MigratorTest > noMigrations() PASSED
+
+MigratorTest > initialVersion() PASSED
+
+[Incubating] Problems report is available at: file:///C:/Users/Administrator/Documents/Yume/Animiru/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 3m 38s
+316 actionable tasks: 43 executed, 14 from cache, 259 up-to-date
+Configuration cache entry stored.
+
+=== checks/spotlessCheck.log (selected tail) ===
+> Task :icons:material-symbols:spotlessXmlCheck
+> Task :icons:material-symbols:spotlessCheck
+> Task :icons:simple-icons:spotlessKotlin
+> Task :icons:simple-icons:spotlessKotlinCheck
+> Task :icons:simple-icons:spotlessKotlinGradle
+> Task :icons:simple-icons:spotlessKotlinGradleCheck
+> Task :icons:simple-icons:spotlessSvg
+> Task :icons:simple-icons:spotlessSvgCheck
+> Task :icons:simple-icons:spotlessXml
+> Task :icons:simple-icons:spotlessXmlCheck
+> Task :icons:simple-icons:spotlessCheck
+> Task :app:spotlessKotlin
+> Task :app:spotlessKotlinCheck
+> Task :app:spotlessCheck
+
+BUILD SUCCESSFUL in 1m 30s
+120 actionable tasks: 116 executed, 4 up-to-date
+Configuration cache entry stored.
+
+=== checks/verifySqlDelightMigration.log (selected tail) ===
+Isolated Projects is an incubating feature.
+Calculating task graph as no cached configuration is available for tasks: verifySqlDelightMigration
+Type-safe project accessors is an incubating feature.
+> Task :build-logic:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :build-logic:compileKotlin UP-TO-DATE
+> Task :build-logic:compileJava NO-SOURCE
+> Task :build-logic:pluginDescriptors UP-TO-DATE
+> Task :build-logic:processResources UP-TO-DATE
+> Task :build-logic:classes UP-TO-DATE
+> Task :build-logic:jar UP-TO-DATE
+> Task :data:verifyReleaseDatabaseMigration
+> Task :data:verifyDebugDatabaseMigration
+> Task :data:verifySqlDelightMigration
+
+BUILD SUCCESSFUL in 11s
+6 actionable tasks: 2 executed, 4 up-to-date
+Configuration cache entry stored.
+
+=== checks/_app_lintDebug.log (selected tail) ===
+> Task :icons:simple-icons:preDebugAndroidTestBuild UP-TO-DATE
+> Task :icons:simple-icons:generateDebugAndroidTestLintModel
+> Task :icons:simple-icons:preDebugUnitTestBuild UP-TO-DATE
+> Task :icons:simple-icons:generateDebugUnitTestLintModel
+> Task :icons:simple-icons:lintAnalyzeDebugAndroidTest
+> Task :icons:simple-icons:lintAnalyzeDebugUnitTest
+
+> Task :app:lintReportDebug
+Wrote HTML report to file:///C:/Users/Administrator/Documents/Yume/Animiru/app/build/reports/lint-results-debug.html
+Wrote SARIF report to file:///C:/Users/Administrator/Documents/Yume/Animiru/app/build/reports/lint-results-debug.sarif
+
+> Task :app:lintDebug
+
+[Incubating] Problems report is available at: file:///C:/Users/Administrator/Documents/Yume/Animiru/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 12m 48s
+577 actionable tasks: 278 executed, 12 from cache, 287 up-to-date
+Configuration cache entry stored.

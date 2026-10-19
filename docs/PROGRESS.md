@@ -1,5 +1,29 @@
 # Progresso do projeto
 
+## Sessão 2 — Build de referência e regressão
+
+**19/10/2026 — baseline executado; instalação/regressão em Android pendentes por bloqueio do emulador.** Branch `chore/session-2-baseline`, derivada de `4d67e3a0e0df2b7bf964370ee1e47b2bdfa34d8e`. Código funcional upstream preservado na referência auditada `0b9bb0a347aa7bcee226d8782d98d9abafc34b32`. O pedido explícito do proprietário iniciou esta etapa; pendências visuais/publicação da sessão 1 permanecem abertas e não impediram o baseline local.
+
+Escopo: preparar ferramentas, build debug, testes herdados, verificações de formato/lint/migração, AVD isolado e checklist manual. Sem implementação de metadados, mudança de identidade Android, push, PR remoto ou release. Termos SDK aceitos explicitamente pelo proprietário antes da instalação.
+
+Documentos e execução reproduzível: [BUILD_BASELINE.md](BUILD_BASELINE.md), [REGRESSION_CHECKLIST.md](REGRESSION_CHECKLIST.md), [run-baseline.ps1](../scripts/run-baseline.ps1), [comandos](evidence/SESSION_2_COMMANDS.md), [snapshot de evidências](evidence/SESSION_2.json) e [rascunho local de PR](SESSION_2_PR.md). As menções abaixo a “sessão 2 não iniciada” pertencem aos registros históricos anteriores a esta autorização.
+
+### Resultados e arquivos
+
+- JDK 21 já instalado selecionado por processo; Gradle 9.7.1 baixado e executado. SDK 37.2, Build Tools 37/36, Platform Tools, emulador e imagem API 36 preparados em `.tooling`, fora do Git. Nenhuma alteração global de PATH ou instalação de driver.
+- `:app:assembleDebug`: exit 0, 25min54s; cinco APKs locais. Assinaturas debug universal/x86_64 verificadas; pacote herdado `.dev`, versão `0.20.0.1-8244`. Hashes preservados nas evidências, sem APK/chave no Git.
+- `testDebugUnitTest`: exit 0, 219,373 s; **52 testes em seis suítes**, zero falhas, erros ou ignorados nos XML. Cobertura de linhas/branches não medida.
+- `spotlessCheck`: exit 0, 91,225 s. `verifySqlDelightMigration`: exit 0, 12,005 s, com zero snapshots `.db`; não comprova migração histórica.
+- `:app:lintDebug`: exit 0, 769,230 s, mas **3 erros, 201 avisos e 2 hints** no relatório. Os erros `NonObservableLocale` já estão no código herdado; lint permissivo não foi classificado como limpo.
+- AVD Pixel 6/API 36 criado; aceleração indisponível (exit 6, driver ausente). Boot de software permaneceu offline; nova tentativa com o host liberado falhou com `0xC0000005`. APK não instalado, sem testes manuais aprovados. Daemons de compilação e emulador da sessão encerrados.
+- README, CHANGELOG, arquitetura/progresso atualizados; adicionados baseline, checklist, evidências, script e rascunho de PR. Trabalho assistido pelo Codex. Nenhuma mudança em fontes Android, recursos, SQL, dependências ou workflows.
+
+### Riscos, pendências e próximo passo
+
+Instalação requer dispositivo de teste utilizável ou correção da emulação. Checklist de biblioteca/player/extensões/downloads/progresso e backup/restauração permanece sem execução; não há garantia de dados preservados. Possível omissão de `custom*` continua evidência estática, sem correção ou round-trip comprovado. Migração histórica precisa de fixtures válidas; os três erros de lint precisam de triagem em escopo apropriado. Identidade Android/visual e publicação da sessão 1 seguem pendentes.
+
+**Ponto de parada:** baseline de build/testes entregue com limitações explícitas. Sem push, PR remoto, tag ou release. Sessão 3 (contratos/arquitetura de metadados) aguarda autorização explícita separada; nenhum componente dessa etapa foi implementado.
+
 ## Sessão 1 — Fundação do fork e identidade
 
 ### Atualização posterior — criação do fork autorizada e executada

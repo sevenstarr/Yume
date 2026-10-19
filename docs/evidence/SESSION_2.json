@@ -1,0 +1,439 @@
+{
+  "session": 2,
+  "date": "2026-10-19",
+  "timezone": "America/Sao_Paulo",
+  "status": "baseline_recorded_with_runtime_and_quality_limitations",
+  "branch": "chore/session-2-baseline",
+  "upstreamSha": "0b9bb0a347aa7bcee226d8782d98d9abafc34b32",
+  "buildAndTestRevision": "4d67e3a0e0df2b7bf964370ee1e47b2bdfa34d8e",
+  "functionalSourceChanged": false,
+  "tools": {
+    "jdk": "Oracle 21.0.11+9-LTS-211",
+    "gradle": "9.7.1",
+    "agp": "9.4.1",
+    "kotlin": "2.4.20",
+    "compileSdk": "37.2",
+    "targetSdk": 36,
+    "minSdk": 26,
+    "commandLineTools": "22.0",
+    "sdkZipSha256": "90ae805d20434428bffcb699c290860f19bb5f66a67e6b330067e3de801fb04a",
+    "sdkTermsExplicitlyAcceptedByOwner": true,
+    "buildTools": [
+      "36.0.0",
+      "37.0.0"
+    ],
+    "platformTools": "37.0.1",
+    "emulator": "37.2.12",
+    "image": "system-images;android-36;default;x86_64",
+    "ndkInstalled": false
+  },
+  "commands": [
+    {
+      "command": "gradlew --version (sandbox)",
+      "exitCode": 1,
+      "seconds": 8.798574,
+      "error": "Permission denied: getsockopt"
+    },
+    {
+      "command": "gradlew --version (network authorized)",
+      "exitCode": 0,
+      "seconds": 20.0628326
+    },
+    {
+      "command": "SDK component install",
+      "exitCode": 0,
+      "seconds": 232.373575
+    },
+    {
+      "command": ":app:assembleDebug --console=plain --stacktrace",
+      "exitCode": 0,
+      "seconds": 1556.010382,
+      "gradleDuration": "25m 54s",
+      "actionableTasks": 348,
+      "executed": 288,
+      "fromCache": 60
+    }
+  ],
+  "checks": [
+    {
+      "task": "testDebugUnitTest",
+      "revision": "4d67e3a0e0df2b7bf964370ee1e47b2bdfa34d8e",
+      "startedUtc": "2026-10-19T19:41:20.9056445-03:00",
+      "seconds": 219.373,
+      "exitCode": 0,
+      "maxWorkers": 2
+    },
+    {
+      "task": "spotlessCheck",
+      "revision": "4d67e3a0e0df2b7bf964370ee1e47b2bdfa34d8e",
+      "startedUtc": "2026-10-19T19:45:00.372691-03:00",
+      "seconds": 91.225,
+      "exitCode": 0,
+      "maxWorkers": 2
+    },
+    {
+      "task": "verifySqlDelightMigration",
+      "revision": "4d67e3a0e0df2b7bf964370ee1e47b2bdfa34d8e",
+      "startedUtc": "2026-10-19T19:46:31.6302392-03:00",
+      "seconds": 12.005,
+      "exitCode": 0,
+      "maxWorkers": 2
+    },
+    {
+      "task": ":app:lintDebug",
+      "revision": "4d67e3a0e0df2b7bf964370ee1e47b2bdfa34d8e",
+      "startedUtc": "2026-10-19T19:46:43.6640353-03:00",
+      "seconds": 769.23,
+      "exitCode": 0,
+      "maxWorkers": 2
+    }
+  ],
+  "junit": {
+    "tests": 52,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suites": [
+      {
+        "module": "app",
+        "name": "mihon.core.migration.MigratorTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 2.558
+      },
+      {
+        "module": "domain",
+        "name": "tachiyomi.domain.anime.interactor.FetchIntervalTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 2.25
+      },
+      {
+        "module": "domain",
+        "name": "tachiyomi.domain.episode.service.EpisodeRecognitionTest",
+        "tests": 22,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 0.1
+      },
+      {
+        "module": "domain",
+        "name": "tachiyomi.domain.episode.service.MissingEpisodesTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 0.017
+      },
+      {
+        "module": "domain",
+        "name": "tachiyomi.domain.library.model.LibraryFlagsTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 0.039
+      },
+      {
+        "module": "domain",
+        "name": "tachiyomi.domain.release.interactor.GetApplicationReleaseTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 0.918
+      }
+    ],
+    "coverageMeasured": false
+  },
+  "sqlDelight": {
+    "tasks": [
+      ":data:verifyDebugDatabaseMigration",
+      ":data:verifyReleaseDatabaseMigration"
+    ],
+    "historicalDatabaseFixtures": 0,
+    "historicalDataMigrationProven": false
+  },
+  "lint": {
+    "total": 206,
+    "bySeverity": [
+      {
+        "severity": "Error",
+        "count": 3
+      },
+      {
+        "severity": "Hint",
+        "count": 2
+      },
+      {
+        "severity": "Warning",
+        "count": 201
+      }
+    ],
+    "topRules": [
+      {
+        "id": "PrivateResource",
+        "count": 75
+      },
+      {
+        "id": "UnusedResources",
+        "count": 33
+      },
+      {
+        "id": "NewerVersionAvailable",
+        "count": 31
+      },
+      {
+        "id": "StaticFieldLeak",
+        "count": 12
+      },
+      {
+        "id": "GradleDependency",
+        "count": 12
+      },
+      {
+        "id": "InvalidColorHexValue",
+        "count": 8
+      },
+      {
+        "id": "Aligned16KB",
+        "count": 6
+      },
+      {
+        "id": "ConfigurationScreenWidthHeight",
+        "count": 6
+      },
+      {
+        "id": "UnusedAttribute",
+        "count": 3
+      },
+      {
+        "id": "NonObservableLocale",
+        "count": 3
+      }
+    ],
+    "errors": [
+      {
+        "id": "NonObservableLocale",
+        "severity": "Error",
+        "message": "Reading locale in a non-observable way in a composable function"
+      },
+      {
+        "id": "NonObservableLocale",
+        "severity": "Error",
+        "message": "Reading locale in a non-observable way in a composable function"
+      },
+      {
+        "id": "NonObservableLocale",
+        "severity": "Error",
+        "message": "Reading locale in a non-observable way in a composable function"
+      }
+    ],
+    "errorLocations": [
+      {
+        "id": "NonObservableLocale",
+        "file": "app/src/main/java/mihon/feature/upcoming/components/calendar/Calendar.kt",
+        "line": 74
+      },
+      {
+        "id": "NonObservableLocale",
+        "file": "app/src/main/java/mihon/feature/upcoming/components/calendar/Calendar.kt",
+        "line": 95
+      },
+      {
+        "id": "NonObservableLocale",
+        "file": "app/src/main/java/mihon/feature/upcoming/components/calendar/CalendarHeader.kt",
+        "line": 95
+      }
+    ]
+  },
+  "apks": [
+    {
+      "name": "app-arm64-v8a-debug.apk",
+      "bytes": 115547778,
+      "sha256": "94A54E1A58ED942100B20DB7A3F30F66B195C239806BCF1DFD139B47D30D8551"
+    },
+    {
+      "name": "app-armeabi-v7a-debug.apk",
+      "bytes": 108419748,
+      "sha256": "EE48BC8A51BF471D8FF01DD515E0AEBF774097E2DDD0CD7B7F428EE8A2DDDA57"
+    },
+    {
+      "name": "app-universal-debug.apk",
+      "bytes": 316947711,
+      "sha256": "75ECE175AF9E9C438753BB2FFB53FBCD7110F4A2F04D7CFE0DE7EC3A52515C13"
+    },
+    {
+      "name": "app-x86_64-debug.apk",
+      "bytes": 125544725,
+      "sha256": "236095911608DCAF62EBBDE45E3190625438CE2288DBB766D2B30C7BE06EA9B6"
+    },
+    {
+      "name": "app-x86-debug.apk",
+      "bytes": 118737356,
+      "sha256": "9118E4F634913228084E8C2810E27FB56FEA31963771CEB670E888993BD910A1"
+    }
+  ],
+  "signature": {
+    "verifiedApks": [
+      "app-universal-debug.apk",
+      "app-x86_64-debug.apk"
+    ],
+    "scheme": "v2",
+    "certificate": "Android Debug",
+    "certificateSha256": "44999debb4cc53d32b32368e029aee42396b1e77a4358eb0173227c223eb5cc5"
+  },
+  "runtime": {
+    "avd": "yume_session2_api36",
+    "accelerationExitCode": 6,
+    "hypervisorPresent": false,
+    "firmwareVirtualizationEnabled": true,
+    "ramBytes": 8464355328,
+    "softwareAttemptInterrupted": {
+      "exitCode": -1,
+      "seconds": 147.5229218
+    },
+    "finalAttempt": {
+      "exitCode": -1073741819,
+      "seconds": 2.8850213
+    },
+    "finalWindowsExitHex": "0xC0000005",
+    "apkInstalled": false,
+    "manualCasesPassed": 0,
+    "backupRestoreValidated": false,
+    "driverInstalled": false
+  },
+  "publication": {
+    "push": false,
+    "pullRequest": false,
+    "tag": false,
+    "release": false
+  },
+  "rawLogs": [
+    {
+      "path": ".tooling/logs/gradle-version.log",
+      "bytes": 2363,
+      "sha256": "e0f88cccdb94e01912947245b4319e10b4d958b83f1d49800697c2f137d0a6f7"
+    },
+    {
+      "path": ".tooling/logs/gradle-version-network.log",
+      "bytes": 1170,
+      "sha256": "f6e602a0c26f70436e6c68b052e368215ecbddccd5e6a576db7382b4daab54e3"
+    },
+    {
+      "path": ".tooling/logs/sdk-list.log",
+      "bytes": 109365,
+      "sha256": "67f6bfdaed27f5e3006ab47afd4c44b1929eb456527eeaf3d8848299e8f2e205"
+    },
+    {
+      "path": ".tooling/logs/sdk-install.log",
+      "bytes": 346,
+      "sha256": "0c0100fcf3f88efc6e4deda77615d6c5ab56eb6e77c0ac5b5f1a36136ffb6492"
+    },
+    {
+      "path": ".tooling/logs/assembleDebug.log",
+      "bytes": 57331,
+      "sha256": "6fed651173632b856f28343947377d0baab816c792009ce4df3c05c97da362a1"
+    },
+    {
+      "path": ".tooling/logs/apk-signature.log",
+      "bytes": 972,
+      "sha256": "9d1bf72745cb37f9ecfdb6cfc41657881015e640f62ee9219e580094a215f913"
+    },
+    {
+      "path": ".tooling/logs/apk-universal-signature.log",
+      "bytes": 972,
+      "sha256": "9d1bf72745cb37f9ecfdb6cfc41657881015e640f62ee9219e580094a215f913"
+    },
+    {
+      "path": ".tooling/logs/apk-badging.log",
+      "bytes": 6968,
+      "sha256": "38a4e203d9da75837e0bda356bb9bfbe1826249a5a08879b397d71ecff2b8c8d"
+    },
+    {
+      "path": ".tooling/logs/avd-create.log",
+      "bytes": 300,
+      "sha256": "dbc0dce40b7064a7028e8e0470913d5bb538fbb50942e9bb749ac6091254c58c"
+    },
+    {
+      "path": ".tooling/logs/avd-list.log",
+      "bytes": 309,
+      "sha256": "1488cc49f9058b848a8eb21c10b1928073bdf89d5d288da6872507bbe2854412"
+    },
+    {
+      "path": ".tooling/logs/emulator-accel.log",
+      "bytes": 87,
+      "sha256": "f299c2b4e5d0d680e0039c89ab27f7cb0570b51e86e51ffa6beee60167b48e06"
+    },
+    {
+      "path": ".tooling/logs/adb-devices-software.log",
+      "bytes": 75,
+      "sha256": "3c5dce96b228c7b7c278a998327340defa52a22952d87b152669625d3fff40a2"
+    },
+    {
+      "path": ".tooling/logs/emulator-software-retry.log",
+      "bytes": 6801,
+      "sha256": "bc14b939d32772d9cb13456b93ca5dfb977edbf547c52a40701d8d8c1d35c121"
+    },
+    {
+      "path": ".tooling/logs/emulator-final.log",
+      "bytes": 6652,
+      "sha256": "a5929affe98d78fe2dab6c71926042a64fef38dbe532e32e46c2bf65f6429f3c"
+    },
+    {
+      "path": ".tooling/logs/checks/testDebugUnitTest.log",
+      "bytes": 36064,
+      "sha256": "7d375cd4a6b2b013da3c91668adbf9bf5e2cdd79f9dfce680c14c2a6535da1ae"
+    },
+    {
+      "path": ".tooling/logs/checks/spotlessCheck.log",
+      "bytes": 5845,
+      "sha256": "dc5d1ec8ec43a8ff3e94e6ea3761bb43e58b106ad487c33192285eba5d8c7b08"
+    },
+    {
+      "path": ".tooling/logs/checks/verifySqlDelightMigration.log",
+      "bytes": 773,
+      "sha256": "bfdd51797953c65d8f78fd13fa9e3c0694427c75f8e97c6b7ec705ab68f97d5a"
+    },
+    {
+      "path": ".tooling/logs/checks/_app_lintDebug.log",
+      "bytes": 43316,
+      "sha256": "a42a5f79697d9e893a3140d76ffe4aa2f8d3b876b2c1b5e688eeeaed7c73998f"
+    }
+  ],
+  "verification": {
+    "powershellParser": "passed",
+    "runnerExecuted": true,
+    "localLinksVerified": 20,
+    "evidenceInvariantCheck": "passed",
+    "credentialScanScope": "staged diff, common token/private-key indicators only",
+    "functionalSourcesUnchanged": true
+  },
+  "lintReportFiles": [
+    {
+      "path": "app/build/reports/lint-results-debug.html",
+      "bytes": 482870,
+      "sha256": "a39ffe7c6f8555b6f1e64ca3b82184669b6b8fe4c29226bc9eb6e7af175ee27a"
+    },
+    {
+      "path": "app/build/reports/lint-results-debug.sarif",
+      "bytes": 671693,
+      "sha256": "34e396448933bf1a9d8fdf3f2975c25732523f7b44dad3223a7c73bbad1a915c"
+    },
+    {
+      "path": "app/build/reports/lint-results-debug.txt",
+      "bytes": 114167,
+      "sha256": "1a7d8d4011de9657e14240992859732f06eca686a1c02251405ce0e5d12efb24"
+    },
+    {
+      "path": "app/build/reports/lint-results-debug.xml",
+      "bytes": 248305,
+      "sha256": "757865c0f329f944337b31d2e5226751b3bb20724c2e428fae474c5f599cfacf"
+    }
+  ]
+}

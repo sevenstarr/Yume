@@ -1,6 +1,13 @@
 <!-- Modified for Yume on 2026-10-19: prepend a separate fork changelog. -->
 # Yume changelog
 
+## Unreleased — baseline, 2026-10-19
+
+- Compilado o código funcional herdado em debug; gerados cinco APKs locais e verificadas as assinaturas debug universal/x86_64.
+- Executados os 52 testes unitários existentes, sem falhas, erros ou ignorados; verificações complementares e limitações no [baseline](docs/BUILD_BASELINE.md).
+- Adicionados script PowerShell de reprodução, checklist manual de regressão e evidências da sessão 2 com assistência do Codex.
+- Instalação e regressão manual em Android ainda sem confirmação. Nenhuma implementação de metadados, alteração funcional ou release.
+
 ## Unreleased — foundation, 2026-10-19
 
 - Confirmado o nome público Yume; pacote e recursos Android ainda herdados.
