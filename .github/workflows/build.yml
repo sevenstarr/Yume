@@ -18,7 +18,8 @@ on:
       - 'i18n-animiru/src/commonMain/moko-resources/base/plurals.xml'
   push:
     branches:
-      - main
+      - yume-develop
+      - yume-main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}

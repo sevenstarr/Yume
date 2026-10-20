@@ -1,5 +1,17 @@
 # Progresso do projeto
 
+## Atualização do protocolo Git — 20/10/2026
+
+Pedido do proprietário: incorporar o protocolo de branches ao `AGENTS.md` e adequar a nomenclatura. Criado `AGENTS.md` versionado, sincronizado com o arquivo da raiz do workspace, preservando a continuidade e acrescentando as nove seções de isolamento, sincronização, validação, PR, proteção, integração e promoção. `CONTRIBUTING.md`, `docs/UPSTREAM.md` e gatilhos dos workflows build/release alinhados a `yume-develop`/`yume-main`. Guardas de publicação herdadas preservadas; nenhuma release habilitada.
+
+- Inspeção: prompt mestre em `Downloads/prompt.md`, arquitetura, progresso, status, cinco commits e estatísticas do último merge. Sessões 1–8 integradas em `090442f48`; aceite Android/UI, regressão manual e lint integral continuam com as limitações anteriores. Sessão 9 já possuía código/documentação não commitados; nada desse trabalho foi descartado ou incluído no commit deste protocolo.
+- Branches locais renomeadas sem alterar seus commits: `main` → `yume-main`; `chore/session-1-foundation` → `feature/session-01-foundation`; `chore/session-2-baseline` → `feature/session-02-baseline`; `docs/session-3-analysis` → `feature/session-03-analysis`; prefixos `feat/session-4` a `feat/session-9` → `feature/session-04` a `feature/session-09`, conservando as descrições. A branch auditada `animiru-new-main` e refs upstream foram preservadas. Nomes em registros históricos/comandos antigos não foram reescritos.
+- Exceção de transição: atualização documental feita na branch já aberta da sessão 9, baseada no commit integrado de `origin/yume-develop`, preservando o trabalho em andamento; nenhuma sessão funcional nova iniciada. A renomeação da `main` local preserva a base antiga e não constitui promoção aprovada.
+- Sincronização: fetch inicial sem rede falhou; repetição com acesso autorizado passou. `origin/yume-develop` confirmado. Remoto ainda possui `yume-release`, sem `origin/yume-main`; renomeação remota, branch padrão e proteções pendentes, sem push, PR, merge ou exclusão remota nesta atualização.
+- Verificação: revisão integral do diff exclusivo desta atualização, `git diff --check` nos arquivos alterados, igualdade dos dois `AGENTS.md`, nomes locais e ancestralidade da base conferidos. Build/testes Android não executados por não haver alteração funcional; execução dos workflows no GitHub não verificada. As alterações preexistentes da sessão 9 continuam pendentes de validação própria.
+
+Aceite documental: regras incorporadas, instruções operacionais e branches locais alinhadas; adequação remota explicitamente pendente. Aguardar autorização para a próxima sessão.
+
 ## Integração da sessão 8 em yume-develop — 20/10/2026
 
 O proprietário autorizou o merge da [PR #1](https://github.com/sevenstarr/Yume/pull/1), de `feat/session-8-metadata-controls` para `yume-develop`. Base remota `787b275e8230a748661be1f7c50ebbdd49ea9533`, cabeça inicial `53bfa72c43b6b2e78ab8860f7229efeb136a709c`. O fetch mostrou reorganização remota prévia: branches antigas ausentes e `yume-develop`/`yume-release` presentes; nenhuma branch foi excluída ou renomeada nesta integração.
