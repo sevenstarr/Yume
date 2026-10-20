@@ -1,5 +1,18 @@
 # Progresso do projeto
 
+## Validação Android parcial da sessão 9 — 20/10/2026
+
+Continuação autorizada dos testes da sessão 9, sem iniciar a sessão 10. Base `origin/yume-develop` atualizada por fetch, merge da PR #2 confirmado em `4f956a00f231e61856036cad61977457d1fca47d`; CI anterior aprovado na cabeça `a67454442`. Branch local `fix/session-09-android-validation`. `docs/prompt.md` não rastreado preservado.
+
+- Galaxy A05s, Android 15/API 35. SHA-256 do APK instalado idêntico ao ARM64 debug registrado na sessão 9. Banco schema 150, `integrity_check=ok` antes e depois. Cópias privadas/XMLs/screenshots e roteiro auxiliar ficaram somente em `build/session9-android/`, ignorado; nenhum dado pessoal incluído no commit.
+- Navegação biblioteca → configurações → metadados exercitada. Três lotes manuais concluídos com seis itens ignorados, zero tentativas de provider e zero erros: comprovação de idempotência/TTL nesta biblioteca, sem comprovar nova consulta HTTP. Hashes de todas as tabelas idênticos antes/depois, exceto `metadata_sync_control` e `metadata_sync_queue`; biblioteca, episódios, histórico, tracking, decisões e caches preservados.
+- WorkManager diário já habilitado pelo usuário: tarefa enfileirada com atraso inicial e intervalo de 86.400.000 ms, carga e bateria não baixa exigidas. Registro da configuração, sem comprovação de execução após 24 horas. Opt-in global, novos favoritos, dados móveis e diário já estavam ligados; defaults de instalação limpa não testados.
+- Wi-Fi desligado temporariamente; os primeiros lotes ainda concluíram por cache. A permissão móvel do app foi temporariamente desligada e restaurada. Restrição sem rede não comprovada. Wi-Fi/dados móveis do Android confirmados ligados ao encerrar; preferências de metadados restauradas. Tela mantida ligada por USB durante os testes e configuração original restaurada ao final.
+- Achado de UI: descrição `metadata_mobile_data_explanation` ainda afirma que o lote não está disponível. Problema registrado, sem correção funcional nesta rodada. Captura confirma texto legível; não houve auditoria de acessibilidade.
+- A revisão automática exigiu autorização específica para envio de títulos/IDs ao AniList; proprietário autorizou. Posteriormente bloqueou o teste adicional de desligar dados móveis após o proprietário pedir apenas o essencial e continuação futura. Nenhum contorno executado. Testes encerrados por esse pedido e orçamento de uso informado pelo proprietário.
+
+**Retomada:** investigar o erro do lote preexistente, testar pausa/retomada/cancelamento com fila realmente pendente, restrições sem conectividade, morte de processo/reboot/Doze, opt-out, inclusão de favorito, preservação de pins em atualização real, reprodução/download e bateria. Não há aceite Android integral nem alegação de ausência de crashes com coleta sistemática de logs. Nenhum APK reinstalado, código funcional alterado, push, PR ou merge nesta rodada. Evidência resumida em [SESSION_9_ANDROID.md](SESSION_9_ANDROID.md).
+
 ## Atualização do protocolo Git — 20/10/2026
 
 Pedido do proprietário: incorporar o protocolo de branches ao `AGENTS.md` e adequar a nomenclatura. Criado `AGENTS.md` versionado, sincronizado com o arquivo da raiz do workspace, preservando a continuidade e acrescentando as nove seções de isolamento, sincronização, validação, PR, proteção, integração e promoção. `CONTRIBUTING.md`, `docs/UPSTREAM.md` e gatilhos dos workflows build/release alinhados a `yume-develop`/`yume-main`. Guardas de publicação herdadas preservadas; nenhuma release habilitada.
