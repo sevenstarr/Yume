@@ -1,5 +1,13 @@
 # Progresso do projeto
 
+## Sincronização GitHub — 20/10/2026
+
+O proprietário solicitou enviar todo o progresso local ao GitHub. Árvore inicialmente limpa em `7e9712a835cf78ecd5a7259c83836cf5faa79a3f`; oito branches das sessões 1–8 contêm 11 commits além da base. Destino configurado: fork público `https://github.com/sevenstarr/Yume`. Consulta remota confirmou somente `animiru-new-main` em `787b275e8230a748661be1f7c50ebbdd49ea9533`.
+
+- Revisados histórico, diff acumulado, arquitetura, evidência da criação do fork e gatilhos dos workflows. `git diff --check main HEAD` passou; pesquisa de padrões de chaves privadas/tokens GitHub/AWS no diff completo retornou zero ocorrências, sem constituir auditoria exaustiva. Nenhum arquivo de keystore/PEM/env/local.properties encontrado na listagem versionada consultada.
+- Push atômico das oito branches de trabalho bloqueado pela revisão automática antes da execução, inclusive após apresentar as evidências adicionais. Motivo informado: falta de autorização confiável para o destino público exato e risco de divulgação do conteúdo/histórico. **Nenhuma branch foi enviada.** Pendente confirmação explícita do proprietário para publicar nesse fork público.
+- Sem alteração funcional; testes/build não repetidos nesta operação de Git. A última evidência da sessão 8 registra 264 testes aprovados e build debug, com validação Android/UI/acessibilidade ainda pendente. Nenhuma sessão de desenvolvimento seguinte iniciada, nem PR/tag/release criado.
+
 ## Sessão 8 — Configurações e escolha manual
 
 **20/10/2026 — implementação local validada por testes/build; aceite UI/acessibilidade em Android pendente.** Pedido do proprietário: executar sessão 8. Base limpa `d8a60d7c9b25daf6166c13da902454a0786d6ef9`, branch `feat/session-8-metadata-controls`. Lidos prompt mestre, progresso, arquitetura/especificação e contratos anteriores; nenhuma alteração não commitada descartada. Gates visuais/performance da sessão 7 continuam pendentes e não são considerados aprovados pelo início desta etapa.
