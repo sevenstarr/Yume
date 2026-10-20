@@ -16,7 +16,9 @@ import okhttp3.RequestBody.Companion.toRequestBody
 
 @Inject
 class AniSkipApi(private val json: Json) {
-    private val client = OkHttpClient()
+    private val client = OkHttpClient.Builder()
+        .addNetworkInterceptor(eu.kanade.tachiyomi.data.metadata.anilist.AniListHostInterceptor)
+        .build()
 
     // credits: https://github.com/saikou-app/saikou/blob/main/app/src/main/java/ani/saikou/others/AniSkip.kt
     fun getResult(malId: Int, episodeNumber: Int, episodeLength: Long): List<TimeStamp>? {

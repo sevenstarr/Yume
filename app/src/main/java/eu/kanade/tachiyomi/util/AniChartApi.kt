@@ -19,7 +19,9 @@ import java.util.Calendar
 import kotlin.time.Instant
 
 class AniChartApi {
-    private val client = OkHttpClient()
+    private val client = OkHttpClient.Builder()
+        .addNetworkInterceptor(eu.kanade.tachiyomi.data.metadata.anilist.AniListHostInterceptor)
+        .build()
 
     internal suspend fun loadAiringTime(
         anime: Anime,

@@ -362,6 +362,9 @@ class AnimeRepositoryImpl(
         database.transaction {
             animeUpdates.forEach { value ->
                 with(value) {
+                    // Yume S9: enqueue only a new favorite, atomically with its original update.
+                    val newlyFavorite = isSet(::favoriteAt) && favoriteAt != null &&
+                        database.animesQueries.getAnimeById(id).awaitAsOneOrNull()?.favorite_at == null
                     database.animesQueries.update(
                         favoriteAtSet = isSet(::favoriteAt),
                         favoriteAt = favoriteAt,
@@ -378,6 +381,10 @@ class AnimeRepositoryImpl(
                         // <-- AM
                         animeId = id,
                     )
+                    if (newlyFavorite) {
+                        database.metadata_syncQueries.enqueueAdded(id)
+                        database.metadata_syncQueries.wakeAdded()
+                    }
                 }
             }
         }

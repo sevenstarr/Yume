@@ -28,10 +28,12 @@ internal fun interface AniListTransport {
 internal class OkHttpAniListTransport(
     baseClient: OkHttpClient,
     private val callFactory: Call.Factory? = null,
+    private val background: Boolean = false,
 ) : AniListTransport {
     internal val client = baseClient.newBuilder().apply {
         interceptors().clear()
         networkInterceptors().clear()
+        addNetworkInterceptor(AniListHostInterceptor)
         authenticator(okhttp3.Authenticator.NONE)
         proxyAuthenticator(okhttp3.Authenticator.NONE)
         cookieJar(CookieJar.NO_COOKIES)
@@ -45,11 +47,18 @@ internal class OkHttpAniListTransport(
     }.build()
 
     override suspend fun execute(payload: String): AniListResponse = suspendCancellableCoroutine { continuation ->
+        if (callFactory == null) {
+            AniListHostInterceptor.notBefore()?.let {
+                continuation.resumeWithException(AniListHostDeferred(it))
+                return@suspendCancellableCoroutine
+            }
+        }
         val body = payload.toRequestBody(jsonMime)
         val request = Request.Builder()
             .url("https://graphql.anilist.co")
             .header("Accept", "application/json")
             .header("User-Agent", "Yume-Metadata/1")
+            .apply { if (background) tag(AniListBackground::class.java, AniListBackground) }
             // OkHttp can retry 503/Retry-After:0 even with retryOnConnectionFailure=false.
             // One-shot bodies prevent every transparent follow-up; provider retries create a new body.
             .post(object : RequestBody() {
@@ -88,4 +97,5 @@ internal class OkHttpAniListTransport(
 }
 
 internal class AniListBodyTooLarge : IOException()
+internal class AniListHostDeferred(val retryAt: Long) : IOException()
 // <-- AM (Yume metadata)

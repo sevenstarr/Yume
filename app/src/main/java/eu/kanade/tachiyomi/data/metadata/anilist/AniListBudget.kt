@@ -24,6 +24,9 @@ internal object SystemAniListClock : AniListClock {
 /** Process-local budget. One instance must be shared by all metadata calls, including retries. */
 internal class AniListBudget(
     val clock: AniListClock = SystemAniListClock,
+    private val onObserved: (Headers, Boolean) -> Unit = { _, _ -> },
+    private val onGraphqlFailure: () -> Unit = {},
+    private val onSuccess: () -> Unit = {},
     val jitter: () -> Long = { Random.nextLong(0, 501) },
 ) {
     val mutex = Mutex()
@@ -50,6 +53,7 @@ internal class AniListBudget(
     }
 
     fun observe(headers: Headers, rateLimited: Boolean): Long? {
+        onObserved(headers, rateLimited)
         headers["X-RateLimit-Limit"]?.toIntOrNull()?.takeIf { it > 0 }?.let { limit = minOf(limit, it) }
         val now = clock.monotonicMillis()
         val serverNow = httpDate(headers["Date"]) ?: clock.wallMillis()
@@ -75,7 +79,10 @@ internal class AniListBudget(
         }
     }
 
+    fun graphqlFailure() = onGraphqlFailure()
+
     fun success() {
+        onSuccess()
         failures = 0
         circuitUntil = Long.MIN_VALUE
         circuitDuration = 300_000

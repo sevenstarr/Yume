@@ -12,11 +12,17 @@ import tachiyomi.domain.metadata.service.MetadataProvider
 @SingleIn(AppScope::class)
 class AniListMetadataClient(network: NetworkHelper, private val json: Json) {
     private val transport = OkHttpAniListTransport(network.client)
-    private val budget = AniListBudget()
+    private val backgroundTransport = OkHttpAniListTransport(network.client, background = true)
+    private val budget = AniListBudget(
+        onObserved = AniListHostInterceptor::observe,
+        onGraphqlFailure = AniListHostInterceptor::transientFailure,
+        onSuccess = AniListHostInterceptor::success,
+    )
 
-    /** Manual review supplies current opt-in policy; a background coordinator is not installed. */
+    /** Callers supply opt-in policy; review/coordinator also observe SQL invalidation and cancel transport. */
     fun provider(
+        background: Boolean = false,
         isEnabled: () -> Boolean = { false },
-    ): MetadataProvider = AniListProvider(transport, json, budget, isEnabled)
+    ): MetadataProvider = AniListProvider(if (background) backgroundTransport else transport, json, budget, isEnabled)
 }
 // <-- AM (Yume metadata)

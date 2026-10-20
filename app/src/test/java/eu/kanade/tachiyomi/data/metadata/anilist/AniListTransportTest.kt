@@ -29,14 +29,14 @@ class AniListTransportTest {
     private val request = slot<Request>()
     private val callback = slot<Callback>()
 
-    private fun transport(): OkHttpAniListTransport {
+    private fun transport(background: Boolean = false): OkHttpAniListTransport {
         every { factory.newCall(capture(request)) } returns call
         every { call.enqueue(capture(callback)) } returns Unit
         val base = OkHttpClient.Builder()
             .addInterceptor { it.proceed(it.request().newBuilder().header("Authorization", "secret").build()) }
             .addNetworkInterceptor { error("Source interceptor must not run") }
             .build()
-        return OkHttpAniListTransport(base, factory)
+        return OkHttpAniListTransport(base, factory, background)
     }
 
     private fun response(body: String) = Response.Builder()
@@ -51,7 +51,7 @@ class AniListTransportTest {
     fun `neutral client disables redirects hidden retries cookies and auth`() {
         val client = transport().client
         assertTrue(client.interceptors.isEmpty())
-        assertTrue(client.networkInterceptors.isEmpty())
+        assertEquals(listOf(AniListHostInterceptor), client.networkInterceptors)
         assertSame(CookieJar.NO_COOKIES, client.cookieJar)
         assertSame(okhttp3.Authenticator.NONE, client.authenticator)
         assertFalse(client.followRedirects)
@@ -76,6 +76,16 @@ class AniListTransportTest {
         assertEquals(setOf("Accept", "User-Agent", "Content-Type"), request.captured.headers.names() + "Content-Type")
         assertEquals("application/json; charset=utf-8", request.captured.body?.contentType().toString())
         verify(exactly = 1) { factory.newCall(any()) }
+    }
+
+    @Test
+    fun `background provider priority is a local tag and never a transmitted header`() = runTest {
+        val pending = async { transport(background = true).execute("{}") }
+        runCurrent()
+        assertSame(AniListBackground, request.captured.tag(AniListBackground::class.java))
+        assertEquals(setOf("Accept", "User-Agent"), request.captured.headers.names())
+        callback.captured.onResponse(call, response("{}"))
+        pending.await()
     }
 
     @Test

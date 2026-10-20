@@ -47,6 +47,16 @@ class AniListProviderTest {
         """{"data":{"Page":{"pageInfo":{"currentPage":1,"hasNextPage":$hasNext},"media":[$media]}}$errors}"""
 
     @Test
+    fun `durable shared host cooldown becomes typed pending without retrying transport`() = runTest {
+        val due = clock.wallMillis() + 300_000
+        val result = provider { throw AniListHostDeferred(due) }.getById(id) as MetadataResult.Failure
+        assertEquals(MetadataFailureKind.RATE_LIMITED, result.kind)
+        assertEquals(due, result.retryAtMillis)
+        assertTrue(result.retryable)
+        assertEquals(1, requests.size)
+    }
+
+    @Test
     fun `maps all public fields without authentication`() = runTest {
         val result = provider { ok() }.getById(id) as MetadataResult.Success
         val media = result.value

@@ -157,6 +157,8 @@ interface AppGraph : ViewModelGraph {
     val aniListMetadataClient: AniListMetadataClient
     val metadataRepository: tachiyomi.domain.metadata.service.MetadataRepository
     val metadataPreferences: tachiyomi.domain.metadata.service.MetadataPreferences
+    val metadataSyncQueue: tachiyomi.domain.metadata.service.MetadataSyncQueue
+    val metadataSyncScheduler: eu.kanade.tachiyomi.data.metadata.MetadataSyncScheduler
     val coverResolver: tachiyomi.domain.metadata.service.CoverResolver
 
     // <-- AM (Yume metadata)

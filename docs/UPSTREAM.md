@@ -1,5 +1,11 @@
 # Origem e reprodução do Yume
 
+## Protocolo vigente de branches — 20/10/2026
+
+Consulte [AGENTS.md](../AGENTS.md). A integração usa `yume-develop`, versões estáveis usam `yume-main` e sessões usam `feature/session-XX-descricao`, sempre baseadas no `origin/yume-develop` atualizado. PRs têm base `yume-develop`; publicação e merge exigem autorização. As tabelas e descrições da fundação abaixo são históricas.
+
+Na atualização local, `main` passou a `yume-main` preservando seu SHA auditado; isso não representa uma promoção de versões nem uma release aprovada. As branches locais das sessões 1–9 foram renomeadas ao novo padrão. `git fetch origin` confirmou `origin/yume-develop` e `origin/yume-release`; a adequação remota de `yume-release` para `yume-main`, branch padrão e proteções permanece pendente. As referências de upstream conservam seus nomes originais.
+
 Data de referência: 19/10/2026. O fork público foi criado com autorização explícita no mesmo dia; a fundação documental continua local, sem push ou PR.
 
 ## Proveniência
@@ -42,15 +48,15 @@ Configurado localmente `git remote add origin https://github.com/sevenstarr/Yume
 
 A [orientação oficial do GitHub](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo) descreve a criação de um fork com vínculo ao repositório pai. No [formulário de fork do Animiru](https://github.com/animiruorg/Animiru/fork), confirmar conta/organização, nome `Yume`, visibilidade resultante e depois criar. Não usar importação para um repositório vazio como substituto desse vínculo.
 
-Após criação autorizada, verificar a relação de fork na API ou na indicação de origem da página, confirmar a URL real e só então adicionar `origin`. A publicação das branches locais, configuração da branch padrão `main`, proteções e abertura de PR precisam de autorização. O [rascunho do PR](SESSION_1_PR.md) já pode ser revisado localmente.
+Após criação autorizada, verificar a relação de fork na API ou na indicação de origem da página, confirmar a URL real e só então adicionar `origin`. A publicação das branches locais, configuração da branch padrão `yume-main`, proteções e abertura de PR precisam de autorização. O [rascunho do PR](SESSION_1_PR.md) já pode ser revisado localmente.
 
-Os workflows herdados permanecem intactos. O build escuta push em `main` e PRs; o workflow de release contém guardas `github.repository == 'animiruorg/Animiru'`. Não se declarou CI Yume verde nem se habilitou publicação. Não importar segredos de assinatura upstream. Antes de qualquer push autorizado, revisar gatilhos, permissões e efeitos da execução dos workflows; a configuração completa de CI/release é a sessão 11.
+Os gatilhos foram alinhados ao protocolo: build em push para `yume-develop`/`yume-main` e PRs; release em `yume-main` ou tags `v*`; o workflow de release contém guardas `github.repository == 'animiruorg/Animiru'`. Não se declarou CI Yume verde nem se habilitou publicação. Não importar segredos de assinatura upstream. Antes de qualquer push autorizado, revisar gatilhos, permissões e efeitos da execução dos workflows; a configuração completa de CI/release é a sessão 11.
 
 ## Sincronização futura
 
 1. Começar com checkout limpo e registrar a base Yume e o SHA upstream pretendido.
-2. Buscar o upstream sem mover automaticamente `main`: `git fetch upstream --tags`.
-3. Comparar os SHAs e criar uma branch `chore/upstream-<data>` a partir de `main`.
+2. Buscar o upstream sem mover automaticamente `yume-develop` ou `yume-main`: `git fetch upstream --tags`.
+3. Executar `git fetch origin`, conferir `origin/yume-develop` e criar uma branch `feature/session-XX-upstream` diretamente dessa referência; comparar os SHAs antes de incorporar upstream.
 4. Fazer merge do SHA upstream revisado, preservando commits/autoria. Resolver conflitos com foco nas pequenas mudanças do fork; não usar reset destrutivo nem force-push.
 5. Rodar build, testes e regressões de banco/backup/identidade pertinentes; revisar atribuições e atualizar a base documentada somente após integração.
 6. Preparar revisão. Envio, PR e integração no remoto seguem a autorização vigente.

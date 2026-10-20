@@ -1,5 +1,7 @@
 # Especificação funcional — Sessão 3
 
+**Atualização da sessão 9 — 20/10/2026:** [sincronização automática e em lote](background-sync.md), conforme [ADR 0008](../DECISIONS/0008-durable-metadata-sync.md). Fila durável/schema 150, WorkManager com restrições, gatilhos separados inicialmente off, progresso/pausa/cancelamento e orçamento físico compartilhado. Vínculos aceitos são preservados; seleção automática por texto continua gated. Testes Android/bateria continuam pendentes. Registros anteriores são históricos.
+
 **Atualização da sessão 8 — 20/10/2026:** [configurações e revisão manual](manual-review.md) implementadas com opt-in inicialmente off, busca/ID/link/páginas, proposta confirmada, refresh, rejeição, reversão/remoção e limpeza. [ADR 0007](../DECISIONS/0007-manual-metadata-review.md). Sem worker/lote ou automação textual; UI/TalkBack em Android e orçamento agregado continuam pendentes.
 
 **Atualização da sessão 7 — 20/10/2026:** [resolver/Coil e consumidores](cover-resolution.md) implementados conforme [ADR 0006](../DECISIONS/0006-cover-resolution.md), incluindo reversão de original no visualizador, mesmo sem associação prévia/opt-in. Testes de contrato/JVM e DiskCache real com bytes sintéticos; decoder/UI/performance em Android permanecem pendentes. Opt-in e automação textual off. Os registros de sessões anteriores abaixo são históricos.

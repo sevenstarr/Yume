@@ -1,0 +1,445 @@
+{
+  "session": 9,
+  "generatedUtc": "2026-10-20T21:03:39.601752+00:00",
+  "base": "090442f489db222fc064721b44f048502ab80a0b",
+  "branch": "feature/session-09-metadata-sync",
+  "preservedPreexistingCommit": "a4bb6431cdd66a5b9631088efc2214799c09638e",
+  "schemaVersion": 150,
+  "checks": {
+    "startedUtc": "2026-10-20T20:49:34.2665560+00:00",
+    "seconds": 146.020704,
+    "exitCode": 0,
+    "tasks": "testDebugUnitTest :app:assembleDebug verifySqlDelightMigration spotlessCheck :data:lintDebug :presentation-widget:lintDebug"
+  },
+  "appLint": {
+    "result": {
+      "startedUtc": "2026-10-20T20:52:00.4063429+00:00",
+      "seconds": 356.4904215,
+      "exitCode": 0,
+      "tasks": ":app:lintDebug"
+    },
+    "status": "completed_with_inherited_errors",
+    "errors": [
+      {
+        "id": "NonObservableLocale",
+        "locations": [
+          {
+            "file": "app\\src\\main\\java\\mihon\\feature\\upcoming\\components\\calendar\\Calendar.kt",
+            "line": "74"
+          }
+        ]
+      },
+      {
+        "id": "NonObservableLocale",
+        "locations": [
+          {
+            "file": "app\\src\\main\\java\\mihon\\feature\\upcoming\\components\\calendar\\Calendar.kt",
+            "line": "95"
+          }
+        ]
+      },
+      {
+        "id": "NonObservableLocale",
+        "locations": [
+          {
+            "file": "app\\src\\main\\java\\mihon\\feature\\upcoming\\components\\calendar\\CalendarHeader.kt",
+            "line": "95"
+          }
+        ]
+      }
+    ],
+    "warnings": 205,
+    "newWarnings": {
+      "UseKtx": 3
+    },
+    "diagnostic": "Final analysis completed; earlier ExperimentalDetector failure superseded; no suppression",
+    "decision": "Explicit Editor.commit() preserves its Boolean success check"
+  },
+  "moduleLint": {
+    "data": {
+      "errors": 0,
+      "warnings": 0,
+      "issues": []
+    },
+    "presentation-widget": {
+      "errors": 0,
+      "warnings": 4,
+      "issues": [
+        {
+          "id": "UnusedAttribute",
+          "severity": "Warning"
+        },
+        {
+          "id": "UnusedAttribute",
+          "severity": "Warning"
+        },
+        {
+          "id": "UnusedAttribute",
+          "severity": "Warning"
+        },
+        {
+          "id": "UnusedAttribute",
+          "severity": "Warning"
+        }
+      ]
+    }
+  },
+  "suites": [
+    {
+      "module": "domain",
+      "name": "tachiyomi.domain.anime.interactor.FetchIntervalTest",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "c454d1269dca6b87cf7e1c6031b70419079842f0f852c5b0eb4d3dc40d8daa53"
+    },
+    {
+      "module": "domain",
+      "name": "tachiyomi.domain.episode.service.EpisodeRecognitionTest",
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "c4c393ff36a727751635a34083353aa740e3982516cc8d2926574898aafc71db"
+    },
+    {
+      "module": "domain",
+      "name": "tachiyomi.domain.episode.service.MissingEpisodesTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "91f9995b7231e734b19616671d844a4000bf3355303552feef06fbee042c0106"
+    },
+    {
+      "module": "domain",
+      "name": "tachiyomi.domain.library.model.LibraryFlagsTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "81300a0e6dde96ecb66df47a08fe70e017cd7d67b2389767ed0d73b1b4ba6fdb"
+    },
+    {
+      "module": "domain",
+      "name": "tachiyomi.domain.metadata.AnimeMatcherTest",
+      "tests": 59,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "107cdb4b525c6717393265005e7ec1296b3ad79424f30990f3fcacae466dcc30"
+    },
+    {
+      "module": "domain",
+      "name": "tachiyomi.domain.metadata.CoverPolicyTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "4fbb3b707a2221e0c1bb81b062a77fcc53269ada674bd8226c5f8dea458e532b"
+    },
+    {
+      "module": "domain",
+      "name": "tachiyomi.domain.metadata.MetadataCalibrationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "8a75db1780025f7a0f8339bf84fccefe459d34ec798970e9dcee86ba2ba83e2b"
+    },
+    {
+      "module": "domain",
+      "name": "tachiyomi.domain.metadata.MetadataManualInputTest",
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "cb3f71b984f5b3a35db6989355013ad44f0006f58e35d69f1dbd0433fade00d7"
+    },
+    {
+      "module": "domain",
+      "name": "tachiyomi.domain.metadata.MetadataTitleNormalizerTest",
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "e8e9c2492f9585b54823c7fbfd2f53ecd49ff62519eb4fd9060a0b3bf6cc31de"
+    },
+    {
+      "module": "domain",
+      "name": "tachiyomi.domain.release.interactor.GetApplicationReleaseTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "be2c9eda9b733f7c705b346818141afad8d13ad73c42c7233fb0d96fa1d6d296"
+    },
+    {
+      "module": "data",
+      "name": "tachiyomi.data.metadata.MetadataRepositoryTest",
+      "tests": 36,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "ee3d69a372003ba5af21126f40a42e379e88d961d1310375efeb5ff8f8e62882"
+    },
+    {
+      "module": "data",
+      "name": "tachiyomi.data.metadata.MetadataSyncTest",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "2bf782c6fd273649e7d7cc1f7383694fa661211dfc9289700b0d43dbb742c8c3"
+    },
+    {
+      "module": "app",
+      "name": "eu.kanade.tachiyomi.data.backup.MetadataBackupTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "e94a996100e5ba0ccfc6fcf262c6012378a9bac98d1870f7033547cfd26e3396"
+    },
+    {
+      "module": "app",
+      "name": "eu.kanade.tachiyomi.data.coil.CoverTransportTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "357f2b3bfe6e16aaa0643718c2f0153d61b7af8b1fefbcb9b4065a122bfd7e2f"
+    },
+    {
+      "module": "app",
+      "name": "eu.kanade.tachiyomi.data.coil.ExternalCoverFetcherTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "428f7a0ecbcc7bba88e74bf703619e5ceecb269846bfbce0e312d677d833ea27"
+    },
+    {
+      "module": "app",
+      "name": "eu.kanade.tachiyomi.data.coil.MetadataCoverInterceptorTest",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "86ede27b5d4c489b72b5d1c9b131d60d58954ecde5373a3f99c807812a38dbbf"
+    },
+    {
+      "module": "app",
+      "name": "eu.kanade.tachiyomi.data.metadata.anilist.AniListHostGovernorTest",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "f82e6d62d2280cbf5e957b42935c31eb6f516ac5c6f44181438042b66fe2aadc"
+    },
+    {
+      "module": "app",
+      "name": "eu.kanade.tachiyomi.data.metadata.anilist.AniListProviderTest",
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "cc6a976f8ab7991613ff3fb0992856787ed09d1ab2f7d3cd7bb17999f8337c72"
+    },
+    {
+      "module": "app",
+      "name": "eu.kanade.tachiyomi.data.metadata.anilist.AniListTransportTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "a304c9c00a7db2cf2e3e3dc70bbb87e12e8f8a5aafa54997b58894c598ff6a0e"
+    },
+    {
+      "module": "app",
+      "name": "mihon.core.migration.MigratorTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "5bb376ccadf9fc24e1a3e4b047d0327c4b2a52769ee3ede396a25a91ede211a4"
+    }
+  ],
+  "totals": {
+    "tests": 298,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "moduleTotals": {
+    "domain": {
+      "tests": 162,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "data": {
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 82,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "newTests": {
+    "queue": 18,
+    "hostGovernor": 14,
+    "transport": 1,
+    "provider": 1
+  },
+  "apks": [
+    {
+      "path": "app/build/outputs/apk/debug/app-arm64-v8a-debug.apk",
+      "bytes": 116028826,
+      "sha256": "0863d71b91fcdf70077d3cd19bd526ba8e2984cb3ab4f79fa0a6ea7cab85f4c3"
+    },
+    {
+      "path": "app/build/outputs/apk/debug/app-armeabi-v7a-debug.apk",
+      "bytes": 108900796,
+      "sha256": "d287b179c24e275252be2d093187ff320d78c7e4c1e93cb78fd2267463b605ee"
+    },
+    {
+      "path": "app/build/outputs/apk/debug/app-universal-debug.apk",
+      "bytes": 317428759,
+      "sha256": "50008b3e67a3a939ab253970fc4ceda1680735a315c939615aa737783821bf57"
+    },
+    {
+      "path": "app/build/outputs/apk/debug/app-x86-debug.apk",
+      "bytes": 119218404,
+      "sha256": "d52c1bcb10aab9adedea46348a6bd40764444acce8ce24f97ec5f542ad7552bd"
+    },
+    {
+      "path": "app/build/outputs/apk/debug/app-x86_64-debug.apk",
+      "bytes": 126025773,
+      "sha256": "11af22c03a22f221d1ab10f8100d06e9bc8361852ccf3bcae4fc4d4b02b7c7bd"
+    }
+  ],
+  "sourceHashes": {
+    "app/src/main/java/eu/kanade/presentation/more/settings/screen/SettingsMetadataScreen.kt": "65780bbd407de2b8a852f5475e38b44ae588545c1d59494649764e059b17605f",
+    "app/src/main/java/eu/kanade/tachiyomi/App.kt": "a3cc71df7a67d56ae109de1925e6553217ea18279e6fdcbf41090e7cc7abe2d0",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/MetadataSyncJob.kt": "93a9fd6516506599eb93fb3ac321ddffd88b47bdceec3bce475a67988d93ecc2",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListBudget.kt": "dcc71e2f74ffcbccf406a8d903373c6d7ff3dc60cb7120fecc69b4013334b194",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListHostGovernor.kt": "47fa574cb59a5d833593e0282bfc1dc3ea132654689b67515ba161c5fee82887",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListMetadataClient.kt": "55bf7c9bc0f505c75ef03e93ec43e538067ebf08a838d9dc4e75bb0fae20e293",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListProvider.kt": "2cb2bf5b91b56d8baf9084de476a111cf9143d0b3d5dcfae41caf23fe53ebb9d",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListTransport.kt": "bd9399c5f27946ed92fdf8e8c3d2de9df91da3b255810fb06f3ad6d3b9ad20d0",
+    "app/src/main/java/eu/kanade/tachiyomi/data/track/anilist/AnilistApi.kt": "753ec2ec23e1f906d55a6352eb939987e3ea5763cb9c09b99f04c6df15a34bfd",
+    "app/src/main/java/eu/kanade/tachiyomi/ui/player/utils/AniSkipApi.kt": "91765db9ef801e6b41659469b5683da253b2058bb4ef5cc168e2bab7c5cad064",
+    "app/src/main/java/eu/kanade/tachiyomi/util/AniChartApi.kt": "efaad1c1112428bb5b0900ce9c42cc84c48e8252220fba3bb56dd8c9ed739896",
+    "app/src/main/java/mihon/app/di/AppGraph.kt": "83528391562e21dc2c15fc756bfd09a54eba2e729754de1108b328e17d4fd984",
+    "app/src/test/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListHostGovernorTest.kt": "b96f61bf9090eef4f470775dd0866b003742ef573573b925985f83748e13cc87",
+    "app/src/test/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListProviderTest.kt": "39faac63722289a6707a6e0b3e071010378980e57594a30cdefeb7fbe3ed70d2",
+    "app/src/test/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListTransportTest.kt": "ed5854488db0f82ef24e9bd25773f4b7a456828dc53e94c0f4ca570435eda491",
+    "data/src/main/java/tachiyomi/data/anime/AnimeRepositoryImpl.kt": "6df803fb7c344992fc8878dba7676bca6ef85f5b157540f611bac5d33181486e",
+    "data/src/main/java/tachiyomi/data/metadata/MetadataRepositoryImpl.kt": "2ca112573802c8e34a9c0f28292f591f70b0ffd9e27c9ede7219439e569a1136",
+    "data/src/main/java/tachiyomi/data/metadata/MetadataSyncQueueImpl.kt": "d5758d3a51406693e14698d4af628938ecd306c33c50684efacd85cffbda817d",
+    "data/src/main/sqldelight/149.db": "2ae54e15b68bfb8db9e8865eb0e331d6e262eb5271860d2d43691e21952db94e",
+    "data/src/main/sqldelight/tachiyomi/data/metadata_sync.sq": "dec4db73f827d5731cb8bac05ea11dad7006be2d921239641ae42389809f5d3c",
+    "data/src/main/sqldelight/tachiyomi/migrations/149.sqm": "595836ad9cdd5a05c7fa65ee57efa8c3005f64863ab73560a14e09668809fbf6",
+    "data/src/test/java/tachiyomi/data/metadata/MetadataRepositoryTest.kt": "61c398a56d358c691f0ec5b8c7e809c53f50a21a8b427de2c122017b031bd58f",
+    "data/src/test/java/tachiyomi/data/metadata/MetadataSyncTest.kt": "410ca9de4ec671eab7c7ffcb181b23912753695e03c35c881073e52a0ef72df8",
+    "domain/src/main/java/tachiyomi/domain/metadata/model/MetadataStorage.kt": "ad46d77f94a8d05aad3a077129e680b69bd67a9682b2b1f2c9b065ac6e05e5f0",
+    "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataPreferences.kt": "9257107dfbe465152e4aee47408781c860844740f26ce56f245e8bda0a4ed576",
+    "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataRepository.kt": "a3ca105aaff32ef6330114d104212483773cd1062c87105787f504d31254d874",
+    "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataSyncCoordinator.kt": "cdf191d84b0fba422f56bea5278c3de2182c5867afa87453320535553db0aa7f",
+    "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataSyncQueue.kt": "3fafec0b8a537072f7d15edced3893bde62bb0bda0f35c7385d5430c73b117d8",
+    "i18n/src/commonMain/moko-resources/base/strings.xml": "22ef9ccbebe76f4f118ae428b79e5a2940a964e5d47f7b0deee3b9dd0ec8c99e",
+    "i18n/src/commonMain/moko-resources/pt-rBR/strings.xml": "5db1498ce13729d1b94d3521d681097bc5ba711e49dbaf2dab6325d3c041f05b",
+    "scripts/verify-metadata-sync-migration.py": "26b9460f25d21646b68b661b870a06eeeed33f41a165cd56ecf0f4d8b2e5b17c"
+  },
+  "changedFiles": [
+    ".gitignore",
+    "CHANGELOG.md",
+    "README.md",
+    "app/src/main/java/eu/kanade/presentation/more/settings/screen/SettingsMetadataScreen.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/App.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/MetadataSyncJob.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListBudget.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListHostGovernor.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListMetadataClient.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListProvider.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListTransport.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/data/track/anilist/AnilistApi.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/ui/player/utils/AniSkipApi.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/util/AniChartApi.kt",
+    "app/src/main/java/mihon/app/di/AppGraph.kt",
+    "app/src/test/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListHostGovernorTest.kt",
+    "app/src/test/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListProviderTest.kt",
+    "app/src/test/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListTransportTest.kt",
+    "data/src/main/java/tachiyomi/data/anime/AnimeRepositoryImpl.kt",
+    "data/src/main/java/tachiyomi/data/metadata/MetadataRepositoryImpl.kt",
+    "data/src/main/java/tachiyomi/data/metadata/MetadataSyncQueueImpl.kt",
+    "data/src/main/sqldelight/149.db",
+    "data/src/main/sqldelight/tachiyomi/data/metadata_sync.sq",
+    "data/src/main/sqldelight/tachiyomi/migrations/149.sqm",
+    "data/src/test/java/tachiyomi/data/metadata/MetadataRepositoryTest.kt",
+    "data/src/test/java/tachiyomi/data/metadata/MetadataSyncTest.kt",
+    "docs/ARCHITECTURE.md",
+    "docs/DECISIONS/0008-durable-metadata-sync.md",
+    "docs/PROGRESS.md",
+    "docs/SESSION_9_PR.md",
+    "docs/evidence/SESSION_9.json",
+    "docs/evidence/SESSION_9_COMMANDS.md",
+    "docs/metadata/background-sync.md",
+    "docs/metadata/functional-specification.md",
+    "domain/src/main/java/tachiyomi/domain/metadata/model/MetadataStorage.kt",
+    "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataPreferences.kt",
+    "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataRepository.kt",
+    "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataSyncCoordinator.kt",
+    "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataSyncQueue.kt",
+    "i18n/src/commonMain/moko-resources/base/strings.xml",
+    "i18n/src/commonMain/moko-resources/pt-rBR/strings.xml",
+    "scripts/verify-metadata-sync-migration.py"
+  ],
+  "limitations": [
+    "No connected Android device; no UI/TalkBack, Doze/reboot or battery measurement",
+    "No real AniList/CDN traffic; provider, clock/store and HTTP chain use fixtures",
+    "Textual automatic association remains disabled",
+    "App lint completed with three inherited errors and 205 warnings; no new errors",
+    "No release, tag, Android identity change or session 10"
+  ],
+  "migrationScripts": [
+    "scripts/verify-metadata-migration.py",
+    "scripts/verify-metadata-sync-migration.py"
+  ],
+  "signature": {
+    "universalV2": true,
+    "command": "apksigner verify --verbose",
+    "exitCode": 0
+  },
+  "postTestFormatting": "Migration 149 LF/EOF only, normalized DDL unchanged; Python migration/rollback reverified",
+  "postFormatChecks": {
+    "seconds": 52.2727152,
+    "exitCode": 0,
+    "tasks": "verifySqlDelightMigration spotlessCheck"
+  },
+  "publication": {
+    "functionalCommit": "3538d8f228739e4e968c9654780363b488deaa0d",
+    "pullRequest": "https://github.com/sevenstarr/Yume/pull/2",
+    "base": "yume-develop",
+    "head": "feature/session-09-metadata-sync",
+    "mergePerformed": false,
+    "observedCi": {
+      "runId": 39497721078,
+      "jobId": 118886995080,
+      "conclusion": "failure",
+      "step": "Dependency Review",
+      "reason": "Dependency graph disabled; remote build/tests skipped"
+    },
+    "repositorySettingsChanged": true,
+    "repositorySetting": "Dependency graph only; enabled after explicit owner approval and confirmed saved in GitHub UI",
+    "ownerApproval": "Autorizar ativação e concluir o merge",
+    "pending": "Validate CI on final PR head, then merge; final result and merge SHA will be reported in the PR and session delivery"
+  }
+}

@@ -1,0 +1,91 @@
+-- AM (Yume background metadata sync, 2026-10-20; new code assisted by Codex)
+CREATE TABLE metadata_sync_control (
+    singleton INTEGER NOT NULL PRIMARY KEY CHECK (singleton = 1),
+    generation INTEGER NOT NULL DEFAULT 0,
+    epoch INTEGER NOT NULL DEFAULT 0,
+    status TEXT NOT NULL DEFAULT 'IDLE',
+    on_add INTEGER NOT NULL DEFAULT 0,
+    charging INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE metadata_sync_queue (
+    anime_id INTEGER NOT NULL PRIMARY KEY REFERENCES animes(_id) ON DELETE CASCADE,
+    outcome TEXT NOT NULL DEFAULT 'PENDING',
+    attempts INTEGER NOT NULL DEFAULT 0,
+    not_before INTEGER NOT NULL DEFAULT 0
+);
+CREATE INDEX metadata_sync_due ON metadata_sync_queue(outcome, not_before, anime_id);
+
+initialize:
+INSERT OR IGNORE INTO metadata_sync_control(singleton) VALUES (1);
+
+-- Called within the favorite transaction, only for a transition from non-favorite to favorite.
+enqueueAdded:
+INSERT INTO metadata_sync_queue(anime_id)
+SELECT _id FROM animes WHERE _id = :animeId AND favorite_at IS NOT NULL
+AND EXISTS (SELECT 1 FROM metadata_sync_control WHERE on_add = 1)
+AND EXISTS (SELECT 1 FROM metadata_control WHERE enabled = 1)
+ON CONFLICT(anime_id) DO UPDATE SET outcome = 'PENDING', attempts = 0, not_before = 0
+WHERE metadata_sync_queue.outcome != 'PENDING';
+
+wakeAdded:
+UPDATE metadata_sync_control SET generation = generation + CASE WHEN status IN ('RUNNING', 'PAUSED') THEN 0 ELSE 1 END,
+status = CASE WHEN status = 'PAUSED' THEN status ELSE 'RUNNING' END,
+charging = CASE WHEN status IN ('RUNNING', 'PAUSED') THEN charging ELSE 0 END,
+epoch = (SELECT epoch FROM metadata_control WHERE singleton = 1)
+WHERE singleton = 1 AND on_add = 1
+AND EXISTS (SELECT 1 FROM metadata_sync_queue WHERE outcome = 'PENDING')
+AND EXISTS (SELECT 1 FROM metadata_control WHERE enabled = 1);
+
+summary:
+SELECT c.*, count(q.anime_id) AS total,
+CAST(coalesce(sum(q.outcome = 'SUCCESS'), 0) AS INTEGER) AS success,
+CAST(coalesce(sum(q.outcome = 'AMBIGUOUS'), 0) AS INTEGER) AS ambiguous,
+CAST(coalesce(sum(q.outcome = 'ERROR'), 0) AS INTEGER) AS errors,
+CAST(coalesce(sum(q.outcome = 'SKIPPED'), 0) AS INTEGER) AS skipped
+FROM metadata_sync_control c LEFT JOIN metadata_sync_queue q ON 1 = 1 GROUP BY c.singleton;
+
+controlState:
+SELECT * FROM metadata_sync_control WHERE singleton = 1;
+
+clear:
+DELETE FROM metadata_sync_queue;
+
+enqueueLibrary:
+INSERT OR IGNORE INTO metadata_sync_queue(anime_id) SELECT _id FROM animes WHERE favorite_at IS NOT NULL;
+
+start:
+UPDATE metadata_sync_control SET generation = generation + 1, epoch = :epoch, status = 'RUNNING', charging = :charging
+WHERE singleton = 1;
+
+transition:
+UPDATE metadata_sync_control SET generation = generation + 1, status = :status WHERE singleton = 1;
+
+skipPending:
+UPDATE metadata_sync_queue SET outcome = 'SKIPPED' WHERE outcome = 'PENDING';
+
+setOnAdd:
+UPDATE metadata_sync_control SET on_add = :enabled WHERE singleton = 1;
+
+next:
+SELECT q.*, a.source, a.url, a.title, a.parent_id, a.season_number, a.fetch_type, a.favorite_at
+FROM metadata_sync_queue q JOIN animes a ON q.anime_id = a._id
+WHERE q.outcome = 'PENDING' ORDER BY q.not_before, q.anime_id LIMIT 1;
+
+finish:
+UPDATE metadata_sync_queue SET outcome = :outcome, not_before = :due
+WHERE anime_id = :animeId AND EXISTS
+(SELECT 1 FROM metadata_sync_control WHERE generation = :generation AND status = 'RUNNING');
+
+claim:
+UPDATE metadata_sync_queue SET attempts = attempts + 1
+WHERE anime_id = :animeId AND outcome = 'PENDING' AND attempts < 3 AND EXISTS
+(SELECT 1 FROM metadata_sync_control WHERE generation = :generation AND status = 'RUNNING');
+
+changes:
+SELECT changes();
+
+complete:
+UPDATE metadata_sync_control SET status = 'COMPLETED'
+WHERE generation = :generation AND status = 'RUNNING'
+AND NOT EXISTS (SELECT 1 FROM metadata_sync_queue WHERE outcome = 'PENDING');

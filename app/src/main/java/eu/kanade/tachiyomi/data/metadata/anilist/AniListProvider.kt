@@ -135,6 +135,12 @@ class AniListProvider internal constructor(
                     if (!enabled()) return@withLock failure(MetadataFailureKind.DISABLED)
                     val response = try {
                         transport.execute(payload)
+                    } catch (e: AniListHostDeferred) {
+                        return@withLock MetadataResult.Failure(
+                            MetadataFailureKind.RATE_LIMITED,
+                            true,
+                            retryAtMillis = e.retryAt,
+                        )
                     } catch (_: AniListBodyTooLarge) {
                         return@withLock failure(MetadataFailureKind.CONTRACT)
                     } catch (_: IOException) {
@@ -162,6 +168,7 @@ class AniListProvider internal constructor(
                         )
                     }
                     if (status != null && status >= 500) {
+                        if (response.code in 200..299) budget.graphqlFailure()
                         budget.transientFailure()
                         if (attempt == 2) {
                             return@withLock MetadataResult.Failure(MetadataFailureKind.NETWORK, true, status)

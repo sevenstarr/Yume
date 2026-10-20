@@ -100,8 +100,8 @@ class MetadataRepositoryTest {
         Store(JdbcSqliteDriver("jdbc:sqlite:$file")).use { store ->
             addAnime(store)
             val original = store.db.animesQueries.getAnimeById(1).awaitAsOne()
-            Database.Schema.migrate(store.driver, 148, 149).await()
-            assertEquals(149L, Database.Schema.version)
+            Database.Schema.migrate(store.driver, 148, 150).await()
+            assertEquals(150L, Database.Schema.version)
             assertEquals(original, store.db.animesQueries.getAnimeById(1).awaitAsOne())
             assertFalse(store.repo.control().enabled)
             assertNull(store.repo.get(1))

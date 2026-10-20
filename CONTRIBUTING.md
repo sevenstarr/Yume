@@ -5,9 +5,9 @@ Yume deriva do Animiru. Consulte o [guia original e seus créditos](docs/upstrea
 
 ## Branches e commits
 
-- `main`: base local de integração; criada no SHA auditado, sem reescrever commits herdados.
-- `chore/session-1-foundation`: documentação e configuração desta sessão.
-- Próximas mudanças: `feat/<assunto>`, `fix/<assunto>`, `docs/<assunto>` ou `chore/<assunto>`, a partir de `main`.
+- `yume-main`: versões estáveis e releases aprovadas.
+- `yume-develop`: integração de funcionalidades concluídas, testadas e aprovadas.
+- Novas sessões: `feature/session-XX-descricao`; correções isoladas: `fix/descricao`. Criar sempre a partir de `origin/yume-develop` após `git fetch origin`. Não commitar diretamente em `yume-develop` ou `yume-main`. PRs usam base `yume-develop`; sincronizar por merge e revalidar antes de abrir/atualizar. Consulte o [protocolo completo](AGENTS.md).
 - Commits pequenos com `tipo: resumo`, resumo preferencialmente até 50 caracteres e corpo explicando o motivo e a validação. Não adicionar tags de release sem autorização.
 - Não rebasear nem alterar autoria do histórico importado. Para sincronização, seguir [UPSTREAM.md](docs/UPSTREAM.md), com revisão e testes antes da integração.
 

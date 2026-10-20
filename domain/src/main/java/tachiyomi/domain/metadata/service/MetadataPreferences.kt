@@ -7,5 +7,6 @@ import tachiyomi.core.common.preference.PreferenceStore
 @Inject
 class MetadataPreferences(preferenceStore: PreferenceStore) {
     val batchMobileData = preferenceStore.getBoolean("metadata_batch_mobile_data", false)
+    val scheduled = preferenceStore.getBoolean("metadata_sync_daily", false)
 }
 // <-- AM (Yume metadata settings)

@@ -39,6 +39,7 @@ data class MetadataTicket(
     val leaseId: String,
     val manualReview: Boolean = false,
     val previousOutcome: String = "PENDING",
+    val syncGeneration: Long? = null,
 )
 
 @Serializable
