@@ -437,7 +437,9 @@
       "step": "Dependency Review",
       "reason": "Dependency graph disabled; remote build/tests skipped"
     },
-    "repositorySettingsChanged": false,
-    "pending": "Explicit approval to enable Dependency graph, then rerun latest CI and merge"
+    "repositorySettingsChanged": true,
+    "repositorySetting": "Dependency graph only; enabled after explicit owner approval and confirmed saved in GitHub UI",
+    "ownerApproval": "Autorizar ativação e concluir o merge",
+    "pending": "Validate CI on final PR head, then merge; final result and merge SHA will be reported in the PR and session delivery"
   }
 }

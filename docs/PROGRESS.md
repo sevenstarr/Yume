@@ -12,16 +12,16 @@ Pedido do proprietário: incorporar o protocolo de branches ao `AGENTS.md` e ade
 
 Aceite documental: regras incorporadas, instruções operacionais e branches locais alinhadas; adequação remota explicitamente pendente. Aguardar autorização para a próxima sessão.
 
-## Publicação da sessão 9 — PR #2 e impedimento de CI
+## Publicação da sessão 9 — PR #2 e configuração de CI
 
 **20/10/2026 — implementação publicada; merge ainda não executado.** Commit funcional `3538d8f228739e4e968c9654780363b488deaa0d` com exclusivamente os 42 arquivos da sessão. Preservado `a4bb6431c` como commit documental anterior. Fetch/merge de `origin/yume-develop` retornaram “Already up to date”; publicada `feature/session-09-metadata-sync` e aberta [PR #2](https://github.com/sevenstarr/Yume/pull/2), base `yume-develop`, sem conflitos. A PR foi anexada à tarefa.
 
 - A [primeira execução de CI](https://github.com/sevenstarr/Yume/actions/runs/39497721078), job `118886995080`, falhou em **Dependency Review**: `Dependency review is not supported on this repository. Please ensure that Dependency graph is enabled`. Checkout passou; build/testes/migrações remotos foram ignorados. Os 298 testes e demais checks locais permanecem aprovados; não se declara CI remoto verde.
-- Inspeção somente de leitura da configuração confirmou Dependency graph desativado. Ativação solicitada ao proprietário, pois `AGENTS.md`/prompt exigem autorização para mudar configuração do repositório. Nenhuma configuração foi alterada e nenhuma checagem foi desabilitada ou contornada. Pelo protocolo, não efetuar merge enquanto a checagem permanecer falhando.
+- Inspeção da configuração confirmou Dependency graph desativado. O proprietário respondeu **“Autorizar ativação e concluir o merge”**. Ativado exclusivamente **Dependency graph** em `sevenstarr/Yume`; GitHub confirmou “Repository settings saved” e a opção ligada. Demais configurações preservadas. Nenhuma checagem foi desabilitada ou contornada. Pelo protocolo, não efetuar merge enquanto houver checagens pendentes ou falhando.
 - A criação do commit inicialmente encontrou identidade Git não configurada no sandbox; repetida com `-c user.name='Codex (AI assistant)' -c user.email=codex@invalid`, seguindo autoria anterior e sem configuração global.
 - Criado em paralelo pelo workspace `docs/prompt.md`, não rastreado e idêntico por SHA-256 ao prompt mestre de Downloads; preservado fora dos commits próprios. Nenhuma alteração funcional após os testes finais. Sem tag/release ou início da sessão 10.
 
-**Próximo passo da mesma sessão:** após autorização para habilitar Dependency graph, ativar somente essa opção, repetir o CI da cabeça vigente, aguardar aprovação e concluir o merge já autorizado da PR #2. O pedido de merge permanece pendente; esta entrega não equivale à conclusão integral da solicitação.
+**Próximo passo da mesma sessão:** validar o CI na cabeça que contém este registro e concluir o merge já autorizado da PR #2 somente após aprovação das checagens. O resultado final será registrado na PR e na entrega, com o hash da integração. A implementação e as verificações locais permanecem inalteradas por esta atualização documental.
 
 ## Sessão 9 — Sincronização automática e em lote
 
