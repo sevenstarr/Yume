@@ -30,6 +30,8 @@ import logcat.LogPriority
 import tachiyomi.core.common.i18n.stringResource
 import tachiyomi.core.common.util.system.createFileInCacheDir
 import tachiyomi.core.common.util.system.logcat
+import tachiyomi.domain.metadata.model.MetadataRestoreOutcome
+import tachiyomi.domain.metadata.service.MetadataRepository
 import tachiyomi.i18n.MR
 import tachiyomi.i18n.aniyomi.AYMR
 import java.io.File
@@ -54,6 +56,8 @@ class BackupRestorer(
     private val extensionStoreRestorer: ExtensionStoreRestorer,
     private val animeRestorer: AnimeRestorer,
     private val backupDecoder: BackupDecoder,
+    // AM (Yume metadata backup, 2026-10-20; assisted by Codex)
+    private val metadataRepository: MetadataRepository,
     // AY -->
     private val customButtonRestorer: CustomButtonRestorer,
     private val extensionsRestorer: ExtensionsRestorer,
@@ -169,6 +173,18 @@ class BackupRestorer(
 
             // TODO: optionally trigger online library + tracker update
         }
+        // AM (Yume metadata backup, 2026-10-20; assisted by Codex) -->
+        // All anime/parent jobs have completed. Metadata restore is local and never enables enrichment.
+        if (options.libraryEntries && options.metadataDecisions) {
+            backup.metadataDecisions?.let { decisions ->
+                metadataRepository.restoreDecisions(decisions).forEach { result ->
+                    if (result.outcome != MetadataRestoreOutcome.APPLIED) {
+                        errors.add(Date() to "Metadata decision: ${result.outcome.name}")
+                    }
+                }
+            }
+        }
+        // <-- AM (Yume metadata backup)
     }
 
     private fun CoroutineScope.restoreCategories(backupCategories: List<BackupCategory>) = launch {

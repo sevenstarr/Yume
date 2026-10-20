@@ -65,6 +65,17 @@ class RestoreRepositoryImpl(
         }
             .copy(parentId = parent)
 
+        // AM (Yume restore preservation, 2026-10-20; assisted by Codex) -->
+        database.animesQueries.updateCustomInformation(
+            anime.customArtist,
+            anime.customAuthor,
+            anime.customDescription,
+            anime.customGenre,
+            anime.customTitle,
+            anime.customStatus,
+            anime.id,
+        )
+        // <-- AM (Yume restore preservation)
         if (entry.categoryIds.isNotEmpty()) {
             animeRepository.setAnimeCategories(anime.id, entry.categoryIds)
         }
@@ -83,18 +94,26 @@ class RestoreRepositoryImpl(
             } else {
                 null
             },
-            ogTitle = details.title,
-            ogArtist = details.artist,
-            ogAuthor = details.artist,
-            ogDescription = details.description,
-            ogGenre = details.genre,
-            ogStatus = details.status,
+            ogTitle = details.ogTitle,
+            ogArtist = details.ogArtist,
+            ogAuthor = details.ogAuthor,
+            ogDescription = details.ogDescription,
+            ogGenre = details.ogGenre,
+            ogStatus = details.ogStatus,
             thumbnailUrl = details.thumbnailUrl,
             updateStrategy = details.updateStrategy,
             initialized = dbAnime.initialized || anime.initialized,
             // Merge both backup and local data with local winning
             memo = JsonObject(anime.memo + dbAnime.memo),
             // AM -->
+            // AM (Yume restore preservation, 2026-10-20; assisted by Codex) -->
+            customTitle = dbAnime.customTitle ?: anime.customTitle,
+            customArtist = dbAnime.customArtist ?: anime.customArtist,
+            customAuthor = dbAnime.customAuthor ?: anime.customAuthor,
+            customDescription = dbAnime.customDescription ?: anime.customDescription,
+            customGenre = dbAnime.customGenre ?: anime.customGenre,
+            customStatus = dbAnime.customStatus ?: anime.customStatus,
+            // <-- AM (Yume restore preservation)
             backgroundUrl = details.backgroundUrl,
             fetchType = details.fetchType,
             seasonNumber = details.seasonNumber,
@@ -106,12 +125,12 @@ class RestoreRepositoryImpl(
     private suspend fun updateAnime(anime: Anime): Anime {
         database.animesQueries.updateFromBackup(
             favoriteAt = anime.favoriteAt,
-            artist = anime.artist,
-            author = anime.author,
-            description = anime.description,
-            genre = anime.genre,
-            title = anime.title,
-            status = anime.status,
+            artist = anime.ogArtist,
+            author = anime.ogAuthor,
+            description = anime.ogDescription,
+            genre = anime.ogGenre,
+            title = anime.ogTitle,
+            status = anime.ogStatus,
             thumbnailUrl = anime.thumbnailUrl,
             lastUpdate = anime.lastUpdate,
             initialized = anime.initialized,
@@ -140,12 +159,12 @@ class RestoreRepositoryImpl(
             favoriteAt = anime.favoriteAt,
             source = anime.source,
             url = anime.url,
-            artist = anime.artist,
-            author = anime.author,
-            description = anime.description,
-            genre = anime.genre,
-            title = anime.title,
-            status = anime.status,
+            artist = anime.ogArtist,
+            author = anime.ogAuthor,
+            description = anime.ogDescription,
+            genre = anime.ogGenre,
+            title = anime.ogTitle,
+            status = anime.ogStatus,
             thumbnailUrl = anime.thumbnailUrl,
             lastUpdate = anime.lastUpdate,
             nextUpdate = 0L,

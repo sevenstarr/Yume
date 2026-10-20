@@ -1,0 +1,160 @@
+{
+  "session": 6,
+  "base": "4531d813e680488497b384a83d82f01ce478b065",
+  "scope": "Finalization authorized before session 7; previous source preserved, formatting only during finalization",
+  "tasks": [
+    {
+      "task": "testDebugUnitTest",
+      "revision": "4531d813e680488497b384a83d82f01ce478b065",
+      "startedUtc": "2026-10-20T15:08:07.1084955+00:00",
+      "seconds": 169.897,
+      "exitCode": 0,
+      "maxWorkers": 2,
+      "log": "build/session6/continuity-access/testDebugUnitTest.log"
+    },
+    {
+      "task": ":app:assembleDebug",
+      "revision": "4531d813e680488497b384a83d82f01ce478b065",
+      "startedUtc": "2026-10-20T15:10:57.0753601+00:00",
+      "seconds": 88.06,
+      "exitCode": 0,
+      "maxWorkers": 2,
+      "log": "build/session6/continuity-access/_app_assembleDebug.log"
+    },
+    {
+      "task": "verifySqlDelightMigration",
+      "revision": "4531d813e680488497b384a83d82f01ce478b065",
+      "startedUtc": "2026-10-20T15:12:25.1595310+00:00",
+      "seconds": 24.017,
+      "exitCode": 0,
+      "maxWorkers": 2,
+      "log": "build/session6/continuity-access/verifySqlDelightMigration.log"
+    },
+    {
+      "task": "spotlessCheck",
+      "revision": "4531d813e680488497b384a83d82f01ce478b065",
+      "startedUtc": "2026-10-20T15:12:49.1945639+00:00",
+      "seconds": 14.264,
+      "exitCode": 1,
+      "maxWorkers": 2,
+      "log": "build/session6/continuity-access/spotlessCheck.log"
+    },
+    {
+      "task": ":data:lintDebug",
+      "revision": "4531d813e680488497b384a83d82f01ce478b065",
+      "startedUtc": "2026-10-20T15:13:03.4790879+00:00",
+      "seconds": 94.021,
+      "exitCode": 0,
+      "maxWorkers": 2,
+      "log": "build/session6/continuity-access/_data_lintDebug.log"
+    },
+    {
+      "task": "spotlessCheck",
+      "revision": "4531d813e680488497b384a83d82f01ce478b065",
+      "startedUtc": "2026-10-20T15:16:49.2081305+00:00",
+      "seconds": 6.872,
+      "exitCode": 0,
+      "maxWorkers": 2,
+      "log": "build/session6/final-format/spotlessCheck.log"
+    }
+  ],
+  "suites": [
+    {
+      "name": "eu.kanade.tachiyomi.data.backup.MetadataBackupTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "eu.kanade.tachiyomi.data.metadata.anilist.AniListProviderTest",
+      "tests": 30,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "eu.kanade.tachiyomi.data.metadata.anilist.AniListTransportTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "mihon.core.migration.MigratorTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "tachiyomi.domain.anime.interactor.FetchIntervalTest",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "tachiyomi.domain.episode.service.EpisodeRecognitionTest",
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "tachiyomi.domain.episode.service.MissingEpisodesTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "tachiyomi.domain.library.model.LibraryFlagsTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "tachiyomi.domain.metadata.AnimeMatcherTest",
+      "tests": 59,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "tachiyomi.domain.metadata.MetadataCalibrationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "tachiyomi.domain.metadata.MetadataTitleNormalizerTest",
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "tachiyomi.domain.release.interactor.GetApplicationReleaseTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "tachiyomi.data.metadata.MetadataRepositoryTest",
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "totalTests": 187,
+  "sqliteRegression": "passed; 11 legacy tables compared, synthetic fixture only",
+  "dataLintIssues": 0,
+  "appLint": "not rerun; inconclusive since session 4",
+  "androidDeviceTests": "not executed",
+  "performance": "not measured"
+}

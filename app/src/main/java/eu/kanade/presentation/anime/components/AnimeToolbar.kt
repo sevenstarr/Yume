@@ -43,6 +43,7 @@ fun AnimeToolbar(
     onClickSkipIntro: (() -> Unit)?,
     // <-- AY
     onClickEditNotes: () -> Unit,
+    onClickMetadata: () -> Unit,
     // AM (CUSTOM_INFORMATION) -->
     onClickEditInfo: (() -> Unit)?,
     // <-- AM (CUSTOM_INFORMATION)
@@ -135,6 +136,12 @@ fun AnimeToolbar(
                         )
                     }
                     // <-- AY
+                    add(
+                        AppBar.OverflowAction(
+                            title = stringResource(MR.strings.metadata_settings),
+                            onClick = onClickMetadata,
+                        ),
+                    )
                     add(
                         AppBar.OverflowAction(
                             title = stringResource(MR.strings.action_webview_refresh),

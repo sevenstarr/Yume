@@ -22,3 +22,6 @@
 *.woff binary
 *.pyc binary
 *.swp binary
+
+# Yume SQLDelight schema fixtures must retain exact SQLite bytes.
+/data/src/main/sqldelight/*.db binary

@@ -1,4 +1,8 @@
+<!-- Modified for Yume on 2026-10-19: clarify the fork's enforcement channel. -->
 # Contributor Covenant Code of Conduct
+
+Yume adaptation: the original document is preserved in
+[docs/upstream/CODE_OF_CONDUCT.md](docs/upstream/CODE_OF_CONDUCT.md).
 
 ## Our Pledge
 
@@ -59,9 +63,10 @@ representative at an online or offline event.
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the community moderators responsible for enforcement at
-the [Animiru Discord server](https://discord.gg/yDuHDMwxhv).
-All complaints will be reviewed and investigated promptly and fairly.
+reported privately to the Yume maintainer through the channel to be
+confirmed before public contributions open. No Yume reporting channel or
+response time is established yet. The upstream community is not responsible
+for enforcing conduct in this independent fork.
 
 All community moderators are obligated to respect the privacy and security of the
 reporter of any incident.

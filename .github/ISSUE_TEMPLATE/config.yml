@@ -1,11 +1,2 @@
+# Modified for Yume on 2026-10-19: use fork issue forms without upstream support routing.
 blank_issues_enabled: false
-contact_links:
-  - name: ❌ Help with Extensions
-    url: https://aniyomi.org/docs/faq/browse/extensions
-    about: For extension-related questions/issues
-  - name: 🧑‍💻 Animiru help discord
-    url: https://discord.gg/yDuHDMwxhv
-    about: Common questions are answered here
-  - name: 🖥️ Aniyomi website
-    url: https://aniyomi.org/
-    about: Guides, troubleshooting, and answers to common questions

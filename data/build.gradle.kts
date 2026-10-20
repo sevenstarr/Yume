@@ -44,4 +44,10 @@ dependencies {
 
     implementation(libs.androidx.sqlite.bundled)
     implementation(libs.bundles.sqldelight)
+
+    // AM (Yume metadata persistence tests, 2026-10-20; assisted by Codex)
+    testImplementation(libs.bundles.test)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.sqldelight.sqliteDriver)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }

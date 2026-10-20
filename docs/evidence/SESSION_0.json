@@ -1,0 +1,236 @@
+{
+  "audited_on": "2026-10-19",
+  "timezone": "America/Sao_Paulo",
+  "upstream": {
+    "url": "https://github.com/animiruorg/Animiru",
+    "repository_id": 468685161,
+    "default_branch": "animiru-new-main",
+    "head": "0b9bb0a347aa7bcee226d8782d98d9abafc34b32",
+    "head_committed_at": "2026-10-16T13:43:10Z",
+    "clone_depth": 1,
+    "shallow": true
+  },
+  "branches": [
+    {
+      "name": "animiru-new-main",
+      "sha": "0b9bb0a347aa7bcee226d8782d98d9abafc34b32",
+      "protected": false
+    },
+    {
+      "name": "animiru-tv-main",
+      "sha": "f35298f742c2aba1edc5d930322745b4d647cf0a",
+      "protected": false
+    },
+    {
+      "name": "animiru-video-player",
+      "sha": "57f465fd8d2311b802a0b4c7cb0678fdbe2a8d50",
+      "protected": false
+    },
+    {
+      "name": "copy_file_loc",
+      "sha": "5d89c72a01a62a161206667fb964c40c5fe0acd2",
+      "protected": false
+    },
+    {
+      "name": "master",
+      "sha": "08787976b43da6e02207081e1ecccb7fcd89c307",
+      "protected": false
+    },
+    {
+      "name": "merge",
+      "sha": "80a8e0e79dad9a0d34d2df59c00adef12ee11f66",
+      "protected": false
+    },
+    {
+      "name": "retired-code",
+      "sha": "65bfcee4ba75f497084fe1f61f256bf86c7ead7f",
+      "protected": true
+    }
+  ],
+  "releases": [
+    {
+      "tag": "v0.20.0.1",
+      "published_at": "2026-09-14T11:06:30Z",
+      "url": "https://github.com/animiruorg/Animiru/releases/tag/v0.20.0.1",
+      "prerelease": false,
+      "assets": [
+        "Animiru-arm64-v8a-v0.20.0.1.apk",
+        "Animiru-armeabi-v7a-v0.20.0.1.apk",
+        "Animiru-v0.20.0.1-foss.apk",
+        "Animiru-v0.20.0.1.apk",
+        "Animiru-x86-v0.20.0.1.apk",
+        "Animiru-x86_64-v0.20.0.1.apk"
+      ]
+    },
+    {
+      "tag": "v0.20.0.0",
+      "published_at": "2026-09-14T09:09:36Z",
+      "url": "https://github.com/animiruorg/Animiru/releases/tag/v0.20.0.0",
+      "prerelease": false,
+      "assets": [
+        "Animiru-arm64-v8a-v0.20.0.0.apk",
+        "Animiru-armeabi-v7a-v0.20.0.0.apk",
+        "Animiru-v0.20.0.0-foss.apk",
+        "Animiru-v0.20.0.0.apk",
+        "Animiru-x86-v0.20.0.0.apk",
+        "Animiru-x86_64-v0.20.0.0.apk"
+      ]
+    },
+    {
+      "tag": "v0.19.8.1",
+      "published_at": "2026-08-09T20:52:47Z",
+      "url": "https://github.com/animiruorg/Animiru/releases/tag/v0.19.8.1",
+      "prerelease": false,
+      "assets": [
+        "Animiru-arm64-v8a-v0.19.8.1.apk",
+        "Animiru-armeabi-v7a-v0.19.8.1.apk",
+        "Animiru-v0.19.8.1.apk",
+        "Animiru-x86-v0.19.8.1.apk",
+        "Animiru-x86_64-v0.19.8.1.apk"
+      ]
+    },
+    {
+      "tag": "v0.19.8.0",
+      "published_at": "2026-08-03T21:00:43Z",
+      "url": "https://github.com/animiruorg/Animiru/releases/tag/v0.19.8.0",
+      "prerelease": false,
+      "assets": [
+        "Animiru-arm64-v8a-v0.19.8.0.apk",
+        "Animiru-armeabi-v7a-v0.19.8.0.apk",
+        "Animiru-v0.19.8.0.apk",
+        "Animiru-x86-v0.19.8.0.apk",
+        "Animiru-x86_64-v0.19.8.0.apk"
+      ]
+    },
+    {
+      "tag": "v0.19.7.9",
+      "published_at": "2026-07-08T19:31:03Z",
+      "url": "https://github.com/animiruorg/Animiru/releases/tag/v0.19.7.9",
+      "prerelease": false,
+      "assets": [
+        "Animiru-arm64-v8a-v0.19.7.9.apk",
+        "Animiru-armeabi-v7a-v0.19.7.9.apk",
+        "Animiru-v0.19.7.9.apk",
+        "Animiru-x86-v0.19.7.9.apk",
+        "Animiru-x86_64-v0.19.7.9.apk"
+      ]
+    }
+  ],
+  "recent_runs": [
+    {
+      "name": "Build & Test",
+      "event": "pull_request",
+      "branch": "downloader-fix",
+      "sha": "56a395f42ef9214380293eb012972dfa5f25febc",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/animiruorg/Animiru/actions/runs/38907846971",
+      "created_at": "2026-10-16T13:26:25Z"
+    },
+    {
+      "name": "Build & Test",
+      "event": "pull_request",
+      "branch": "custom-information",
+      "sha": "07ddb96c03a2a13273eeee66f5fcde3afcaf8cfe",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/animiruorg/Animiru/actions/runs/38635597837",
+      "created_at": "2026-10-14T20:51:36Z"
+    },
+    {
+      "name": "Build & Test",
+      "event": "pull_request",
+      "branch": "yeet-syncmiru",
+      "sha": "4f1c449cac9c0fdb0325f599ffb3f972a9134868",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/animiruorg/Animiru/actions/runs/38580860117",
+      "created_at": "2026-10-14T14:28:43Z"
+    },
+    {
+      "name": "Build & Test",
+      "event": "pull_request",
+      "branch": "merge",
+      "sha": "7406e0c119a13307bab6f84ea25002fb43fa68f9",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/animiruorg/Animiru/actions/runs/38572670718",
+      "created_at": "2026-10-14T13:32:46Z"
+    },
+    {
+      "name": "Build & Test",
+      "event": "pull_request",
+      "branch": "downloader-fix",
+      "sha": "9be99df18982d2504d65d5db7b94dc15ccee0b55",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/animiruorg/Animiru/actions/runs/38084341469",
+      "created_at": "2026-10-10T20:35:26Z"
+    }
+  ],
+  "exact_head_runs": 0,
+  "anilist_docs": {
+    "repository": "https://github.com/AniList/docs",
+    "sha": "03281c0a4bbf0c7f2097e0c935cddaed1096aa65",
+    "site_fetch": "403 via web; read official source repository at pinned SHA"
+  },
+  "api_probe": {
+    "method": "POST",
+    "url": "https://graphql.anilist.co",
+    "authenticated": false,
+    "query": "query { Media(id: 1, type: ANIME) { id title { romaji english native } synonyms format season seasonYear startDate { year } coverImage { extraLarge large medium } bannerImage } }",
+    "http_status": 200,
+    "headers": {
+      "Content-Type": "application/json",
+      "X-RateLimit-Limit": "30",
+      "X-RateLimit-Remaining": "29"
+    },
+    "sample": {
+      "id": 1,
+      "title": "Cowboy Bebop",
+      "format": "TV",
+      "season": "SPRING",
+      "seasonYear": 1998,
+      "startDate": {
+        "year": 1998
+      },
+      "coverImage": {
+        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1-GCsPm7waJ4kS.png",
+        "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1-GCsPm7waJ4kS.png",
+        "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx1-GCsPm7waJ4kS.png"
+      }
+    },
+    "note": "Selected response fields transcribed; full response was not saved."
+  },
+  "image_header_probe": {
+    "method": "HEAD",
+    "url": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1-GCsPm7waJ4kS.png",
+    "http_status": 200,
+    "content_type": "image/png",
+    "content_length": 489507,
+    "binary_downloaded": false
+  },
+  "local_environment": {
+    "git": "2.53.0.windows.3",
+    "java": "25.0.4",
+    "java_home_set": false,
+    "android_home_set": false,
+    "android_sdk_root_set": false,
+    "default_sdk_dir_exists": false,
+    "local_properties_exists": false,
+    "adb_on_path": false,
+    "sdkmanager_on_path": false,
+    "emulator_on_path": false,
+    "gh_on_path": false
+  },
+  "verification": {
+    "upstream_git_diff_exit_code": 0,
+    "upstream_cached_diff_exit_code": 0,
+    "upstream_porcelain": "",
+    "build_run": false,
+    "gradle_run": false,
+    "unit_tests_run": false,
+    "instrumentation_run": false,
+    "api_mutations_run": false
+  }
+}

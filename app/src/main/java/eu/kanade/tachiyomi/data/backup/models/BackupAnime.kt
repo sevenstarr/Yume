@@ -110,6 +110,14 @@ data class BackupAnime(
             seasonSourceOrder = this@BackupAnime.seasonSourceOrder,
             // <-- AY
             memo = this@BackupAnime.memo.toJsonObject(),
+            // AM (Yume restore preservation, 2026-10-20; assisted by Codex) -->
+            customTitle = customTitle,
+            customArtist = customArtist,
+            customAuthor = customAuthor,
+            customDescription = customDescription,
+            customGenre = customGenre,
+            customStatus = customStatus.toLong().takeIf { it != 0L },
+            // <-- AM (Yume restore preservation)
         )
     }
 }

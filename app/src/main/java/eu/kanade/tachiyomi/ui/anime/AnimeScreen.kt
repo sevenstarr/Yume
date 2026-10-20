@@ -48,6 +48,7 @@ import eu.kanade.tachiyomi.animesource.online.AnimeHttpSource
 import eu.kanade.tachiyomi.data.torrent.service.TorrentServerService
 import eu.kanade.tachiyomi.source.isLocalOrStub
 import eu.kanade.tachiyomi.source.isSourceForTorrents
+import eu.kanade.tachiyomi.ui.anime.metadata.MetadataReviewScreen
 import eu.kanade.tachiyomi.ui.anime.notes.AnimeNotesScreen
 import eu.kanade.tachiyomi.ui.anime.track.TrackInfoDialogHomeScreen
 import eu.kanade.tachiyomi.ui.browse.extension.details.SourcePreferencesScreen
@@ -229,6 +230,7 @@ class AnimeScreen(
             onMultiFillermarkClicked = viewModel::fillermarkEpisodes,
             // <-- AY
             onEditNotesClicked = { navigator.push(AnimeNotesScreen(anime = successState.anime)) },
+            onMetadataClicked = { navigator.push(MetadataReviewScreen(successState.anime.id)) },
             onMultiMarkAsSeenClicked = viewModel::markEpisodesSeen,
             onMarkPreviousAsSeenClicked = viewModel::markPreviousEpisodeSeen,
             onMultiDeleteClicked = viewModel::showDeleteEpisodeDialog,
@@ -379,6 +381,7 @@ class AnimeScreen(
                     create(animeId = animeId)
                 }
                 val anime by vm.state.collectAsStateWithLifecycle()
+                val coverSelection by vm.coverSelection.collectAsStateWithLifecycle()
                 if (anime != null) {
                     val getContent = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) {
                         if (it == null) return@rememberLauncherForActivityResult
@@ -386,6 +389,10 @@ class AnimeScreen(
                     }
                     AnimeImagesDialog(
                         anime = anime!!,
+                        previewOriginal = vm.previewOriginal,
+                        usingOriginal = coverSelection[animeId]?.originalOnly == true,
+                        onToggleOriginal = vm::toggleOriginalPreview,
+                        onUseOriginal = { vm.useOriginalCover(it) },
                         snackbarHostState = vm.snackbarHostState,
                         // AY -->
                         pagerState = vm.pagerState,

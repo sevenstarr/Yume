@@ -2,6 +2,7 @@ package eu.kanade.tachiyomi.data.backup.models
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.protobuf.ProtoNumber
+import tachiyomi.domain.metadata.model.MetadataBackup
 
 // AY -->
 @Serializable
@@ -47,4 +48,6 @@ data class Backup(
     @ProtoNumber(505) var backupExtensionStores: List<BackupExtensionStore> = emptyList(),
     @ProtoNumber(506) var backupCustomButton: List<BackupCustomButtons> = emptyList(),
     // <-- AY
+    // AM (Yume metadata backup v1, 2026-10-20; assisted by Codex)
+    @ProtoNumber(600) val metadataDecisions: MetadataBackup? = null,
 )

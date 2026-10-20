@@ -51,5 +51,5 @@ fun ImageRequest.Builder.useBackground(enable: Boolean) = apply {
 val Options.useBackground: Boolean
     get() = getExtra(useBackgroundKey)
 
-private val useBackgroundKey = Extras.Key(default = false)
+internal val useBackgroundKey = Extras.Key(default = false)
 // <-- AY

@@ -1,3 +1,4 @@
+# Yume modification 2026-10-19: exclude local secrets, data and artifacts.
 # Build files
 .gradle
 .kotlin
@@ -15,3 +16,46 @@ local.properties
 
 # macOS specific files
 .DS_Store
+
+# Windows and editor files
+Thumbs.db
+Desktop.ini
+.vscode/
+*.swp
+*.swo
+
+# Local credentials, signing material and environment
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+secrets.properties
+credentials.json
+service-account*.json
+google-services.json
+.secrets/
+.aws/
+
+# Generated binaries, logs and personal app data
+*.apk
+*.aab
+*.apks
+*.hprof
+*.log
+*.db
+*.db-shm
+*.db-wal
+*.backup
+*.tachibk
+*.proto.gz
+/backups/
+/downloads/
+/dist/
+
+# Future SQLDelight migration snapshots must remain trackable
+!**/src/**/sqldelight/**/databases/*.db

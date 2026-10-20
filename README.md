@@ -1,73 +1,52 @@
-<div align="center">
+<!-- Modified for Yume on 2026-10-20: fork identity, session status and attribution; assisted by Codex. -->
+# Yume
 
-<a href="https://aniyomi.org">
-    <img src="./.github/assets/logo.png" alt="Animiru logo" title="Animiru logo" width="80"/>
-</a>
+Derivação independente do [Animiru](https://github.com/animiruorg/Animiru), por sua vez derivado do [Aniyomi](https://github.com/aniyomiorg/aniyomi). O nome **Yume** foi confirmado pelo proprietário em 19/10/2026. O [fork público sevenstarr/Yume](https://github.com/sevenstarr/Yume) foi criado com autorização explícita; os commits da fundação e do baseline ainda estão locais, sem push ou PR.
 
-# Yume [App](#)
-Animiru is a fork of [Aniyomi](https://github.com/aniyomiorg/aniyomi)
+O objetivo é adicionar enriquecimento **opt-in**, inicialmente com metadados e capas do AniList, preservando biblioteca, extensões, episódios, downloads e progresso. As Sessões 4–8 implementam o [cliente público isolado](docs/metadata/anilist-client.md), o [matcher conservador](docs/metadata/anime-matcher.md), a [persistência/cache/backup](docs/metadata/persistence.md), a [resolução de capas](docs/metadata/cover-resolution.md) e as [configurações/escolha manual](docs/metadata/manual-review.md). O opt-in começa off; a seleção remota depende de ação explícita e confirmação. Automação textual e sincronização em lote continuam desativadas. O tracking AniList já existente é herdado do Animiru.
 
-### Full-featured video player
-Discover and watch anime, donghua, series, and more – easier than ever on your Android device.
+## Estado atual
 
-[![Discord server](https://img.shields.io/discord/1009125884491468861.svg?label=&labelColor=6A7EC2&color=7389D8&logo=discord&logoColor=FFFFFF)](https://discord.gg/yDuHDMwxhv)
-[![GitHub downloads](https://img.shields.io/github/downloads/animiruorg/Animiru/total?label=downloads&labelColor=27303D&color=0D1117&logo=github&logoColor=FFFFFF&style=flat)](https://github.com/animiruorg/Animiru/releases/latest)
+| Área | Situação |
+| --- | --- |
+| Base | `animiruorg/Animiru`, `animiru-new-main`, commit `0b9bb0a347aa7bcee226d8782d98d9abafc34b32` |
+| Sessão 0 | Reconhecimento concluído; [auditoria](docs/UPSTREAM_AUDIT.md) |
+| Sessão 1 | Fork público criado; fundação local; identidade Android e envio dos commits pendentes |
+| Sessão 2 | Build debug e 52 testes passaram; lint com 3 erros herdados; [baseline e limitações](docs/BUILD_BASELINE.md) |
+| Sessão 3 | Arquitetura aprovada e [especificação funcional](docs/metadata/functional-specification.md) documentada |
+| Sessão 4 | Cliente AniList com busca/ID, tratamento de falhas e testes sem rede; [escopo e limites](docs/metadata/anilist-client.md) |
+| Sessão 5 | Normalização, matching puro, proteção de pins e parâmetros propostos com fixtures separadas; [contrato e gate](docs/metadata/anime-matcher.md) |
+| Sessão 6 | Migração SQLDelight, decisões/cache separados, gravação condicional, backup opcional e preservação de personalizados; [contrato e limites](docs/metadata/persistence.md) |
+| Sessão 7 | Resolver/Coil, fallback/cache e reversão à original integrados; testes JVM; aceite visual e performance em Android pendentes; [contrato e limites](docs/metadata/cover-resolution.md) |
+| Sessão 8 | Configurações, busca por título/ID/link, seleção confirmada, refresh e remoção/reversão; [uso, testes e limites](docs/metadata/manual-review.md); validação UI/Android pendente |
+| APK local | Cinco APKs debug gerados; assinatura universal/x86_64 verificada; instalação ainda não validada; nenhuma release |
+| Funcionalidade nova | Configurações → Metadados externos; detalhes do anime → ⋮ → Metadados externos. Capas e correção manual integradas; sem worker de enriquecimento ativo; fontes/player/trackers preservados |
 
-[![CI](https://img.shields.io/github/actions/workflow/status/animiruorg/Animiru/build.yml?labelColor=27303D)](https://github.com/animiruorg/Animiru/actions/workflows/release.yml)
-[![License: Apache-2.0](https://img.shields.io/github/license/animiruorg/Animiru?labelColor=27303D&color=0877d2)](/LICENSE)
-[![Translation status](https://img.shields.io/weblate/progress/aniyomi?labelColor=27303D&color=946300)](https://hosted.weblate.org/engage/aniyomi/)
+Não há distribuição pública de APK Yume. Os APKs do upstream pertencem ao Animiru. O código ainda usa o pacote, ícone, nome Android, links e referências de atualização herdados; consulte o [plano de identidade](docs/IDENTITY.md) antes de instalar ou distribuir. Os APKs locais de baseline usam assinatura debug e o pacote herdado com sufixo `.dev`.
 
-## Download
+## Desenvolvimento
 
-[![Animiru](https://img.shields.io/github/release/animiruorg/Animiru.svg?maxAge=3600&label=Stable&labelColor=06599d&color=043b69)](https://github.com/animiruorg/Animiru/releases/latest)
+O upstream exige JDK **21**, Gradle **9.7.1** pelo wrapper e as versões Android declaradas em `gradle/mihon.versions.toml`. A [sessão 2](docs/BUILD_BASELINE.md) registra ferramentas, comandos realmente executados, tempos, resultados e bloqueios. O [script PowerShell](scripts/run-baseline.ps1) repete as verificações com logs e dois workers por padrão; as tarefas principais são:
 
-*Requires Android 8.0 or higher.*
+```powershell
+./gradlew.bat :app:assembleDebug
+./gradlew.bat spotlessCheck
+./gradlew.bat testDebugUnitTest
+./gradlew.bat verifySqlDelightMigration
+./gradlew.bat :app:lintDebug
+```
 
-## Features
+O checkout da referência upstream permite estabelecer a linha de base sem as mudanças documentais. Veja [origem e reprodução](docs/UPSTREAM.md), [contribuição](CONTRIBUTING.md), [segurança](SECURITY.md) e [progresso](docs/PROGRESS.md).
 
-<div align="left">
+## Autoria e licença
 
-Features include:
-* Watch videos
-* Local watching of downloaded content
-* A configurable player built on mpv-android with multiple options and settings
-* Tracker support: [MyAnimeList](https://myanimelist.net/), [AniList](https://anilist.co/), [Kitsu](https://kitsu.app/), [Shikimori](https://shikimori.io), [Simkl](https://simkl.com/), [Bangumi](https://bgm.tv/), and [Hikka](https://hikka.io/) support.
-* Categories to organize your library
-* Light and dark themes
-* Create backups locally to watch offline or to your desired cloud service
-* Plus much more...
+Biblioteca, extensões, reprodução, downloads, categorias, temas, backups e tracking são recursos herdados. O [changelog](CHANGELOG.md) distingue as mudanças Yume do histórico original. A documentação e o script de baseline foram produzidos com assistência do Codex; o histórico identifica os commits de automação, sem atribuí-los a uma pessoa como implementação própria. A revisão e as decisões de publicação cabem ao proprietário.
 
-</div>
+O texto [Apache-2.0](LICENSE) foi preservado. [NOTICE](NOTICE) registra a origem e as atribuições; o [levantamento de licença](docs/LICENSE_REVIEW.md) documenta obrigações e pendências de componentes e imagens. Yume não representa as equipes Animiru, Aniyomi, Mihon ou os provedores de metadados.
 
-## Contributing
+Avisos preservados do README upstream:
 
-[Code of conduct](./CODE_OF_CONDUCT.md) · [Contributing guide](./CONTRIBUTING.md)
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Before reporting a new issue, take a look at the [FAQ](https://aniyomi.org/docs/faq/general), the [changelog](https://github.com/animiruorg/Animiru/blob/animiru-new-main/CHANGELOG.md) and the already opened [issues](https://github.com/animiruorg/Animiru/issues); if you got any questions, join our [Discord server](https://discord.gg/yDuHDMwxhv).
-
-
-### Repositories
-
-[![Secozzi/mpv-android - GitHub](https://github-stats-extended.vercel.app/api/pin?username=Secozzi&repo=mpv-android&bg_color=161B22&text_color=c9d1d9&title_color=0877d2&icon_color=0877d2&border_radius=8&hide_border=true&description_lines_count=2)](https://github.com/Secozzi/mpv-android/)
-[![jmir1/ffmpeg-kit - GitHub](https://github-stats-extended.vercel.app/api/pin?username=jmir1&repo=ffmpeg-kit&bg_color=161B22&text_color=c9d1d9&title_color=0877d2&icon_color=0877d2&border_radius=8&hide_border=true&description_lines_count=2)](https://github.com/jmir1/ffmpeg-kit/)
-
-### Credits
-
-Thank you to all the people who have contributed!
-
-<a href="https://github.com/animiruorg/Animiru/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=animiruorg/Animiru" alt="Animiru app contributors" title="Animiru app contributors" width="800"/>
-</a>
-
-### Disclaimer
-
-The developer(s) of this application does not have any affiliation with the content providers available, and this application hosts zero content.
-
-### License
-
-<pre>
+```text
 Copyright © 2015 Javier Tomás
 Copyright © 2024 Mihon Open Source Project
 Copyright © 2024 Aniyomi Open Source Project
@@ -83,6 +62,6 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-</pre>
+```
 
-</div>
+Os [README](docs/upstream/README.md) e [créditos de contribuição](docs/upstream/CONTRIBUTING.md) originais foram preservados como snapshots históricos. Seus canais e downloads referem-se ao upstream. O aplicativo não hospeda conteúdo e não tem afiliação com os provedores de conteúdo disponíveis.

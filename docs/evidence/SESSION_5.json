@@ -1,0 +1,278 @@
+{
+  "session": 5,
+  "date": "2026-10-20",
+  "baseRevision": "74a670cc0eb27563a80f54fe0378ab95dc6e5ce9",
+  "branch": "feat/session-5-anime-matcher",
+  "scope": "Pure normalization/matching/calibration and manual pin proposals; no persistence/UI/worker",
+  "assistedBy": "Codex",
+  "versions": {
+    "normalization": "title-nfc-v1",
+    "matcher": "matcher-v1",
+    "fingerprint": "identity-v1",
+    "configuration": "s5-calibration-v1"
+  },
+  "productionAutomationApproved": false,
+  "measuredWithTestApproval": true,
+  "parameters": {
+    "titleWeight": 50,
+    "yearWeight": 15,
+    "formatWeight": 10,
+    "highThreshold": 70,
+    "reviewThreshold": 30,
+    "minimumMargin": 10,
+    "sufficiency": "exact title + trusted equal year/format + known scope + explicit edition agreement + non-short/non-acronym"
+  },
+  "gridConfigurations": 186,
+  "safeCalibrationConfigurations": 124,
+  "matching": [
+    {
+      "split": "calibration",
+      "total": 29,
+      "positive": 10,
+      "automatic": 10,
+      "correct": 10,
+      "falsePositive": 0,
+      "abstain": 19
+    },
+    {
+      "split": "validation",
+      "total": 36,
+      "positive": 10,
+      "automatic": 10,
+      "correct": 10,
+      "falsePositive": 0,
+      "abstain": 26
+    }
+  ],
+  "fixtures": [
+    {
+      "split": "calibration",
+      "path": "domain/src/test/resources/metadata/calibration.tsv",
+      "sha256Utf8LF": "30b6c80f156d4d2a4dbd0da12fa2d893bfbba0162016a4006707a7735b054be7"
+    },
+    {
+      "split": "validation",
+      "path": "domain/src/test/resources/metadata/validation.tsv",
+      "sha256Utf8LF": "a5f7f09c51cfd77c6338ecdf0bd42aaf1e0db1ac66533a689a2821459cb924e6"
+    }
+  ],
+  "tests": {
+    "total": 164.0,
+    "new": 77,
+    "previous": 87,
+    "failures": 0.0,
+    "errors": 0.0,
+    "skipped": 0.0,
+    "suites": [
+      {
+        "name": "eu.kanade.tachiyomi.data.metadata.anilist.AniListProviderTest",
+        "tests": 30,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timestamp": "2026-10-20T10:34:59.742Z"
+      },
+      {
+        "name": "eu.kanade.tachiyomi.data.metadata.anilist.AniListTransportTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timestamp": "2026-10-20T10:35:00.315Z"
+      },
+      {
+        "name": "mihon.core.migration.MigratorTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timestamp": "2026-10-20T10:35:03.166Z"
+      },
+      {
+        "name": "tachiyomi.domain.anime.interactor.FetchIntervalTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timestamp": "2026-10-20T10:30:45.668Z"
+      },
+      {
+        "name": "tachiyomi.domain.episode.service.EpisodeRecognitionTest",
+        "tests": 22,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timestamp": "2026-10-20T10:30:48.676Z"
+      },
+      {
+        "name": "tachiyomi.domain.episode.service.MissingEpisodesTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timestamp": "2026-10-20T10:30:48.793Z"
+      },
+      {
+        "name": "tachiyomi.domain.library.model.LibraryFlagsTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timestamp": "2026-10-20T10:30:48.822Z"
+      },
+      {
+        "name": "tachiyomi.domain.metadata.AnimeMatcherTest",
+        "tests": 59,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timestamp": "2026-10-20T10:30:48.864Z"
+      },
+      {
+        "name": "tachiyomi.domain.metadata.MetadataCalibrationTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timestamp": "2026-10-20T10:30:49.749Z"
+      },
+      {
+        "name": "tachiyomi.domain.metadata.MetadataTitleNormalizerTest",
+        "tests": 17,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timestamp": "2026-10-20T10:30:53.703Z"
+      },
+      {
+        "name": "tachiyomi.domain.release.interactor.GetApplicationReleaseTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "timestamp": "2026-10-20T10:30:53.768Z"
+      }
+    ]
+  },
+  "attempts": [
+    {
+      "label": "first",
+      "results": [
+        {
+          "task": ":domain:spotlessKotlinApply",
+          "revision": "74a670cc0eb27563a80f54fe0378ab95dc6e5ce9",
+          "startedUtc": "2026-10-20T07:26:26.2941203-03:00",
+          "seconds": 28.082,
+          "exitCode": 1,
+          "maxWorkers": 2,
+          "log": "build/session5/first/_domain_spotlessKotlinApply.log"
+        },
+        {
+          "task": ":domain:testDebugUnitTest",
+          "revision": "74a670cc0eb27563a80f54fe0378ab95dc6e5ce9",
+          "startedUtc": "2026-10-20T07:26:54.4502917-03:00",
+          "seconds": 55.068,
+          "exitCode": 0,
+          "maxWorkers": 2,
+          "log": "build/session5/first/_domain_testDebugUnitTest.log"
+        }
+      ]
+    },
+    {
+      "label": "format",
+      "results": [
+        {
+          "task": ":domain:spotlessKotlinApply",
+          "revision": "74a670cc0eb27563a80f54fe0378ab95dc6e5ce9",
+          "startedUtc": "2026-10-20T07:28:21.2153943-03:00",
+          "seconds": 12.716,
+          "exitCode": 0,
+          "maxWorkers": 2,
+          "log": "build/session5/format/_domain_spotlessKotlinApply.log"
+        }
+      ]
+    },
+    {
+      "label": "final",
+      "results": [
+        {
+          "task": ":domain:spotlessKotlinApply",
+          "revision": "74a670cc0eb27563a80f54fe0378ab95dc6e5ce9",
+          "startedUtc": "2026-10-20T07:29:45.9269786-03:00",
+          "seconds": 11.061,
+          "exitCode": 0,
+          "maxWorkers": 2,
+          "log": "build/session5/final/_domain_spotlessKotlinApply.log"
+        },
+        {
+          "task": "testDebugUnitTest",
+          "revision": "74a670cc0eb27563a80f54fe0378ab95dc6e5ce9",
+          "startedUtc": "2026-10-20T07:29:57.0323369-03:00",
+          "seconds": 89.896,
+          "exitCode": 1,
+          "maxWorkers": 2,
+          "log": "build/session5/final/testDebugUnitTest.log"
+        },
+        {
+          "task": ":app:assembleDebug",
+          "revision": "74a670cc0eb27563a80f54fe0378ab95dc6e5ce9",
+          "startedUtc": "2026-10-20T07:31:26.9533183-03:00",
+          "seconds": 83.941,
+          "exitCode": 1,
+          "maxWorkers": 2,
+          "log": "build/session5/final/_app_assembleDebug.log"
+        },
+        {
+          "task": "spotlessCheck",
+          "revision": "74a670cc0eb27563a80f54fe0378ab95dc6e5ce9",
+          "startedUtc": "2026-10-20T07:32:50.9178702-03:00",
+          "seconds": 19.135,
+          "exitCode": 0,
+          "maxWorkers": 2,
+          "log": "build/session5/final/spotlessCheck.log"
+        }
+      ]
+    },
+    {
+      "label": "verified",
+      "results": [
+        {
+          "task": "testDebugUnitTest",
+          "revision": "74a670cc0eb27563a80f54fe0378ab95dc6e5ce9",
+          "startedUtc": "2026-10-20T07:33:39.2958604-03:00",
+          "seconds": 84.732,
+          "exitCode": 0,
+          "maxWorkers": 2,
+          "log": "build/session5/verified/testDebugUnitTest.log"
+        },
+        {
+          "task": ":app:assembleDebug",
+          "revision": "74a670cc0eb27563a80f54fe0378ab95dc6e5ce9",
+          "startedUtc": "2026-10-20T07:35:04.1471318-03:00",
+          "seconds": 74.224,
+          "exitCode": 0,
+          "maxWorkers": 2,
+          "log": "build/session5/verified/_app_assembleDebug.log"
+        }
+      ]
+    }
+  ],
+  "universalApk": {
+    "path": "app/build/outputs/apk/debug/app-universal-debug.apk",
+    "bytes": 317029635,
+    "sha256": "6f88daf24bec4706e2e7393a68e45b0ba4bb776a34b5e68020a456a3911e549a",
+    "installed": false,
+    "published": false,
+    "externalSignatureVerification": false
+  },
+  "newKotlinFiles": 8,
+  "bidiControls": 0,
+  "limitations": [
+    "Synthetic fixtures authored during implementation, no independent human or real catalog evaluation",
+    "Production textual automation remains disabled pending gate review",
+    "No line or branch coverage measurement",
+    "Full lint not rerun; session 4 remains inconclusive",
+    "No Android installation/manual regression, SQL migration/restore, durable pin or concurrency test",
+    "Domain tasks already up to date reused by final aggregate test run; XMLs generated in this session"
+  ]
+}

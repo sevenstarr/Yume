@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-20",
+  "base": "48b23e78dd1b07526603b15b31bed8fd43caaf62",
+  "branch": "feat/session-4-anilist-client",
+  "authorship": "New Yume code assisted by Codex",
+  "jdk": "21.0.11",
+  "tasks": [
+    {
+      "task": ":app:spotlessKotlinApply",
+      "seconds": 3.565,
+      "exitCode": 0,
+      "startedUtc": "2026-10-20T07:10:03.7787035-03:00"
+    },
+    {
+      "task": "spotlessCheck",
+      "seconds": 5.369,
+      "exitCode": 0,
+      "startedUtc": "2026-10-20T07:10:07.398169-03:00"
+    },
+    {
+      "task": "testDebugUnitTest",
+      "seconds": 109.434,
+      "exitCode": 0,
+      "startedUtc": "2026-10-20T07:10:12.7841748-03:00"
+    },
+    {
+      "task": ":app:assembleDebug",
+      "seconds": 71.303,
+      "exitCode": 0,
+      "startedUtc": "2026-10-20T07:12:02.2331989-03:00"
+    }
+  ],
+  "finalSpotless": {
+    "seconds": 8.761,
+    "exitCode": 0
+  },
+  "tests": {
+    "suites": 8,
+    "inherited": 52,
+    "lineCoverageMeasured": false,
+    "newProvider": 30,
+    "skipped": 0,
+    "newTransport": 5,
+    "total": 87,
+    "failures": 0,
+    "errors": 0
+  },
+  "liveProbe": {
+    "imageDownloaded": false,
+    "http": 200,
+    "rateLimit": 30,
+    "authenticated": false,
+    "endpoint": "https://graphql.anilist.co",
+    "dateUtc": "2026-10-20T09:40:20Z",
+    "remaining": 29
+  },
+  "lint": {
+    "exitCode": 1,
+    "observedStack": "KotlinUFile.getAllCommentsInFile / BidirectionalTextDetector / PSI traversal",
+    "detectorsDisabled": [],
+    "stoppedByAgent": true,
+    "seconds": 1215.865,
+    "status": "inconclusive",
+    "newReportCompleted": false
+  },
+  "apk": {
+    "certificateSha256": "c776693edea7ab013b822a7f10b52206f3a829c3c5b83065535e973348cc9267",
+    "file": "app/build/outputs/apk/debug/app-universal-debug.apk",
+    "published": false,
+    "certificateDiffersFromBaseline": true,
+    "sha256": "3258dec7bc8145465ba1aec52a0f673b120dfab31c430e51ba52e202843ddba8",
+    "scheme": "v2",
+    "installed": false,
+    "signatureVerified": true,
+    "bytes": 318115502
+  },
+  "limitations": [
+    "Process-local budgets; durable state and aggregate tracker budget pending sessions 6/9",
+    "Full lint did not complete",
+    "No Android install/manual regression, migration/restore, Coil or performance verification"
+  ]
+}

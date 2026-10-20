@@ -35,6 +35,7 @@ import tachiyomi.domain.anime.interactor.GetFavorites
 import tachiyomi.domain.anime.model.Anime
 import tachiyomi.domain.anime.repository.AnimeRepository
 import tachiyomi.domain.backup.service.BackupPreferences
+import tachiyomi.domain.metadata.service.MetadataRepository
 import tachiyomi.i18n.MR
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -50,6 +51,8 @@ class BackupCreator(
     private val getFavorites: GetFavorites,
     private val backupPreferences: BackupPreferences,
     private val animeRepository: AnimeRepository,
+    // AM (Yume metadata backup, 2026-10-20; assisted by Codex)
+    private val metadataRepository: MetadataRepository,
     private val categoriesBackupCreator: CategoriesBackupCreator,
     private val animeBackupCreator: AnimeBackupCreator,
     private val preferenceBackupCreator: PreferenceBackupCreator,
@@ -91,7 +94,8 @@ class BackupCreator(
             }
 
             val nonFavoriteAnime = if (options.seenEntries) animeRepository.getSeenAnimeNotInLibrary() else emptyList()
-            val backupAnime = backupAnimes(getFavorites.await() + nonFavoriteAnime, options)
+            val selectedAnime = getFavorites.await() + nonFavoriteAnime
+            val backupAnime = backupAnimes(selectedAnime, options)
 
             val backup = Backup(
                 backupPreferences = backupAppPreferences(options),
@@ -100,6 +104,11 @@ class BackupCreator(
                 // AY -->
                 isLegacy = false,
                 backupAnime = backupAnime,
+                metadataDecisions = if (options.metadataDecisions && options.libraryEntries) {
+                    metadataRepository.exportDecisions(selectedAnime.map { it.id })
+                } else {
+                    null
+                },
                 backupCategories = backupCategories(options),
                 backupSources = backupSources(backupAnime),
                 backupExtensions = backupExtensions(options),

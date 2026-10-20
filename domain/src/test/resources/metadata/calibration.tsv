@@ -1,0 +1,30 @@
+# case	expected ID or abstain	local title	year	format	scope	season	completeness	block	id~title|aliases~year~format~status (semicolon separated)
+cal-romaji	101	Hikari no Tabi	2021	TV	WORK	-	complete	-	101~Hikari no Tabi~2021~TV~ok;102~Hikari no Tabi~1999~TV~ok
+cal-native	103	星の旅人	2020	TV	WORK	-	complete	-	103~Hoshi no Tabibito|星の旅人~2020~TV~ok
+cal-english	104	The Glass Garden	2019	MOVIE	WORK	-	complete	-	104~Garasu no Niwa|The Glass Garden~2019~MOVIE~ok
+cal-portuguese	105	Coração de Cristal	2022	TV	WORK	-	complete	-	105~Kurisutaru|Coração de Cristal~2022~TV~ok
+cal-distribution	106	Moon Riders (Dublado) HD	2023	TV	WORK	-	complete	-	106~Moon Riders~2023~TV~ok
+cal-season	107	Sky Road 2nd Season	2024	TV	CHILD_SEASON	2	complete	-	107~Sky Road 2nd Season~2024~TV~ok;108~Sky Road Season 1~2024~TV~ok
+cal-part	109	Ocean Light Part 2	2025	TV	WORK	-	complete	-	109~Ocean Light Part 2~2025~TV~ok;110~Ocean Light Part 1~2025~TV~ok
+cal-ova	111	Paper Wings OVA	2020	OVA	WORK	-	complete	-	111~Paper Wings OVA~2020~OVA~ok;112~Paper Wings~2020~TV~ok
+cal-numbers	113	Station 86	2022	TV	WORK	-	complete	-	113~Station 86~2022~TV~ok;114~Station 87~2022~TV~ok
+cal-margin	115	A Long Journey Home	2020	TV	WORK	-	complete	-	115~A Long Journey Home~2020~TV~ok;116~A Long Journey Elsewhere~2020~TV~ok
+cal-no-year	-	Golden Harbor	-	TV	WORK	-	complete	-	117~Golden Harbor~2020~TV~ok
+cal-no-format	-	Silent River	2020	-	WORK	-	complete	-	118~Silent River~2020~TV~ok
+cal-remote-null	-	Winter Bloom	2020	TV	WORK	-	complete	-	119~Winter Bloom~-~-~ok
+cal-tie	-	Blue Horizon	2020	TV	WORK	-	complete	-	120~Blue Horizon~2020~TV~ok;121~Blue Horizon~2020~TV~ok
+cal-short	-	AI	2020	TV	WORK	-	complete	-	122~AI~2020~TV~ok
+cal-collection	-	Amber Chronicle	2020	TV	COLLECTION	-	complete	-	123~Amber Chronicle~2020~TV~ok
+cal-child-parent	-	Star Journal	2020	TV	CHILD_SEASON	2	complete	-	124~Star Journal~2020~TV~ok
+cal-season-different	-	Dream Road Season 2	2020	TV	CHILD_SEASON	2	complete	-	125~Dream Road Season 1|Dream Road Season 2~2020~TV~ok
+cal-movie-tv	-	Forest Story	2020	MOVIE	WORK	-	complete	-	126~Forest Story~2020~TV~ok
+cal-remake	-	Metal Garden	2020	TV	WORK	-	complete	-	127~Metal Garden~1980~TV~ok
+cal-recap	-	Snow Garden	2020	TV	WORK	-	complete	-	128~Snow Garden Recap|Snow Garden~2020~TV~ok
+cal-truncated	-	Cloud Road	2020	TV	WORK	-	incomplete	-	129~Cloud Road~2020~TV~ok
+cal-rejected	-	Endless Shore	2020	TV	WORK	-	complete	-	130~Endless Shore~2020~TV~rejected
+cal-accent	-	Luz do Ceu	2020	TV	WORK	-	complete	-	131~Luz do Céu~2020~TV~ok
+cal-width	-	Ｍｏｏｎ　Ｄａｎｃｅ	2020	TV	WORK	-	complete	-	132~Moon Dance~2020~TV~ok
+cal-unknown-scope	-	Red Valley	2020	TV	UNKNOWN	-	complete	-	133~Red Valley~2020~TV~ok
+cal-no-result	-	Silver Meadow	2020	TV	WORK	-	complete	-	-
+cal-block	-	Rainbow Tales	2020	TV	WORK	-	complete	blocked	134~Rainbow Tales~2020~TV~ok
+cal-close	-	Bright Voyage	2020	TV	WORK	-	complete	-	135~Bright Voyage~2020~TV~ok;136~Ｂｒｉｇｈｔ　Ｖｏｙａｇｅ~2020~TV~ok

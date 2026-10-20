@@ -1,0 +1,51 @@
+-- AM (Yume metadata persistence, 2026-10-20; new code assisted by Codex)
+CREATE TABLE metadata_control (
+    singleton INTEGER NOT NULL PRIMARY KEY CHECK (singleton = 1),
+    enabled INTEGER NOT NULL DEFAULT 0 CHECK (enabled IN (0, 1)),
+    epoch INTEGER NOT NULL DEFAULT 0,
+    host_not_before INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE anime_metadata (
+    anime_id INTEGER NOT NULL PRIMARY KEY REFERENCES animes(_id) ON DELETE CASCADE,
+    payload TEXT NOT NULL CHECK (length(payload) <= 65536),
+    revision INTEGER NOT NULL DEFAULT 0,
+    generation INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE metadata_work (
+    anime_id INTEGER NOT NULL PRIMARY KEY REFERENCES anime_metadata(anime_id) ON DELETE CASCADE,
+    epoch INTEGER NOT NULL,
+    lease_until INTEGER NOT NULL,
+    lease_id TEXT NOT NULL,
+    emissions INTEGER NOT NULL DEFAULT 0 CHECK (emissions BETWEEN 0 AND 3)
+);
+
+CREATE TABLE metadata_media_cache (
+    provider TEXT NOT NULL,
+    remote_id TEXT NOT NULL,
+    payload TEXT NOT NULL CHECK (length(payload) <= 65536),
+    fetched_at INTEGER NOT NULL,
+    PRIMARY KEY (provider, remote_id)
+);
+CREATE INDEX metadata_media_expiry ON metadata_media_cache(fetched_at);
+
+CREATE TABLE metadata_lookup_cache (
+    cache_key TEXT NOT NULL PRIMARY KEY,
+    fingerprint TEXT NOT NULL,
+    payload TEXT NOT NULL CHECK (length(payload) <= 65536),
+    fetched_at INTEGER NOT NULL,
+    accessed_at INTEGER NOT NULL
+);
+CREATE INDEX metadata_lookup_expiry ON metadata_lookup_cache(fetched_at);
+CREATE INDEX metadata_lookup_lru ON metadata_lookup_cache(accessed_at);
+
+CREATE TABLE metadata_restore_pending (
+    payload TEXT NOT NULL PRIMARY KEY CHECK (length(payload) <= 65536),
+    outcome TEXT NOT NULL
+);
+
+CREATE TABLE metadata_image_index (
+    cache_key TEXT NOT NULL PRIMARY KEY,
+    stored_at INTEGER NOT NULL
+);

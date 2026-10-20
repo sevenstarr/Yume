@@ -4,6 +4,9 @@ import android.content.Context
 import android.net.Uri
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import coil3.asDrawable
@@ -20,6 +23,8 @@ import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
 import eu.kanade.domain.anime.interactor.UpdateAnime
 import eu.kanade.tachiyomi.data.cache.BackgroundCache
 import eu.kanade.tachiyomi.data.cache.CoverCache
+import eu.kanade.tachiyomi.data.coil.originalCover
+import eu.kanade.tachiyomi.data.coil.useBackground
 import eu.kanade.tachiyomi.data.saver.Image
 import eu.kanade.tachiyomi.data.saver.ImageSaver
 import eu.kanade.tachiyomi.data.saver.Location
@@ -27,6 +32,7 @@ import eu.kanade.tachiyomi.util.editBackground
 import eu.kanade.tachiyomi.util.editCover
 import eu.kanade.tachiyomi.util.system.getBitmapOrNull
 import eu.kanade.tachiyomi.util.system.toShareIntent
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -42,6 +48,8 @@ import tachiyomi.core.common.util.lang.withUIContext
 import tachiyomi.core.common.util.system.logcat
 import tachiyomi.domain.anime.interactor.GetAnime
 import tachiyomi.domain.anime.model.Anime
+import tachiyomi.domain.metadata.service.CoverResolver
+import tachiyomi.domain.metadata.service.MetadataRepository
 import tachiyomi.i18n.MR
 import tachiyomi.i18n.aniyomi.AYMR
 import tachiyomi.source.local.image.LocalBackgroundManager
@@ -60,6 +68,8 @@ class AnimeImageViewModel(
     // <-- AY
     private val updateAnime: UpdateAnime,
     private val coverManager: LocalCoverManager,
+    private val metadataRepository: MetadataRepository,
+    coverResolver: CoverResolver,
 
     val snackbarHostState: SnackbarHostState = SnackbarHostState(),
     // AY -->
@@ -83,14 +93,31 @@ class AnimeImageViewModel(
         .flowOn(Dispatchers.IO)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5.seconds), null)
 
+    // AM (Yume S7): preview is local; using original persists a reversible per-anime policy.
+    var previewOriginal by mutableStateOf(false)
+        private set
+    val coverSelection = coverResolver.observe(listOf(animeId))
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5.seconds), emptyMap())
+
+    fun toggleOriginalPreview() {
+        previewOriginal = !previewOriginal
+    }
+
+    fun useOriginalCover(originalOnly: Boolean) = viewModelScope.launchIO {
+        val record = metadataRepository.get(animeId)
+        metadataRepository.setOriginalOnly(animeId, record?.revision, originalOnly)
+    }
+
     fun saveImage(context: Context) {
+        val cover = isCover
+        val original = previewOriginal
         // AY -->
-        val savedStringResource = if (isCover) {
+        val savedStringResource = if (cover) {
             MR.strings.cover_saved
         } else {
             AYMR.strings.background_saved
         }
-        val errorSavingStringResource = if (isCover) {
+        val errorSavingStringResource = if (cover) {
             MR.strings.error_saving_cover
         } else {
             AYMR.strings.error_saving_background
@@ -98,12 +125,13 @@ class AnimeImageViewModel(
         // <-- AY
         viewModelScope.launch {
             try {
-                saveImageInternal(context, temp = false)
+                saveImageInternal(context, temp = false, cover = cover, original = original)
                 snackbarHostState.showSnackbar(
                     context.stringResource(savedStringResource),
                     withDismissAction = true,
                 )
             } catch (e: Throwable) {
+                if (e is CancellationException) throw e
                 logcat(LogPriority.ERROR, e)
                 snackbarHostState.showSnackbar(
                     context.stringResource(errorSavingStringResource),
@@ -114,8 +142,10 @@ class AnimeImageViewModel(
     }
 
     fun shareImage(context: Context) {
+        val cover = isCover
+        val original = previewOriginal
         // AY -->
-        val errorSharingStringResource = if (isCover) {
+        val errorSharingStringResource = if (cover) {
             MR.strings.error_sharing_cover
         } else {
             AYMR.strings.error_sharing_background
@@ -123,11 +153,12 @@ class AnimeImageViewModel(
         // <-- AY
         viewModelScope.launch {
             try {
-                val uri = saveImageInternal(context, temp = true) ?: return@launch
+                val uri = saveImageInternal(context, temp = true, cover = cover, original = original) ?: return@launch
                 withUIContext {
                     context.startActivity(uri.toShareIntent(context))
                 }
             } catch (e: Throwable) {
+                if (e is CancellationException) throw e
                 logcat(LogPriority.ERROR, e)
                 snackbarHostState.showSnackbar(
                     context.stringResource(errorSharingStringResource),
@@ -143,10 +174,12 @@ class AnimeImageViewModel(
      * @param context The context for building and executing the ImageRequest
      * @return the uri to saved file
      */
-    private suspend fun saveImageInternal(context: Context, temp: Boolean): Uri? {
+    private suspend fun saveImageInternal(context: Context, temp: Boolean, cover: Boolean, original: Boolean): Uri? {
         val anime = state.value ?: return null
         val req = ImageRequest.Builder(context)
             .data(anime)
+            .useBackground(!cover)
+            .originalCover(cover && original)
             .size(Size.ORIGINAL)
             .build()
 
@@ -159,7 +192,7 @@ class AnimeImageViewModel(
                 Image.Cover(
                     bitmap = bitmap,
                     // AY -->
-                    name = if (isCover) "${anime.title}-cover" else "${anime.title}-background",
+                    name = if (cover) "${anime.title}-cover" else "${anime.title}-background",
                     // <-- AY
                     location = if (temp) Location.Cache else Location.Pictures.create(),
                 ),

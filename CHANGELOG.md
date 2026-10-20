@@ -1,4 +1,60 @@
-# Changelog
+<!-- Modified for Yume on 2026-10-20: separate fork changelog, assisted by Codex. -->
+# Yume changelog
+
+## Unreleased — configurações e escolha manual, 2026-10-20
+
+- Adicionados opt-in global inicialmente off, preferência móvel para futuro lote e limpeza separada de cache/dados enriquecidos com explicação e confirmação.
+- Painel por anime com busca editável/páginas/ID/link oficial, candidatos com títulos/ano/formato/miniatura, leitura de ID e confirmação reconhecida antes de fixar o vínculo.
+- Refresh mantém o ID escolhido; correção, rejeição, modo original e remoção usam revisão/epoch/lease sem modificar dados da fonte. Pendências de backup são exibidas para revisão conservadora.
+- Corrigido namespace incompatível do cliente AniList (`ANILIST` → `anilist`). Textos em inglês e português brasileiro. [Contrato e limites](docs/metadata/manual-review.md); UI/TalkBack em Android pendentes, sem automação/lote ou publicação. Trabalho assistido pelo Codex.
+
+## Unreleased — resolução de capas, 2026-10-20
+
+- Integrados resolver em lote e interceptor Coil para `Anime`/`AnimeCover`, com prioridade manual/externa/original e fallback após erros de fetch/decode.
+- Adicionados transporte CDN neutro, variantes deduplicadas, cache-only, chaves isoladas, cancelamento por revisão e writes paralelos com barreira de limpeza.
+- Tiles/widgets observam mudanças; visualizador permite ver/usar original reversivelmente. Salvar/compartilhar respeitam capa versus background e o modo escolhido.
+- Opt-in e automação textual permanecem off. Testes JVM/caches sintéticos não substituem validação visual ou benchmark em Android. [Contrato e limites da sessão 7](docs/metadata/cover-resolution.md). Código/documentação assistidos pelo Codex; sem publicação.
+
+## Unreleased — persistência e cache, 2026-10-20
+
+- Adicionados schema 149/migração 148 aditiva, repositório de decisões/pins/rejeições, leases/revisões/epoch, TTLs e cache negativo/LRU.
+- Limpeza seletiva e índice de chaves para o Coil existente, sem duplicar arquivos; requests visuais externos continuam na sessão 7.
+- Backup opcional v1 de decisões com remapeamento conservador e pendências de conflito; correção localizada da restauração de campos `custom*`, preservando originais e preferências do destino.
+- Opt-in permanece off e automação textual desativada; sem coordenador/rede nova ou publicação. [Contrato e limites da sessão 6](docs/metadata/persistence.md). Código/documentação assistidos pelo Codex.
+
+## Unreleased — correspondência de animes, 2026-10-20
+
+- Adicionados normalização Unicode/sufixos conservadores, identidade/fingerprint versionados e matcher puro com ranking, evidências, vetos, completude e rejeições.
+- Protegidos os IDs de vínculos aceitos/pins; correção gera proposta e seleção manual exige identidade validada pelo provider. Persistência atômica permanece na Sessão 6.
+- Adicionadas fixtures sintéticas separadas de calibração/validação, grade reproduzível de parâmetros e relatório de cobertura/abstenção. Automação textual permanece desativada e sem consumidor UI/worker.
+- Contrato, evidências e limitações na [Sessão 5](docs/metadata/anime-matcher.md). Código/documentação novos assistidos pelo Codex; sem publicação.
+
+## Unreleased — cliente de metadados, 2026-10-20
+
+- Adicionados contratos de domínio e cliente público AniList com busca paginada/ID, títulos/atributos/capas, nulos e respostas parciais explícitas.
+- Transporte neutro com gate opt-in, URLs restritas, timeouts, cancelamento, retries finitos, deduplicação breve, quota e circuito em memória; testes sintéticos sem rede.
+- Cliente registrado na DI, ainda sem consumidor UI/worker. Matching, persistência de associações/budget, integração de capas e sincronização permanecem nas sessões seguintes. Código novo assistido pelo Codex.
+- Escopo, evidências e limitações em [Sessão 4](docs/metadata/anilist-client.md); sem publicação.
+
+## Unreleased — baseline, 2026-10-19
+
+- Compilado o código funcional herdado em debug; gerados cinco APKs locais e verificadas as assinaturas debug universal/x86_64.
+- Executados os 52 testes unitários existentes, sem falhas, erros ou ignorados; verificações complementares e limitações no [baseline](docs/BUILD_BASELINE.md).
+- Adicionados script PowerShell de reprodução, checklist manual de regressão e evidências da sessão 2 com assistência do Codex.
+- Instalação e regressão manual em Android ainda sem confirmação. Nenhuma implementação de metadados, alteração funcional ou release.
+
+## Unreleased — foundation, 2026-10-19
+
+- Confirmado o nome público Yume; pacote e recursos Android ainda herdados.
+- Adicionados documentação do fork, atribuições, política de contribuição e segurança, plano de identidade, templates e regras de exclusão de arquivos locais.
+- Preservados os créditos e o histórico upstream. Nenhuma mudança funcional, build ou release Yume nesta sessão.
+- Documentação preparada com assistência do Codex; revisão e publicação pendentes do proprietário.
+
+---
+
+# Animiru changelog — histórico herdado
+
+As entradas abaixo foram preservadas do upstream e não descrevem contribuições novas do Yume.
 
 All notable changes to this project will be documented in this file.
 

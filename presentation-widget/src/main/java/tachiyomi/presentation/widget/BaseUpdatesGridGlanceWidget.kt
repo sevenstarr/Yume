@@ -1,3 +1,5 @@
+@file:OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+
 package tachiyomi.presentation.widget
 
 import android.content.Context
@@ -20,9 +22,7 @@ import androidx.glance.background
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.padding
 import androidx.glance.unit.ColorProvider
-import coil3.annotation.ExperimentalCoilApi
 import coil3.asDrawable
-import coil3.executeBlocking
 import coil3.imageLoader
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
@@ -34,7 +34,9 @@ import dev.zacsweers.metro.HasMemberInjections
 import dev.zacsweers.metro.Inject
 import eu.kanade.tachiyomi.core.security.SecurityPreferences
 import eu.kanade.tachiyomi.util.system.dpToPx
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
@@ -42,6 +44,7 @@ import mihon.core.metro.metroGraph
 import mihon.presentation.widget.di.PresentationWidgetGraph
 import tachiyomi.core.common.util.lang.withIOContext
 import tachiyomi.domain.anime.model.AnimeCover
+import tachiyomi.domain.metadata.service.CoverResolver
 import tachiyomi.domain.updates.interactor.GetUpdates
 import tachiyomi.domain.updates.model.UpdatesWithRelations
 import tachiyomi.presentation.widget.components.CoverHeight
@@ -59,6 +62,8 @@ abstract class BaseUpdatesGridGlanceWidget : GlanceAppWidget() {
     @Inject private lateinit var getUpdates: GetUpdates
 
     @Inject private lateinit var preferences: SecurityPreferences
+
+    @Inject private lateinit var coverResolver: CoverResolver
 
     override val sizeMode = SizeMode.Exact
 
@@ -97,8 +102,11 @@ abstract class BaseUpdatesGridGlanceWidget : GlanceAppWidget() {
             val flow = remember {
                 getUpdates
                     .subscribe(false, DateLimit.toEpochMilliseconds())
-                    .map { rawData ->
-                        rawData.prepareData(context, rowCount, columnCount)
+                    .flatMapLatest { rawData ->
+                        val ids = rawData.distinctBy { it.animeId }.take(rowCount * columnCount).map { it.animeId }
+                        coverResolver.observe(ids).mapLatest {
+                            rawData.prepareData(context, rowCount, columnCount)
+                        }
                     }
             }
             val data by flow.collectAsState(initial = null)
@@ -112,7 +120,6 @@ abstract class BaseUpdatesGridGlanceWidget : GlanceAppWidget() {
         }
     }
 
-    @OptIn(ExperimentalCoilApi::class)
     private suspend fun List<UpdatesWithRelations>.prepareData(
         context: Context,
         rowCount: Int,
@@ -149,7 +156,7 @@ abstract class BaseUpdatesGridGlanceWidget : GlanceAppWidget() {
                             }
                         }
                         .build()
-                    val bitmap = context.imageLoader.executeBlocking(request)
+                    val bitmap = context.imageLoader.execute(request)
                         .image
                         ?.asDrawable(context.resources)
                         ?.toBitmap()

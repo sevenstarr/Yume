@@ -1,0 +1,410 @@
+{
+  "session": 8,
+  "date": "2026-10-20",
+  "timezone": "America/Sao_Paulo",
+  "status": "local_implementation_verified_android_ui_acceptance_pending",
+  "base": "d8a60d7c9b25daf6166c13da902454a0786d6ef9",
+  "branch": "feat/session-8-metadata-controls",
+  "checks": [
+    {
+      "log": "build/session8/approved-checks.log",
+      "tasks": "testDebugUnitTest :app:assembleDebug verifySqlDelightMigration spotlessCheck :data:lintDebug :presentation-widget:lintDebug",
+      "exitCode": 0,
+      "seconds": 202.762
+    },
+    {
+      "log": "build/session8/ui-checks.log",
+      "tasks": ":app:testDebugUnitTest :app:assembleDebug spotlessCheck",
+      "exitCode": 0,
+      "seconds": 146.794
+    }
+  ],
+  "tests": {
+    "total": 264,
+    "suites": 18,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "newParserTests": 31,
+    "newSqlReviewTests": 13,
+    "results": [
+      {
+        "module": "domain",
+        "suite": "tachiyomi.domain.anime.interactor.FetchIntervalTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "domain",
+        "suite": "tachiyomi.domain.episode.service.EpisodeRecognitionTest",
+        "tests": 22,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "domain",
+        "suite": "tachiyomi.domain.episode.service.MissingEpisodesTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "domain",
+        "suite": "tachiyomi.domain.library.model.LibraryFlagsTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "domain",
+        "suite": "tachiyomi.domain.metadata.AnimeMatcherTest",
+        "tests": 59,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "domain",
+        "suite": "tachiyomi.domain.metadata.CoverPolicyTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "domain",
+        "suite": "tachiyomi.domain.metadata.MetadataCalibrationTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "domain",
+        "suite": "tachiyomi.domain.metadata.MetadataManualInputTest",
+        "tests": 31,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "domain",
+        "suite": "tachiyomi.domain.metadata.MetadataTitleNormalizerTest",
+        "tests": 17,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "domain",
+        "suite": "tachiyomi.domain.release.interactor.GetApplicationReleaseTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "data",
+        "suite": "tachiyomi.data.metadata.MetadataRepositoryTest",
+        "tests": 36,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "app",
+        "suite": "eu.kanade.tachiyomi.data.backup.MetadataBackupTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "app",
+        "suite": "eu.kanade.tachiyomi.data.coil.CoverTransportTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "app",
+        "suite": "eu.kanade.tachiyomi.data.coil.ExternalCoverFetcherTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "app",
+        "suite": "eu.kanade.tachiyomi.data.coil.MetadataCoverInterceptorTest",
+        "tests": 14,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "app",
+        "suite": "eu.kanade.tachiyomi.data.metadata.anilist.AniListProviderTest",
+        "tests": 30,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "app",
+        "suite": "eu.kanade.tachiyomi.data.metadata.anilist.AniListTransportTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "app",
+        "suite": "mihon.core.migration.MigratorTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "lint": [
+    {
+      "module": "data",
+      "errors": 0,
+      "warnings": 0,
+      "issues": []
+    },
+    {
+      "module": "presentation-widget",
+      "errors": 0,
+      "warnings": 4,
+      "issues": [
+        {
+          "id": "UnusedAttribute",
+          "severity": "Warning",
+          "line": "10",
+          "file": "presentation-widget/src/main/res/xml/updates_grid_homescreen_widget_info.xml"
+        },
+        {
+          "id": "UnusedAttribute",
+          "severity": "Warning",
+          "line": "11",
+          "file": "presentation-widget/src/main/res/xml/updates_grid_homescreen_widget_info.xml"
+        },
+        {
+          "id": "UnusedAttribute",
+          "severity": "Warning",
+          "line": "12",
+          "file": "presentation-widget/src/main/res/xml/updates_grid_homescreen_widget_info.xml"
+        },
+        {
+          "id": "UnusedAttribute",
+          "severity": "Warning",
+          "line": "13",
+          "file": "presentation-widget/src/main/res/xml/updates_grid_homescreen_widget_info.xml"
+        }
+      ]
+    }
+  ],
+  "appFullLint": {
+    "runThisSession": false,
+    "status": "inconclusive_since_session_4_no_new_suppressions"
+  },
+  "resources": {
+    "baseMetadataStrings": 62,
+    "ptBrMetadataStrings": 62,
+    "references": 62,
+    "duplicates": 0,
+    "undefined": 0
+  },
+  "apkUniversalSignature": {
+    "exitCode": 0,
+    "v2Verified": true,
+    "debugOnly": true
+  },
+  "apks": [
+    {
+      "path": "app/build/outputs/apk/debug/app-arm64-v8a-debug.apk",
+      "bytes": 123129202,
+      "sha256": "148a386aca29f8b8bad86eac5dfaa92cdbb2456825709212240e25728079e731"
+    },
+    {
+      "path": "app/build/outputs/apk/debug/app-armeabi-v7a-debug.apk",
+      "bytes": 116001172,
+      "sha256": "f9baa3e8d46dd1177425aa1561c4ab990ad029ac5dcb8f773f83d435cca23560"
+    },
+    {
+      "path": "app/build/outputs/apk/debug/app-universal-debug.apk",
+      "bytes": 324529135,
+      "sha256": "0d3fabaeb519d3b499e69818e77923d46a3041a172238871c0d526c01e48ab56"
+    },
+    {
+      "path": "app/build/outputs/apk/debug/app-x86_64-debug.apk",
+      "bytes": 133126149,
+      "sha256": "59c9fd64f4ed735a9d974971d1c80418bff22602c35bd31789dce6f3852c70e6"
+    },
+    {
+      "path": "app/build/outputs/apk/debug/app-x86-debug.apk",
+      "bytes": 126318780,
+      "sha256": "779c76f7b398c7d2405a6a00cea516e23fc46ac8c5bdba449a06eb2caa3440a1"
+    }
+  ],
+  "sourceHashes": [
+    {
+      "path": "app/src/main/java/eu/kanade/presentation/anime/AnimeScreen.kt",
+      "sha256": "659e5990467e37256e18a7bf927f73bb8aa7a674fce93afe57798e7012f91d43"
+    },
+    {
+      "path": "app/src/main/java/eu/kanade/presentation/anime/components/AnimeToolbar.kt",
+      "sha256": "ee673b0d8d750d649767a5cca4a418ca2b09fad09d2635db9436b944191d6284"
+    },
+    {
+      "path": "app/src/main/java/eu/kanade/presentation/more/settings/screen/SettingsMainScreen.kt",
+      "sha256": "151f1ebe6a358cd8e59bcb72cfd20be6bae1ac964360324cd1fa08cc63737e2a"
+    },
+    {
+      "path": "app/src/main/java/eu/kanade/presentation/more/settings/screen/SettingsMetadataScreen.kt",
+      "sha256": "45d3e46a8b9647c1e9a9443fabb53052d509da7cf1f291cac291358f737cd84b"
+    },
+    {
+      "path": "app/src/main/java/eu/kanade/presentation/more/settings/screen/SettingsSearchScreen.kt",
+      "sha256": "0f1483b824fea70c1b820876108038ee20290811d53e37f4f420541cdac3ed27"
+    },
+    {
+      "path": "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListMetadataClient.kt",
+      "sha256": "0b37dd7c629fce2e71f06402561831d11ef71e28cbfe73e605bf396203eb4989"
+    },
+    {
+      "path": "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListProvider.kt",
+      "sha256": "7a8292eb610778e77ff6d9f58b8ce78704a974c7df5c8b597318b11a145d52a6"
+    },
+    {
+      "path": "app/src/main/java/eu/kanade/tachiyomi/ui/anime/AnimeScreen.kt",
+      "sha256": "d0237bdcbd4f5d84b67b7364a334aa718e7130ca0029e50f4546aa67c8560c43"
+    },
+    {
+      "path": "app/src/main/java/eu/kanade/tachiyomi/ui/anime/metadata/MetadataReviewModel.kt",
+      "sha256": "d1a6744959c77dd16bc2fb1fdfe392990fa9608f0407f30e10dfe2c2e5f6defd"
+    },
+    {
+      "path": "app/src/main/java/eu/kanade/tachiyomi/ui/anime/metadata/MetadataReviewScreen.kt",
+      "sha256": "f48f8481ff643402df04270925a3c43fa65ca016c3bb10f829115f87d5f779be"
+    },
+    {
+      "path": "app/src/main/java/eu/kanade/tachiyomi/ui/setting/SettingsScreen.kt",
+      "sha256": "6bac307c71a56904b4926ae959ce952f771c2a7a377ef5a386b5877555450bf5"
+    },
+    {
+      "path": "app/src/main/java/mihon/app/di/AppGraph.kt",
+      "sha256": "6fd801e34d0714de7c2e6fac7d1d3cdbc7c1edc60b6c21dfee483294e9408443"
+    },
+    {
+      "path": "app/src/test/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListProviderTest.kt",
+      "sha256": "d73e7a29e2b4e5c2fe6e34c1e384e9fc794603cc34dc5f16cdf64d7270b4277c"
+    },
+    {
+      "path": "data/src/main/java/tachiyomi/data/metadata/MetadataRepositoryImpl.kt",
+      "sha256": "0f72d8219fcb4c77914a07eddb6d3ef378cac3634fd90b2feadf6e2683028987"
+    },
+    {
+      "path": "data/src/test/java/tachiyomi/data/metadata/MetadataRepositoryTest.kt",
+      "sha256": "857de921b25bd5e9bf788dba526383c2c79d4c99ec4c11c02633685abdec7363"
+    },
+    {
+      "path": "domain/src/main/java/tachiyomi/domain/metadata/model/MetadataStorage.kt",
+      "sha256": "2c6ef2eadea9ab927cebcdee7335183cb46e95bd2ec27cef02dc0b6c33dd1766"
+    },
+    {
+      "path": "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataPreferences.kt",
+      "sha256": "d37e4c4809f1690e41be329457c89126d4c9096e1e2fd72ed37d27563b34e86c"
+    },
+    {
+      "path": "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataRepository.kt",
+      "sha256": "723c46df495536a3a930cc91d1f3be986ab87e906d51b5929609cf60d6d361c5"
+    },
+    {
+      "path": "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataReviewActions.kt",
+      "sha256": "840fd6e4f40173eb5b504f8992e1f224d1ef27922653869c3cccf5e1f69b082a"
+    },
+    {
+      "path": "domain/src/test/java/tachiyomi/domain/metadata/MetadataManualInputTest.kt",
+      "sha256": "c290ec49b4f9b7f9e1a29542da32b24f62915d89db34e1118e802c92a3f061eb"
+    },
+    {
+      "path": "i18n/src/commonMain/moko-resources/base/strings.xml",
+      "sha256": "db8177f078baf473d73310a25d795c16dd74726dbed997841251693dd945af0a"
+    },
+    {
+      "path": "i18n/src/commonMain/moko-resources/pt-rBR/strings.xml",
+      "sha256": "1e57529f6395286b2092cd4b9b2d9ec879e7317eca45948700b6554303df22c8"
+    }
+  ],
+  "files": [
+    "app/src/main/java/eu/kanade/presentation/anime/AnimeScreen.kt",
+    "app/src/main/java/eu/kanade/presentation/anime/components/AnimeToolbar.kt",
+    "app/src/main/java/eu/kanade/presentation/more/settings/screen/SettingsMainScreen.kt",
+    "app/src/main/java/eu/kanade/presentation/more/settings/screen/SettingsMetadataScreen.kt",
+    "app/src/main/java/eu/kanade/presentation/more/settings/screen/SettingsSearchScreen.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListMetadataClient.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListProvider.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/ui/anime/AnimeScreen.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/ui/anime/metadata/MetadataReviewModel.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/ui/anime/metadata/MetadataReviewScreen.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/ui/setting/SettingsScreen.kt",
+    "app/src/main/java/mihon/app/di/AppGraph.kt",
+    "app/src/test/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListProviderTest.kt",
+    "CHANGELOG.md",
+    "data/src/main/java/tachiyomi/data/metadata/MetadataRepositoryImpl.kt",
+    "data/src/test/java/tachiyomi/data/metadata/MetadataRepositoryTest.kt",
+    "docs/ARCHITECTURE.md",
+    "docs/DECISIONS/0007-manual-metadata-review.md",
+    "docs/evidence/SESSION_8_COMMANDS.md",
+    "docs/evidence/SESSION_8.json",
+    "docs/metadata/functional-specification.md",
+    "docs/metadata/manual-review.md",
+    "docs/PROGRESS.md",
+    "docs/SESSION_8_PR.md",
+    "domain/src/main/java/tachiyomi/domain/metadata/model/MetadataStorage.kt",
+    "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataPreferences.kt",
+    "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataRepository.kt",
+    "domain/src/main/java/tachiyomi/domain/metadata/service/MetadataReviewActions.kt",
+    "domain/src/test/java/tachiyomi/domain/metadata/MetadataManualInputTest.kt",
+    "i18n/src/commonMain/moko-resources/base/strings.xml",
+    "i18n/src/commonMain/moko-resources/pt-rBR/strings.xml",
+    "README.md"
+  ],
+  "limitations": [
+    "No connected Android device: adb devices -l returned an empty list, exit 0",
+    "No Android UI, TalkBack, focus/keyboard, installation, real decoder, screenshots or performance benchmark",
+    "No live AniList/CDN traffic or real image downloads",
+    "No measured line/branch coverage",
+    "Shared physical AniList quota, worker, batch and automatic triggers remain session 9",
+    "Individual assisted restore remapping remains a future improvement"
+  ],
+  "remoteActions": {
+    "push": false,
+    "pullRequest": false,
+    "tag": false,
+    "release": false
+  },
+  "textualAutomationEnabled": false,
+  "initialOptInEnabled": false,
+  "initialBatchMobileDataEnabled": false,
+  "schemaVersion": 149,
+  "staticChecks": {
+    "localDocumentLinks": 121,
+    "metadataStringsPerLocale": 62,
+    "sourceHashesVerified": 22,
+    "bidiControls": 0,
+    "stagedFiles": 32,
+    "diffWhitespaceErrors": 0,
+    "forbiddenArtifactsStaged": 0
+  }
+}
