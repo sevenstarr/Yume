@@ -12,6 +12,17 @@ Pedido do proprietário: incorporar o protocolo de branches ao `AGENTS.md` e ade
 
 Aceite documental: regras incorporadas, instruções operacionais e branches locais alinhadas; adequação remota explicitamente pendente. Aguardar autorização para a próxima sessão.
 
+## Publicação da sessão 9 — PR #2 e impedimento de CI
+
+**20/10/2026 — implementação publicada; merge ainda não executado.** Commit funcional `3538d8f228739e4e968c9654780363b488deaa0d` com exclusivamente os 42 arquivos da sessão. Preservado `a4bb6431c` como commit documental anterior. Fetch/merge de `origin/yume-develop` retornaram “Already up to date”; publicada `feature/session-09-metadata-sync` e aberta [PR #2](https://github.com/sevenstarr/Yume/pull/2), base `yume-develop`, sem conflitos. A PR foi anexada à tarefa.
+
+- A [primeira execução de CI](https://github.com/sevenstarr/Yume/actions/runs/39497721078), job `118886995080`, falhou em **Dependency Review**: `Dependency review is not supported on this repository. Please ensure that Dependency graph is enabled`. Checkout passou; build/testes/migrações remotos foram ignorados. Os 298 testes e demais checks locais permanecem aprovados; não se declara CI remoto verde.
+- Inspeção somente de leitura da configuração confirmou Dependency graph desativado. Ativação solicitada ao proprietário, pois `AGENTS.md`/prompt exigem autorização para mudar configuração do repositório. Nenhuma configuração foi alterada e nenhuma checagem foi desabilitada ou contornada. Pelo protocolo, não efetuar merge enquanto a checagem permanecer falhando.
+- A criação do commit inicialmente encontrou identidade Git não configurada no sandbox; repetida com `-c user.name='Codex (AI assistant)' -c user.email=codex@invalid`, seguindo autoria anterior e sem configuração global.
+- Criado em paralelo pelo workspace `docs/prompt.md`, não rastreado e idêntico por SHA-256 ao prompt mestre de Downloads; preservado fora dos commits próprios. Nenhuma alteração funcional após os testes finais. Sem tag/release ou início da sessão 10.
+
+**Próximo passo da mesma sessão:** após autorização para habilitar Dependency graph, ativar somente essa opção, repetir o CI da cabeça vigente, aguardar aprovação e concluir o merge já autorizado da PR #2. O pedido de merge permanece pendente; esta entrega não equivale à conclusão integral da solicitação.
+
 ## Sessão 9 — Sincronização automática e em lote
 
 **20/10/2026 — implementação e verificações JVM/build concluídas; validação Android/bateria pendente.** O proprietário autorizou branch temporária de `yume-develop`, sessão nove, testes, PR e merge. Base remota limpa `090442f489db222fc064721b44f048502ab80a0b` (PR #1 integrada); criada `feat/session-9-metadata-sync`. Lidos prompt mestre, progresso, arquitetura/especificação e contratos anteriores; alterações não commitadas de terceiros não foram encontradas ou descartadas. Pendências visuais das sessões 7/8 e gates de distribuição continuam explícitos.

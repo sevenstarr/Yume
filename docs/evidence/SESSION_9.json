@@ -423,5 +423,21 @@
     "seconds": 52.2727152,
     "exitCode": 0,
     "tasks": "verifySqlDelightMigration spotlessCheck"
+  },
+  "publication": {
+    "functionalCommit": "3538d8f228739e4e968c9654780363b488deaa0d",
+    "pullRequest": "https://github.com/sevenstarr/Yume/pull/2",
+    "base": "yume-develop",
+    "head": "feature/session-09-metadata-sync",
+    "mergePerformed": false,
+    "observedCi": {
+      "runId": 39497721078,
+      "jobId": 118886995080,
+      "conclusion": "failure",
+      "step": "Dependency Review",
+      "reason": "Dependency graph disabled; remote build/tests skipped"
+    },
+    "repositorySettingsChanged": false,
+    "pending": "Explicit approval to enable Dependency graph, then rerun latest CI and merge"
   }
 }
