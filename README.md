@@ -1,9 +1,9 @@
-<!-- Modified for Yume on 2026-10-19: fork identity, status and attribution. -->
+<!-- Modified for Yume on 2026-10-20: fork identity, session status and attribution; assisted by Codex. -->
 # Yume
 
 Derivação independente do [Animiru](https://github.com/animiruorg/Animiru), por sua vez derivado do [Aniyomi](https://github.com/aniyomiorg/aniyomi). O nome **Yume** foi confirmado pelo proprietário em 19/10/2026. O [fork público sevenstarr/Yume](https://github.com/sevenstarr/Yume) foi criado com autorização explícita; os commits da fundação e do baseline ainda estão locais, sem push ou PR.
 
-O objetivo é adicionar enriquecimento **opt-in**, inicialmente com metadados e capas do AniList, preservando biblioteca, extensões, episódios, downloads e progresso. Esse recurso está planejado e **ainda não foi implementado**. O tracking AniList já existente é herdado do Animiru.
+O objetivo é adicionar enriquecimento **opt-in**, inicialmente com metadados e capas do AniList, preservando biblioteca, extensões, episódios, downloads e progresso. A Sessão 4 implementa o [cliente público isolado](docs/metadata/anilist-client.md); matching, persistência e exibição ainda serão implementados. O recurso permanece inativo e o tracking AniList já existente é herdado do Animiru.
 
 ## Estado atual
 
@@ -13,8 +13,10 @@ O objetivo é adicionar enriquecimento **opt-in**, inicialmente com metadados e 
 | Sessão 0 | Reconhecimento concluído; [auditoria](docs/UPSTREAM_AUDIT.md) |
 | Sessão 1 | Fork público criado; fundação local; identidade Android e envio dos commits pendentes |
 | Sessão 2 | Build debug e 52 testes passaram; lint com 3 erros herdados; [baseline e limitações](docs/BUILD_BASELINE.md) |
+| Sessão 3 | Arquitetura aprovada e [especificação funcional](docs/metadata/functional-specification.md) documentada |
+| Sessão 4 | Cliente AniList com busca/ID, tratamento de falhas e testes sem rede; [escopo e limites](docs/metadata/anilist-client.md) |
 | APK local | Cinco APKs debug gerados; assinatura universal/x86_64 verificada; instalação ainda não validada; nenhuma release |
-| Funcionalidade nova | Nenhuma; fontes, banco, player e trackers preservados |
+| Funcionalidade nova | Cliente de metadados isolado, sem UI/worker ativo; fontes, banco, player e trackers preservados |
 
 Não há distribuição pública de APK Yume. Os APKs do upstream pertencem ao Animiru. O código ainda usa o pacote, ícone, nome Android, links e referências de atualização herdados; consulte o [plano de identidade](docs/IDENTITY.md) antes de instalar ou distribuir. Os APKs locais de baseline usam assinatura debug e o pacote herdado com sufixo `.dev`.
 

@@ -1,5 +1,12 @@
-<!-- Modified for Yume on 2026-10-19: prepend a separate fork changelog. -->
+<!-- Modified for Yume on 2026-10-20: separate fork changelog, assisted by Codex. -->
 # Yume changelog
+
+## Unreleased — cliente de metadados, 2026-10-20
+
+- Adicionados contratos de domínio e cliente público AniList com busca paginada/ID, títulos/atributos/capas, nulos e respostas parciais explícitas.
+- Transporte neutro com gate opt-in, URLs restritas, timeouts, cancelamento, retries finitos, deduplicação breve, quota e circuito em memória; testes sintéticos sem rede.
+- Cliente registrado na DI, ainda sem consumidor UI/worker. Matching, persistência de associações/budget, integração de capas e sincronização permanecem nas sessões seguintes. Código novo assistido pelo Codex.
+- Escopo, evidências e limitações em [Sessão 4](docs/metadata/anilist-client.md); sem publicação.
 
 ## Unreleased — baseline, 2026-10-19
 

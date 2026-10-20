@@ -38,6 +38,7 @@ import eu.kanade.tachiyomi.data.download.DownloadManager
 import eu.kanade.tachiyomi.data.download.DownloadProvider
 import eu.kanade.tachiyomi.data.library.LibraryUpdateJob
 import eu.kanade.tachiyomi.data.library.MetadataUpdateJob
+import eu.kanade.tachiyomi.data.metadata.anilist.AniListMetadataClient
 import eu.kanade.tachiyomi.data.notification.NotificationReceiver
 import eu.kanade.tachiyomi.data.player.service.HttpServerService
 import eu.kanade.tachiyomi.data.torrent.service.TorrentServerService
@@ -151,6 +152,11 @@ interface AppGraph : ViewModelGraph {
     val protoBuf: ProtoBuf
     val xml: XML
     val networkHelper: NetworkHelper
+
+    // AM (Yume metadata, 2026-10-20; assisted by Codex) -->
+    val aniListMetadataClient: AniListMetadataClient
+
+    // <-- AM (Yume metadata)
     val javaScriptEngine: JavaScriptEngine
 
     val getFavorites: GetFavorites

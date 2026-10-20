@@ -1,5 +1,16 @@
 # Progresso do projeto
 
+## Sessão 4 — Cliente público AniList
+
+**20/10/2026 — cliente isolado implementado e validado por testes/build; lint inconclusivo.** Pedido do proprietário: executar a sessão 4 e fazer commit depois. Base `48b23e78dd1b07526603b15b31bed8fd43caaf62`; branch `feat/session-4-anilist-client`, derivada do HEAD da especificação para manter as dependências da Sessão 3.
+
+- **Mudanças:** contratos/modelos em `domain/.../metadata`; DTOs, mapper/provider, transporte neutro, gate opt-in, quota/circuito/retries e singleton Metro em `app/.../data/metadata/anilist`; exposição no `AppGraph`. Nenhum consumidor UI/worker ativado, nenhuma escrita nos dados originais ou mudança de tracking/fontes/player. Código novo assistido pelo Codex, com marcadores de origem.
+- **Decisões:** [ADR 0003](DECISIONS/0003-anilist-public-client.md) e [contrato implementado](metadata/anilist-client.md) registram limites de input, URLs observadas, parciais/completude, cancelamento, três emissões/45 s e orçamento de processo. README, changelog e arquitetura atualizados; [rascunho local de PR](SESSION_4_PR.md) preparado.
+- **Evidência externa:** documentação oficial AniList/OkHttp relida; um POST público confirmou esquema/capas/banner e headers 30/min (restante 29), sem login/mutation/download de imagens. Fontes e resultados reais estão no [registro de comandos](evidence/SESSION_4_COMMANDS.md).
+- **Verificações:** `testDebugUnitTest` passou em 109,434 s; oito suítes, **87 testes (52 herdados + 35 novos)**, zero falhas/erros/ignorados nos XML. Build debug passou em 71,303 s; cinco APKs locais, assinatura v2 do universal verificada. `spotlessCheck` final passou em 8,761 s; diff sem erro de whitespace, links locais conferidos, nenhum controle bidi nos nove arquivos Kotlin novos. [Snapshot de resultados](evidence/SESSION_4.json). Não foi medida cobertura de linhas/branches. O certificado debug atual difere do baseline, sem teste de atualização direta e sem mudança da configuração de assinatura versionada.
+- **Riscos e pendências:** lint interrompido após 20 min retido na travessia PSI de comentários de `BidirectionalText`, sem relatório novo concluído; nenhum detector foi suprimido e o relatório de 19/10 não valida este diff. Budget/cooldown/circuito em memória, sem integração com tracker/AniChart/AniSkip; persistência e teste de restart ficam nas Sessões 6/9 antes de ativar o recurso. Sem teste de instalação/Android real, Coil, backup/migração ou performance. Enquadramento nos termos/direitos de imagens e pendências herdadas permanecem para distribuição.
+- **Próxima sessão:** 5, normalização, matching conservador e calibração; não iniciada. Trabalho e commit somente locais, sem push/PR remoto/tag/release.
+
 ## Sessão 3 — Especificação funcional após aprovação da Etapa B
 
 **19/10/2026 — especificação produzida para revisão; arquitetura aprovada, implementação futura.** O proprietário solicitou usar a arquitetura aprovada na Etapa B, produzir a especificação funcional e fazer commit. Base: `cb86e7ff7471b4d2c0bdbc952b51b6ba6d722bd0`, branch `docs/session-3-analysis`. Essa instrução atualiza o status do ADR 0002; os registros anteriores de proposta pendente permanecem históricos.
