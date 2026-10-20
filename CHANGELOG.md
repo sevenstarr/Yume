@@ -1,6 +1,13 @@
 <!-- Modified for Yume on 2026-10-20: separate fork changelog, assisted by Codex. -->
 # Yume changelog
 
+## Unreleased — sincronização automática e em lote, 2026-10-20
+
+- Fila SQL recuperável (migração 149/schema 150), fatias WorkManager com restrições de rede/bateria/carga, gatilhos opt-in de novos favoritos e atualização diária, progresso e pausa/retomada/cancelamento.
+- Tentativas duráveis e geração/CAS protegem reinício e respostas atrasadas. TTLs evitam consultas recentes; pins usam somente o ID aceito. Resultados por título continuam sujeitos à revisão manual.
+- Quota física AniList compartilhada pelo cliente público, tracker, AniChart e conversão AniSkip: janela/cooldown persistidos, ritmo conservador e cancelamento. Outros hosts e payloads/autenticação herdados preservados.
+- [Contrato e limitações](docs/metadata/background-sync.md); testes JVM/SQLite não substituem bateria, Doze e UI em Android. Código/documentação assistidos pelo Codex; nenhuma release.
+
 ## Unreleased — configurações e escolha manual, 2026-10-20
 
 - Adicionados opt-in global inicialmente off, preferência móvel para futuro lote e limpeza separada de cache/dados enriquecidos com explicação e confirmação.

@@ -119,6 +119,7 @@ class App : Application(), DefaultLifecycleObserver, SingletonImageLoader.Factor
     @SuppressLint("LaunchActivityFromNotification")
     override fun onCreate() {
         super<Application>.onCreate()
+        eu.kanade.tachiyomi.data.metadata.anilist.AniListHostInterceptor.install(this)
 
         // Must run before the graph is built, since injecting dependencies initializes WebView and the
         // suffix can't be set once a provider exists in the process. Secondary processes die otherwise.
@@ -197,6 +198,13 @@ class App : Application(), DefaultLifecycleObserver, SingletonImageLoader.Factor
         }
 
         initializeMigrator()
+        val processName = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            getProcessName()
+        } else {
+            (getSystemService(ACTIVITY_SERVICE) as android.app.ActivityManager).runningAppProcesses
+                ?.firstOrNull { it.pid == android.os.Process.myPid() }?.processName
+        }
+        if (processName == packageName) graph.metadataSyncScheduler.initialize()
     }
 
     private fun initializeMigrator() {

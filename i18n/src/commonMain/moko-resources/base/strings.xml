@@ -1153,4 +1153,19 @@
     <string name="metadata_restore_help">Unresolved backup decisions are inactive. Find the intended anime in your library and select its ID manually. Clearing all enriched data removes this retained list.</string>
     <string name="metadata_restore_pending">Unresolved backup decision</string>
     <string name="metadata_restore_detail">Catalog: %1$s · ID: %2$s · Source: %3$s · Item: %4$s</string>
+
+    <!-- Yume session 9; new strings assisted by Codex -->
+    <string name="metadata_sync_on_add">Sync newly added favorites</string>
+    <string name="metadata_sync_daily">Sync daily while charging</string>
+    <string name="metadata_sync_explanation">Updates accepted IDs and searches titles for review. Text matches always need confirmation. Fresh items are skipped. Waits for allowed network and sufficient battery; daily work also requires charging.</string>
+    <string name="metadata_sync_running">Sync queued or running</string>
+    <string name="metadata_sync_paused">Sync paused</string>
+    <string name="metadata_sync_cancelled">Sync cancelled</string>
+    <string name="metadata_sync_completed">Sync completed</string>
+    <string name="metadata_sync_idle">No sync batch</string>
+    <string name="metadata_sync_progress">%1$d / %2$d · updated: %3$d · review: %4$d · errors: %5$d · skipped: %6$d</string>
+    <string name="metadata_sync_start">Sync library metadata</string>
+    <string name="metadata_sync_resume">Resume sync</string>
+    <string name="metadata_sync_pause">Pause sync</string>
+    <string name="metadata_sync_cancel">Cancel this batch</string>
 </resources>

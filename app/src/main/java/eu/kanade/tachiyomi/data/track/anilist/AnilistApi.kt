@@ -38,6 +38,7 @@ class AnilistApi(
 ) {
 
     private val authClient = client.newBuilder()
+        .addNetworkInterceptor(eu.kanade.tachiyomi.data.metadata.anilist.AniListHostInterceptor)
         .addInterceptor(interceptor)
         .rateLimit(permits = 25, period = 1.minutes)
         .build()

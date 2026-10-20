@@ -1013,4 +1013,19 @@
     <string name="metadata_restore_help">Decisões de backup não resolvidas estão inativas. Localize o anime desejado na biblioteca e selecione seu ID manualmente. Limpar todos os dados enriquecidos remove esta lista preservada.</string>
     <string name="metadata_restore_pending">Decisão de backup não resolvida</string>
     <string name="metadata_restore_detail">Catálogo: %1$s · ID: %2$s · Fonte: %3$s · Item: %4$s</string>
+
+    <!-- Yume session 9; new strings assisted by Codex -->
+    <string name="metadata_sync_on_add">Sincronizar novos favoritos</string>
+    <string name="metadata_sync_daily">Sincronizar diariamente durante a carga</string>
+    <string name="metadata_sync_explanation">Atualiza IDs aceitos e pesquisa títulos para revisão. Correspondências por texto sempre exigem confirmação. Itens recentes são ignorados. Aguarda a rede permitida e bateria suficiente; a tarefa diária também exige carregamento.</string>
+    <string name="metadata_sync_running">Sincronização na fila ou em execução</string>
+    <string name="metadata_sync_paused">Sincronização pausada</string>
+    <string name="metadata_sync_cancelled">Sincronização cancelada</string>
+    <string name="metadata_sync_completed">Sincronização concluída</string>
+    <string name="metadata_sync_idle">Nenhuma sincronização em lote</string>
+    <string name="metadata_sync_progress">%1$d / %2$d · atualizados: %3$d · revisão: %4$d · erros: %5$d · ignorados: %6$d</string>
+    <string name="metadata_sync_start">Sincronizar metadados da biblioteca</string>
+    <string name="metadata_sync_resume">Retomar sincronização</string>
+    <string name="metadata_sync_pause">Pausar sincronização</string>
+    <string name="metadata_sync_cancel">Cancelar este lote</string>
 </resources>

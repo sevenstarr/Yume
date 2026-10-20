@@ -75,6 +75,9 @@ class MetadataRepositoryImpl(
         queries.setEnabled(if (enabled) 1 else 0)
         invalidateSearching()
         queries.deleteAllWork()
+        database.metadata_syncQueries.initialize()
+        database.metadata_syncQueries.transition("CANCELLED")
+        database.metadata_syncQueries.clear()
     }
 
     override suspend fun deferHost(until: Long) {
@@ -99,15 +102,25 @@ class MetadataRepositoryImpl(
         now: Long,
     ): MetadataTicket? = beginInternal(identity, now, true, expectedRevision)
 
+    override suspend fun beginSync(
+        identity: LocalAnimeIdentity,
+        expectedRevision: Long?,
+        now: Long,
+        generation: Long,
+    ): MetadataTicket? = beginInternal(identity, now, false, expectedRevision, syncGeneration = generation)
+
     private suspend fun beginInternal(
         identity: LocalAnimeIdentity,
         now: Long,
         manualReview: Boolean,
         expectedRevision: Long?,
+        syncGeneration: Long? = null,
     ): MetadataTicket? = database.transactionWithResult {
         require(now >= 0 && now <= Long.MAX_VALUE - MetadataCachePolicy.RETAIN)
         val control = control()
         if (!control.enabled || now < control.hostNotBefore) return@transactionWithResult null
+        val sync = syncGeneration != null
+        if (sync && !syncActive(syncGeneration!!)) return@transactionWithResult null
         val original = queries.original(identity.animeId).awaitAsOneOrNull() ?: return@transactionWithResult null
         if (original.source != identity.sourceId || original.url != identity.sourceUrl ||
             original.title != identity.title || original.parent_id != identity.parentId
@@ -115,10 +128,12 @@ class MetadataRepositoryImpl(
             return@transactionWithResult null
         }
         val work = queries.work(identity.animeId).awaitAsOneOrNull()
-        if (work != null && (work.lease_until > now || (!manualReview && work.emissions >= 3))) {
+        if (work != null && (work.lease_until > now || (!manualReview && !sync && work.emissions >= 3))) {
             return@transactionWithResult null
         }
-        if (manualReview && get(identity.animeId)?.revision != expectedRevision) return@transactionWithResult null
+        if ((manualReview || sync) && get(identity.animeId)?.revision != expectedRevision) {
+            return@transactionWithResult null
+        }
         queries.insertDecision(identity.animeId, encode(MetadataDecisionState(identity)))
         val row = checkNotNull(get(identity.animeId))
         if (row.state.originalOnly && !manualReview) return@transactionWithResult null
@@ -146,7 +161,7 @@ class MetadataRepositoryImpl(
             control.epoch,
             leaseUntil,
             leaseId,
-            if (manualReview) {
+            if (manualReview || sync) {
                 0
             } else {
                 work?.emissions
@@ -164,6 +179,7 @@ class MetadataRepositoryImpl(
             leaseId,
             manualReview,
             previousOutcome,
+            syncGeneration,
         )
     }
 
@@ -402,6 +418,9 @@ class MetadataRepositoryImpl(
 
     override suspend fun clearAll() {
         database.transaction {
+            database.metadata_syncQueries.initialize()
+            database.metadata_syncQueries.transition("CANCELLED")
+            database.metadata_syncQueries.clear()
             queries.initialize()
             queries.setEnabled(0)
             queries.clearDecisions()
@@ -613,6 +632,7 @@ class MetadataRepositoryImpl(
             value.rejected.all { it.provider.length <= 64 && it.value.length <= 128 }
 
     private suspend fun valid(ticket: MetadataTicket, now: Long): MetadataRecord? {
+        if (ticket.syncGeneration?.let { !syncActive(it) } == true) return null
         val control = control()
         if (!control.enabled || control.epoch != ticket.epoch || now < 0 || now >= ticket.leaseUntil) return null
         val row = get(ticket.animeId) ?: return null
@@ -625,6 +645,11 @@ class MetadataRepositoryImpl(
                 originalStamp(ticket.animeId) == ticket.originalStamp && (!it.state.originalOnly || ticket.manualReview)
         }
     }
+
+    private suspend fun syncActive(generation: Long): Boolean =
+        database.metadata_syncQueries.controlState().awaitAsOneOrNull()?.let {
+            it.generation == generation && it.status == "RUNNING"
+        } == true
 
     private suspend fun originalStamp(animeId: Long): String? = queries.original(animeId).awaitAsOneOrNull()?.let {
         hash(

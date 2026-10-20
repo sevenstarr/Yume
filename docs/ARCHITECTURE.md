@@ -1,5 +1,7 @@
 # Arquitetura preliminar — proposta da Sessão 0
 
+**Atualização da Sessão 9 — 20/10/2026:** [sincronização durável](metadata/background-sync.md) e [ADR 0008](DECISIONS/0008-durable-metadata-sync.md). Fila SQL/schema 150, fatias WorkManager, gatilhos opt-in de novos favoritos/diário, pausa/retomada/cancelamento com geração/CAS e quota física compartilhada entre consumidores AniList. Automação textual permanece desativada; validação Android/bateria permanece pendente. A implementação atual substitui as indicações históricas de fila/orçamento futuros abaixo.
+
 **Atualização da Sessão 8 — 20/10/2026:** [configurações e revisão manual](metadata/manual-review.md) conforme [ADR 0007](DECISIONS/0007-manual-metadata-review.md). UI Voyager/Metro, opt-in SQL inicialmente off, ações explícitas com propostas confirmadas e CAS/epoch, ID/link restrito, miniaturas efêmeras e encerramento de leases. Sem DDL nova, automação ou lote; orçamento agregado/worker continuam na sessão 9. Validação UI/Android/TalkBack pendente. Registros anteriores preservam o estado de cada etapa.
 
 **Atualização da Sessão 7 — 20/10/2026:** integrados [resolver, fallback e exibição de capas](metadata/cover-resolution.md), conforme [ADR 0006](DECISIONS/0006-cover-resolution.md). Índice de IDs ativos compartilhado, interceptor antes do keying Coil, CDN neutro, cache-only, cancelamento/barreira e widgets reativos; visualizador/exportação respeitam modo original. Opt-in off; configuração/seleção remota/sync ainda futuras. Aceite visual/performance exige dispositivo, atualmente indisponível.

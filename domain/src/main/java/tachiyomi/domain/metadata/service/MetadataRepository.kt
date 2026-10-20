@@ -26,6 +26,14 @@ interface MetadataRepository {
 
     /** Explicit review may retain original-only while searching; the observed revision must still match. */
     suspend fun beginReview(identity: LocalAnimeIdentity, expectedRevision: Long?, now: Long): MetadataTicket?
+
+    /** The durable queue must reserve one of its finite attempts before entering the provider. */
+    suspend fun beginSync(
+        identity: LocalAnimeIdentity,
+        expectedRevision: Long?,
+        now: Long,
+        generation: Long,
+    ): MetadataTicket?
     suspend fun cancelAttempt(ticket: MetadataTicket): Boolean
     suspend fun recordEmission(ticket: MetadataTicket, now: Long): Boolean
     suspend fun failAttempt(ticket: MetadataTicket, failure: MetadataResult.Failure, now: Long): Boolean
