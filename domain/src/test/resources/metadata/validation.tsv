@@ -1,0 +1,37 @@
+# Held-out synthetic validation. Different identities/titles from calibration; never used to choose parameters.
+val-romaji	201	Kaze no Yakusoku	2018	TV	WORK	-	complete	-	201~Kaze no Yakusoku~2018~TV~ok;202~Kaze no Yakusoku~2001~TV~ok
+val-japanese	203	雨の図書館	2023	TV	WORK	-	complete	-	203~Ame no Toshokan|雨の図書館~2023~TV~ok
+val-english	204	Beyond the Copper Sea	2017	MOVIE	WORK	-	complete	-	204~Akagane no Umi|Beyond the Copper Sea~2017~MOVIE~ok
+val-portuguese	205	Canção das Estrelas	2024	TV	WORK	-	complete	-	205~Hoshi no Uta|Canção das Estrelas~2024~TV~ok
+val-suffix	206	Violet Compass - Legendado [1080p]	2022	TV	WORK	-	complete	-	206~Violet Compass~2022~TV~ok
+val-child	207	Wind Palace Season 3	2025	TV	CHILD_SEASON	3	complete	-	207~Wind Palace Season 3~2025~TV~ok;208~Wind Palace Season 2~2025~TV~ok
+val-cour	209	Northern Signal Cour 2	2024	TV	WORK	-	complete	-	209~Northern Signal Cour 2~2024~TV~ok;210~Northern Signal Cour 1~2024~TV~ok
+val-special	211	Summer Letter Special	2019	SPECIAL	WORK	-	complete	-	211~Summer Letter Special~2019~SPECIAL~ok;212~Summer Letter~2019~TV~ok
+val-roman	213	Crystal Engine II	2020	TV	WORK	-	complete	-	213~Crystal Engine II~2020~TV~ok;214~Crystal Engine III~2020~TV~ok
+val-fuzzy-runner	215	The Last Lantern Keeper	2021	TV	WORK	-	complete	-	215~The Last Lantern Keeper~2021~TV~ok;216~The First Lantern Keeper~2021~TV~ok
+val-year-missing	-	Quiet Observatory	-	TV	WORK	-	complete	-	217~Quiet Observatory~2020~TV~ok
+val-format-missing	-	City of Feathers	2020	-	WORK	-	complete	-	218~City of Feathers~2020~TV~ok
+val-year-neighbor	-	Distant Railway	2021	TV	WORK	-	complete	-	219~Distant Railway~2020~TV~ok
+val-film-conflict	-	Morning Circuit	2020	TV	WORK	-	complete	-	220~Morning Circuit~2020~MOVIE~ok
+val-remake	-	Iron Orchard	2020	TV	WORK	-	complete	-	221~Iron Orchard~1990~TV~ok;222~Iron Orchard Remake|Iron Orchard~2020~TV~ok
+val-recap	-	Celestial Avenue	2020	TV	WORK	-	complete	-	223~Celestial Avenue Recap|Celestial Avenue~2020~TV~ok
+val-ova-conflict	-	Ocean Diary	2020	TV	WORK	-	complete	-	224~Ocean Diary OVA|Ocean Diary~2020~OVA~ok
+val-part-conflict	-	Azure Bridge Part 2	2020	TV	WORK	-	complete	-	225~Azure Bridge Part 1~2020~TV~ok
+val-final-conflict	-	Wooden Planet Final	2020	TV	WORK	-	complete	-	226~Wooden Planet~2020~TV~ok
+val-numeric	-	Metro 99	2020	TV	WORK	-	complete	-	227~Metro 98~2020~TV~ok
+val-roman-parent	-	Jade Express	2020	TV	WORK	-	complete	-	228~Jade Express II|Jade Express~2020~TV~ok
+val-acronym	-	XYZ	2020	TV	WORK	-	complete	-	229~XYZ~2020~TV~ok
+val-short-native	-	夢	2020	TV	WORK	-	complete	-	230~夢~2020~TV~ok
+val-collection	-	Ivory Archive	2020	TV	COLLECTION	-	complete	-	231~Ivory Archive~2020~TV~ok
+val-parent	-	Echo Castle	2020	TV	CHILD_SEASON	2	complete	-	232~Echo Castle~2020~TV~ok
+val-tie	-	Dawn Festival	2020	TV	WORK	-	complete	-	233~Dawn Festival~2020~TV~ok;234~Dawn Festival~2020~TV~ok
+val-incomplete	-	Frozen Music Box	2020	TV	WORK	-	incomplete	-	235~Frozen Music Box~2020~TV~ok
+val-empty-incomplete	-	Coral Memoir	2020	TV	WORK	-	incomplete	-	-
+val-rejected	-	Velvet Orbit	2020	TV	WORK	-	complete	-	236~Velvet Orbit~2020~TV~rejected
+val-width	-	Ｓｔａｒ　Ｌｏｏｍ	2020	TV	WORK	-	complete	-	237~Star Loom~2020~TV~ok
+val-accents	-	Jardim de Verao	2020	TV	WORK	-	complete	-	238~Jardim de Verão~2020~TV~ok
+val-missing-remote	-	River of Bells	2020	TV	WORK	-	complete	-	239~River of Bells~-~-~ok
+val-unknown-scope	-	Garden of Maps	2020	TV	UNKNOWN	-	complete	-	240~Garden of Maps~2020~TV~ok
+val-blocked	-	Night Ship	2020	TV	WORK	-	complete	blocked	241~Night Ship~2020~TV~ok
+val-empty	-	Pearl Library	2020	TV	WORK	-	complete	-	-
+val-close	-	Wandering Atlas	2020	TV	WORK	-	complete	-	242~Wandering Atlas~2020~TV~ok;243~Ｗａｎｄｅｒｉｎｇ　Ａｔｌａｓ~2020~TV~ok

@@ -1,6 +1,13 @@
 <!-- Modified for Yume on 2026-10-20: separate fork changelog, assisted by Codex. -->
 # Yume changelog
 
+## Unreleased — correspondência de animes, 2026-10-20
+
+- Adicionados normalização Unicode/sufixos conservadores, identidade/fingerprint versionados e matcher puro com ranking, evidências, vetos, completude e rejeições.
+- Protegidos os IDs de vínculos aceitos/pins; correção gera proposta e seleção manual exige identidade validada pelo provider. Persistência atômica permanece na Sessão 6.
+- Adicionadas fixtures sintéticas separadas de calibração/validação, grade reproduzível de parâmetros e relatório de cobertura/abstenção. Automação textual permanece desativada e sem consumidor UI/worker.
+- Contrato, evidências e limitações na [Sessão 5](docs/metadata/anime-matcher.md). Código/documentação novos assistidos pelo Codex; sem publicação.
+
 ## Unreleased — cliente de metadados, 2026-10-20
 
 - Adicionados contratos de domínio e cliente público AniList com busca paginada/ID, títulos/atributos/capas, nulos e respostas parciais explícitas.

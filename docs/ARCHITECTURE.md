@@ -1,5 +1,7 @@
 # Arquitetura preliminar — proposta da Sessão 0
 
+**Atualização da Sessão 5 — 20/10/2026:** implementados [normalização/matcher puros](metadata/anime-matcher.md), fingerprint, regras de pins/rejeições e proposta de calibração com automação textual desativada, conforme [ADR 0004](DECISIONS/0004-conservative-anime-matcher.md). Cliente e matcher não possuem consumidor UI/worker ativo; persistência, capas e orçamento agregado continuam futuros. As afirmações anteriores de ausência desses componentes são registros históricos.
+
 **Atualização da Sessão 4 — 20/10/2026:** implementados contratos de domínio e [cliente público AniList isolado](metadata/anilist-client.md), conforme [ADR 0003](DECISIONS/0003-anilist-public-client.md). O cliente não possui consumidor de UI/worker ativo; persistência, matcher, capas e orçamento agregado continuam futuros. As afirmações de ausência de implementação abaixo são registros históricos.
 
 **Estado atual — 19/10/2026:** a arquitetura da Etapa B foi aprovada pelo proprietário, conforme [ADR 0002](DECISIONS/0002-metadata-enrichment-architecture.md). A [especificação funcional da Sessão 3](metadata/functional-specification.md) detalha a arquitetura aprovada em [proposed-architecture.md](metadata/proposed-architecture.md). O restante deste arquivo preserva o histórico; declarações abaixo de proposta não aceita foram superadas por esse registro, sem presumir implementação ou aceite dos testes.
