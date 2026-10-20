@@ -2,6 +2,7 @@ package eu.kanade.tachiyomi.data.backup.restore
 
 import dev.icerock.moko.resources.StringResource
 import tachiyomi.i18n.MR
+import tachiyomi.i18n.animiru.AMMR
 import tachiyomi.i18n.aniyomi.AYMR
 
 data class RestoreOptions(
@@ -16,6 +17,8 @@ data class RestoreOptions(
     // AY -->
     val extensions: Boolean = false,
     // <-- AY
+    // AM (Yume metadata decisions, 2026-10-20; assisted by Codex)
+    val metadataDecisions: Boolean = false,
 ) {
 
     fun asBooleanArray() = booleanArrayOf(
@@ -30,6 +33,7 @@ data class RestoreOptions(
         // AY -->
         extensions,
         // <-- AY
+        metadataDecisions,
     )
 
     fun canRestore() = libraryEntries ||
@@ -46,6 +50,12 @@ data class RestoreOptions(
 
     companion object {
         val options = listOf(
+            // AM (Yume metadata decisions, 2026-10-20; assisted by Codex)
+            Entry(
+                label = AMMR.strings.yume_metadata_backup_decisions,
+                getter = RestoreOptions::metadataDecisions,
+                setter = { options, enabled -> options.copy(metadataDecisions = enabled) },
+            ),
             Entry(
                 label = MR.strings.label_library,
                 getter = RestoreOptions::libraryEntries,
@@ -98,6 +108,7 @@ data class RestoreOptions(
             sourceSettings = array[5],
             // AY -->
             extensions = array[6],
+            metadataDecisions = array.getOrElse(7) { false },
             // <-- AY
         )
     }

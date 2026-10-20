@@ -1,9 +1,13 @@
 package tachiyomi.domain.metadata.model
 
+import kotlinx.serialization.Serializable
+
 // AM (Yume metadata matching, 2026-10-20; new code assisted by Codex) -->
+@Serializable
 enum class MetadataScope { WORK, CHILD_SEASON, COLLECTION, UNKNOWN }
 
 /** Year/format must come from trusted structured context, never guessed from a title/episode list. */
+@Serializable
 data class LocalAnimeIdentity(
     val animeId: Long,
     val sourceId: Long,
@@ -23,6 +27,7 @@ data class LocalAnimeIdentity(
     }
 }
 
+@Serializable
 data class MetadataAssociation(val id: MetadataId, val manual: Boolean, val identityFingerprint: String)
 
 data class MatchInput(

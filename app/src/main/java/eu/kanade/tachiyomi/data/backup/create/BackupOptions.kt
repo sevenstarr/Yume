@@ -22,6 +22,8 @@ data class BackupOptions(
     // AY -->
     val extensions: Boolean = false,
     // <-- AY
+    // AM (Yume metadata decisions, 2026-10-20; assisted by Codex)
+    val metadataDecisions: Boolean = false,
 ) {
 
     fun asBooleanArray() = booleanArrayOf(
@@ -41,6 +43,7 @@ data class BackupOptions(
         // AY -->
         extensions,
         // <-- AY
+        metadataDecisions,
     )
 
     fun canCreate() = libraryEntries ||
@@ -54,6 +57,12 @@ data class BackupOptions(
 
     companion object {
         val libraryOptions = listOf(
+            // AM (Yume metadata decisions, 2026-10-20; assisted by Codex)
+            Entry(
+                label = AMMR.strings.yume_metadata_backup_decisions,
+                getter = BackupOptions::metadataDecisions,
+                setter = { options, enabled -> options.copy(metadataDecisions = enabled) },
+            ),
             Entry(
                 label = MR.strings.manga,
                 getter = BackupOptions::libraryEntries,
@@ -147,6 +156,7 @@ data class BackupOptions(
             privateSettings = array[10],
             // AY -->
             extensions = array[11],
+            metadataDecisions = array.getOrElse(12) { false },
             // <-- AY
         )
     }

@@ -1,0 +1,167 @@
+-- AM (Yume metadata persistence, 2026-10-20; new code assisted by Codex)
+CREATE TABLE metadata_control (
+    singleton INTEGER NOT NULL PRIMARY KEY CHECK (singleton = 1),
+    enabled INTEGER NOT NULL DEFAULT 0 CHECK (enabled IN (0, 1)),
+    epoch INTEGER NOT NULL DEFAULT 0,
+    host_not_before INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE anime_metadata (
+    anime_id INTEGER NOT NULL PRIMARY KEY REFERENCES animes(_id) ON DELETE CASCADE,
+    payload TEXT NOT NULL CHECK (length(payload) <= 65536),
+    revision INTEGER NOT NULL DEFAULT 0,
+    generation INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE metadata_work (
+    anime_id INTEGER NOT NULL PRIMARY KEY REFERENCES anime_metadata(anime_id) ON DELETE CASCADE,
+    epoch INTEGER NOT NULL,
+    lease_until INTEGER NOT NULL,
+    lease_id TEXT NOT NULL,
+    emissions INTEGER NOT NULL DEFAULT 0 CHECK (emissions BETWEEN 0 AND 3)
+);
+
+CREATE TABLE metadata_media_cache (
+    provider TEXT NOT NULL,
+    remote_id TEXT NOT NULL,
+    payload TEXT NOT NULL CHECK (length(payload) <= 65536),
+    fetched_at INTEGER NOT NULL,
+    PRIMARY KEY (provider, remote_id)
+);
+CREATE INDEX metadata_media_expiry ON metadata_media_cache(fetched_at);
+
+CREATE TABLE metadata_lookup_cache (
+    cache_key TEXT NOT NULL PRIMARY KEY,
+    fingerprint TEXT NOT NULL,
+    payload TEXT NOT NULL CHECK (length(payload) <= 65536),
+    fetched_at INTEGER NOT NULL,
+    accessed_at INTEGER NOT NULL
+);
+CREATE INDEX metadata_lookup_expiry ON metadata_lookup_cache(fetched_at);
+CREATE INDEX metadata_lookup_lru ON metadata_lookup_cache(accessed_at);
+
+CREATE TABLE metadata_restore_pending (
+    payload TEXT NOT NULL PRIMARY KEY CHECK (length(payload) <= 65536),
+    outcome TEXT NOT NULL
+);
+
+CREATE TABLE metadata_image_index (
+    cache_key TEXT NOT NULL PRIMARY KEY,
+    stored_at INTEGER NOT NULL
+);
+
+initialize:
+INSERT OR IGNORE INTO metadata_control(singleton) VALUES (1);
+
+control:
+SELECT * FROM metadata_control WHERE singleton = 1;
+
+setEnabled:
+UPDATE metadata_control SET enabled = :enabled, epoch = epoch + 1 WHERE singleton = 1;
+
+advanceEpoch:
+UPDATE metadata_control SET epoch = epoch + 1 WHERE singleton = 1;
+
+deferHost:
+UPDATE metadata_control SET host_not_before = max(host_not_before, :until) WHERE singleton = 1;
+
+get:
+SELECT * FROM anime_metadata WHERE anime_id = :animeId;
+
+getBatch:
+SELECT * FROM anime_metadata WHERE anime_id IN :animeIds;
+
+allDecisions:
+SELECT * FROM anime_metadata;
+
+original:
+SELECT _id, source, url, title, parent_id, season_number, fetch_type FROM animes WHERE _id = :animeId;
+
+restoreTargets:
+SELECT a._id, a.source, a.url, a.title, a.parent_id, a.season_number, p.source AS parent_source, p.url AS parent_url
+FROM animes a LEFT JOIN animes p ON a.parent_id = p._id
+WHERE a.source = :source AND a.url = :url;
+
+insertDecision:
+INSERT OR IGNORE INTO anime_metadata(anime_id, payload) VALUES (:animeId, :payload);
+
+writeDecision:
+UPDATE anime_metadata SET payload = :payload, revision = revision + 1, generation = generation + 1
+WHERE anime_id = :animeId AND revision = :revision;
+
+work:
+SELECT * FROM metadata_work WHERE anime_id = :animeId;
+
+lease:
+INSERT INTO metadata_work(anime_id, epoch, lease_until, lease_id, emissions)
+VALUES (:animeId, :epoch, :leaseUntil, :leaseId, :emissions)
+ON CONFLICT(anime_id) DO UPDATE SET epoch = excluded.epoch, lease_until = excluded.lease_until,
+lease_id = excluded.lease_id, emissions = excluded.emissions;
+
+emit:
+UPDATE metadata_work SET emissions = emissions + 1 WHERE anime_id = :animeId AND emissions < 3;
+
+deleteWork:
+DELETE FROM metadata_work WHERE anime_id = :animeId;
+
+deleteAllWork:
+DELETE FROM metadata_work;
+
+putMedia:
+INSERT INTO metadata_media_cache(provider, remote_id, payload, fetched_at) VALUES (:provider, :remoteId, :payload, :now)
+ON CONFLICT(provider, remote_id) DO UPDATE SET payload = excluded.payload, fetched_at = excluded.fetched_at;
+
+media:
+SELECT * FROM metadata_media_cache WHERE provider = :provider AND remote_id = :remoteId;
+
+putLookup:
+INSERT INTO metadata_lookup_cache(cache_key, fingerprint, payload, fetched_at, accessed_at)
+VALUES (:key, :fingerprint, :payload, :now, :now)
+ON CONFLICT(cache_key) DO UPDATE SET fingerprint = excluded.fingerprint, payload = excluded.payload,
+fetched_at = excluded.fetched_at, accessed_at = excluded.accessed_at;
+
+lookup:
+SELECT * FROM metadata_lookup_cache WHERE cache_key = :key;
+
+touchLookup:
+UPDATE metadata_lookup_cache SET accessed_at = :now WHERE cache_key = :key;
+
+pruneMedia:
+DELETE FROM metadata_media_cache WHERE fetched_at <= :oldest OR fetched_at > :now;
+
+pruneLookup:
+DELETE FROM metadata_lookup_cache WHERE fetched_at <= :oldest OR fetched_at > :now;
+
+limitLookup:
+DELETE FROM metadata_lookup_cache WHERE cache_key IN
+(SELECT cache_key FROM metadata_lookup_cache ORDER BY accessed_at DESC, cache_key LIMIT -1 OFFSET 200);
+
+clearMedia:
+DELETE FROM metadata_media_cache;
+
+clearLookup:
+DELETE FROM metadata_lookup_cache;
+
+clearDecisions:
+DELETE FROM anime_metadata;
+
+putPending:
+INSERT OR REPLACE INTO metadata_restore_pending(payload, outcome) VALUES (:payload, :outcome);
+
+pending:
+SELECT * FROM metadata_restore_pending;
+
+clearPending:
+DELETE FROM metadata_restore_pending;
+
+registerImage:
+INSERT OR REPLACE INTO metadata_image_index(cache_key, stored_at) VALUES (:key, :now);
+
+imageKeys:
+SELECT cache_key FROM metadata_image_index;
+
+expiredImages:
+SELECT cache_key FROM metadata_image_index WHERE stored_at <= :oldest OR stored_at > :now;
+
+deleteImageKeys:
+DELETE FROM metadata_image_index WHERE cache_key IN :keys;

@@ -1,18 +1,30 @@
+@file:OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
+
 package tachiyomi.domain.metadata.model
 
-// AM (Yume metadata, 2026-10-20; new code assisted by Codex) -->
-data class MetadataId(val provider: String, val value: String)
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.protobuf.ProtoNumber
 
+// AM (Yume metadata, 2026-10-20; new code assisted by Codex) -->
+@Serializable
+data class MetadataId(@ProtoNumber(1) val provider: String, @ProtoNumber(2) val value: String)
+
+@Serializable
 data class MetadataTitles(val romaji: String?, val english: String?, val native: String?)
 
+@Serializable
 data class MetadataDate(val year: Int?, val month: Int?, val day: Int?)
 
+@Serializable
 enum class MetadataFormat { TV, TV_SHORT, MOVIE, SPECIAL, OVA, ONA, MUSIC }
 
+@Serializable
 enum class MetadataSeason { WINTER, SPRING, SUMMER, FALL }
 
+@Serializable
 data class CoverVariant(val size: String, val url: String)
 
+@Serializable
 data class MetadataMedia(
     val id: MetadataId,
     val idMal: Int?,
@@ -30,8 +42,10 @@ data class MetadataMedia(
 /** Paths are field names/indices only; server messages and private query text are never exposed. */
 data class MetadataFieldError(val path: List<String>, val status: Int?)
 
+@Serializable
 data class MetadataPage(val media: List<MetadataMedia>, val page: Int, val hasNextPage: Boolean?)
 
+@Serializable
 enum class MetadataFailureKind {
     DISABLED,
     INVALID_INPUT,

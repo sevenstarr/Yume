@@ -1,6 +1,13 @@
 <!-- Modified for Yume on 2026-10-20: separate fork changelog, assisted by Codex. -->
 # Yume changelog
 
+## Unreleased — persistência e cache, 2026-10-20
+
+- Adicionados schema 149/migração 148 aditiva, repositório de decisões/pins/rejeições, leases/revisões/epoch, TTLs e cache negativo/LRU.
+- Limpeza seletiva e índice de chaves para o Coil existente, sem duplicar arquivos; requests visuais externos continuam na sessão 7.
+- Backup opcional v1 de decisões com remapeamento conservador e pendências de conflito; correção localizada da restauração de campos `custom*`, preservando originais e preferências do destino.
+- Opt-in permanece off e automação textual desativada; sem coordenador/rede nova ou publicação. [Contrato e limites da sessão 6](docs/metadata/persistence.md). Código/documentação assistidos pelo Codex.
+
 ## Unreleased — correspondência de animes, 2026-10-20
 
 - Adicionados normalização Unicode/sufixos conservadores, identidade/fingerprint versionados e matcher puro com ranking, evidências, vetos, completude e rejeições.
