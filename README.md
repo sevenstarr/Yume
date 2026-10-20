@@ -4,7 +4,7 @@
     <img src="./.github/assets/logo.png" alt="Animiru logo" title="Animiru logo" width="80"/>
 </a>
 
-# Animiru [App](#)
+# Yume [App](#)
 Animiru is a fork of [Aniyomi](https://github.com/aniyomiorg/aniyomi)
 
 ### Full-featured video player
