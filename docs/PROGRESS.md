@@ -1,5 +1,13 @@
 # Progresso do projeto
 
+## Integração da sessão 8 em yume-develop — 20/10/2026
+
+O proprietário autorizou o merge da [PR #1](https://github.com/sevenstarr/Yume/pull/1), de `feat/session-8-metadata-controls` para `yume-develop`. Base remota `787b275e8230a748661be1f7c50ebbdd49ea9533`, cabeça inicial `53bfa72c43b6b2e78ab8860f7229efeb136a709c`. O fetch mostrou reorganização remota prévia: branches antigas ausentes e `yume-develop`/`yume-release` presentes; nenhuma branch foi excluída ou renomeada nesta integração.
+
+- Incorporada a base à branch da PR por merge, sem reescrever commits. Único conflito: `README.md`, entre a troca isolada de título em `787b275e8` e a reescrita acumulada das sessões. Preservado integralmente o README da sessão 8, que já identifica o projeto como Yume.
+- Antes deste registro documental, `git diff --cached --exit-code 53bfa72c4 --` e `git diff --exit-code` passaram: árvore integrada exatamente igual à sessão 8. A integração não altera código, recursos, esquema, testes ou funcionalidades; somente este registro adicional difere da árvore já validada. Verificação de whitespace aprovada; build/testes não repetidos por não haver mudança funcional. Permanecem válidas as evidências e limitações registradas na sessão 8 (264 testes aprovados; Android/UI/acessibilidade pendentes).
+- Destino autorizado: `yume-develop`; publicação da resolução na cabeça da PR e conclusão pelo GitHub com merge commit, preservando os históricos. Nenhuma alteração em `yume-release`, upstream ou branch local `animiru-new-main`; sem force-push, squash, rebase ou início da sessão 9.
+
 ## Sincronização GitHub — 20/10/2026
 
 O proprietário solicitou enviar todo o progresso local ao GitHub. Árvore inicialmente limpa em `7e9712a835cf78ecd5a7259c83836cf5faa79a3f`; oito branches das sessões 1–8 contêm 11 commits além da base. Destino configurado: fork público `https://github.com/sevenstarr/Yume`. Consulta remota confirmou somente `animiru-new-main` em `787b275e8230a748661be1f7c50ebbdd49ea9533`.
