@@ -33,7 +33,7 @@ enum class AnimeCover(val ratio: Float) {
         onClick: (() -> Unit)? = null,
     ) {
         AsyncImage(
-            model = data,
+            model = rememberMetadataCover(data),
             placeholder = ColorPainter(CoverPlaceholderColor),
             error = rememberResourceBitmapPainter(id = R.drawable.cover_error),
             contentDescription = contentDescription,

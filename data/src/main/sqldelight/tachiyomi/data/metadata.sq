@@ -74,6 +74,15 @@ SELECT * FROM anime_metadata WHERE anime_id IN :animeIds;
 allDecisions:
 SELECT * FROM anime_metadata;
 
+-- Yume S7: observe a batch of active covers and its current source identity, without per-tile queries.
+artworkRecords:
+SELECT m.*, a.source AS current_source, a.url AS current_url, a.title AS current_title,
+a.parent_id AS current_parent
+FROM anime_metadata m JOIN animes a ON a._id = m.anime_id WHERE m.anime_id IN :animeIds;
+
+artworkMedia:
+SELECT * FROM metadata_media_cache WHERE provider = 'anilist' AND remote_id IN :remoteIds;
+
 original:
 SELECT _id, source, url, title, parent_id, season_number, fetch_type FROM animes WHERE _id = :animeId;
 

@@ -39,6 +39,8 @@ import eu.kanade.tachiyomi.data.coil.AnimeCoverKeyer
 import eu.kanade.tachiyomi.data.coil.AnimeImageFetcher
 import eu.kanade.tachiyomi.data.coil.AnimeKeyer
 import eu.kanade.tachiyomi.data.coil.BufferedSourceFetcher
+import eu.kanade.tachiyomi.data.coil.ExternalCoverFetcher
+import eu.kanade.tachiyomi.data.coil.MetadataCoverInterceptor
 import eu.kanade.tachiyomi.data.connection.discord.DiscordRPCService
 import eu.kanade.tachiyomi.data.notification.Notifications
 import eu.kanade.tachiyomi.network.NetworkHelper
@@ -95,6 +97,8 @@ class App : Application(), DefaultLifecycleObserver, SingletonImageLoader.Factor
     @Inject private lateinit var sourceManager: SourceManager
 
     @Inject private lateinit var widgetManager: WidgetManager
+
+    @Inject private lateinit var metadataCoverInterceptor: MetadataCoverInterceptor
 
     @Inject private lateinit var migrations: Set<Migration>
 
@@ -215,6 +219,9 @@ class App : Application(), DefaultLifecycleObserver, SingletonImageLoader.Factor
         return ImageLoader.Builder(this).apply {
             val callFactoryLazy = lazy { networkHelper.client }
             components {
+                // AM (Yume S7): resolve before keying; catch both fetch and decode failures.
+                add(metadataCoverInterceptor)
+                add(ExternalCoverFetcher.Factory(networkHelper))
                 // NetworkFetcher.Factory
                 add(OkHttpNetworkFetcherFactory(callFactoryLazy::value))
                 // Fetcher.Factory

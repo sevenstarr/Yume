@@ -1,5 +1,7 @@
 # Arquitetura preliminar — proposta da Sessão 0
 
+**Atualização da Sessão 7 — 20/10/2026:** integrados [resolver, fallback e exibição de capas](metadata/cover-resolution.md), conforme [ADR 0006](DECISIONS/0006-cover-resolution.md). Índice de IDs ativos compartilhado, interceptor antes do keying Coil, CDN neutro, cache-only, cancelamento/barreira e widgets reativos; visualizador/exportação respeitam modo original. Opt-in off; configuração/seleção remota/sync ainda futuras. Aceite visual/performance exige dispositivo, atualmente indisponível.
+
 **Atualização da Sessão 6 — 20/10/2026:** implementados [persistência, cache e backup](metadata/persistence.md) conforme [ADR 0005](DECISIONS/0005-metadata-persistence.md), com migração aditiva 148/schema 149, decisões separadas dos caches, controle de concorrência e limpeza seletiva do Coil. Backup opcional de decisões e correção de `custom*` no restore. Recurso permanece off e sem consumidor visual/coordenador; integração de capas continua na sessão 7. Registros anteriores são históricos.
 
 **Atualização da Sessão 5 — 20/10/2026:** implementados [normalização/matcher puros](metadata/anime-matcher.md), fingerprint, regras de pins/rejeições e proposta de calibração com automação textual desativada, conforme [ADR 0004](DECISIONS/0004-conservative-anime-matcher.md). Cliente e matcher não possuem consumidor UI/worker ativo; persistência, capas e orçamento agregado continuam futuros. As afirmações anteriores de ausência desses componentes são registros históricos.

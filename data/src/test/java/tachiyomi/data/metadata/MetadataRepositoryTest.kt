@@ -3,10 +3,13 @@ package tachiyomi.data.metadata
 import app.cash.sqldelight.async.coroutines.awaitAsOne
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotEquals
@@ -546,6 +549,121 @@ class MetadataRepositoryTest {
             assertNotEquals(old.leaseId, current.leaseId)
             assertFalse(it.repo.selectManual(old, remote, MetadataResult.Success(media), true, now))
             assertTrue(it.repo.selectManual(current, remote, MetadataResult.Success(media), true, now))
+        }
+    }
+
+    @Test
+    fun `different images load concurrently and clear drains every writer`() = runTest {
+        fresh().use { store ->
+            pin(store)
+            val record = store.repo.get(1)!!
+            val epoch = store.repo.control().epoch
+            val resume = CompletableDeferred<Unit>()
+            val firstStarted = CompletableDeferred<Unit>()
+            val secondStarted = CompletableDeferred<Unit>()
+            fun key(char: String) = "yume-metadata-v1:anilist:1:${char.repeat(64)}:1"
+            val first = async {
+                store.repo.storeImage(1, record.revision, epoch, key("a"), now) {
+                    firstStarted.complete(Unit)
+                    resume.await()
+                }
+            }
+            val second = async {
+                store.repo.storeImage(1, record.revision, epoch, key("b"), now) {
+                    secondStarted.complete(Unit)
+                    resume.await()
+                }
+            }
+            runCurrent()
+            assertTrue(firstStarted.isCompleted)
+            assertTrue(secondStarted.isCompleted)
+            val clear = async { store.repo.clearCache() }
+            runCurrent()
+            assertFalse(clear.isCompleted)
+            resume.complete(Unit)
+            assertFalse(first.await())
+            assertFalse(second.await())
+            clear.await()
+        }
+    }
+
+    @Test
+    fun `image publication refuses source identity changes even for a manual pin`() = runTest {
+        fresh().use { store ->
+            pin(store)
+            val record = store.repo.get(1)!!
+            val epoch = store.repo.control().epoch
+            val key = "yume-metadata-v1:anilist:1:${"a".repeat(64)}:1"
+            assertFalse(
+                store.repo.storeImage(1, record.revision, epoch, key, now) {
+                    store.driver.execute(null, "UPDATE animes SET url='/different' WHERE _id=1", 0).await()
+                },
+            )
+            assertTrue(store.repo.setOriginalOnly(1, record.revision, true))
+            val resolver = CoverResolverImpl(store.db, store.repo)
+            try {
+                withContext(Dispatchers.IO) {
+                    withTimeout(5_000) { assertTrue(resolver.resolve(1).originalOnly) }
+                }
+            } finally {
+                resolver.close()
+            }
+        }
+    }
+
+    @Test
+    fun `shared cover index observes requested IDs and original mode without modifying source data`() = runTest {
+        fresh().use { store ->
+            val clock = System.currentTimeMillis()
+            pin(store, time = clock)
+            addAnime(store, 2, "/2")
+            pin(store, identity.copy(animeId = 2, sourceUrl = "/2"), clock)
+            val original = store.db.animesQueries.getAnimeById(1).awaitAsOne()
+            val resolver = CoverResolverImpl(store.db, store.repo)
+            try {
+                withContext(Dispatchers.IO) {
+                    withTimeout(5_000) {
+                        val both = resolver.observe(listOf(1, 2)).first {
+                            it.values.all { cover -> cover.external.isNotEmpty() }
+                        }
+                        assertEquals(setOf(1L, 2L), both.keys)
+                        assertEquals(both.getValue(1).external, both.getValue(2).external)
+                        val row = store.repo.get(1)!!
+                        assertTrue(store.repo.setOriginalOnly(1, row.revision, true))
+                        val source = resolver.observe(listOf(1)).first { it.getValue(1).originalOnly }.getValue(1)
+                        assertTrue(source.external.isEmpty())
+                        assertTrue(store.repo.setOriginalOnly(1, store.repo.get(1)!!.revision, false))
+                        assertTrue(
+                            resolver.observe(listOf(1)).first { it.getValue(1).external.isNotEmpty() }
+                                .getValue(1).external.isNotEmpty(),
+                        )
+                        store.repo.setEnabled(false)
+                        val off = resolver.observe(listOf(1)).first { it.getValue(1).external.isEmpty() }.getValue(1)
+                        assertFalse(off.originalOnly)
+                    }
+                }
+            } finally {
+                resolver.close()
+            }
+            assertEquals(original, store.db.animesQueries.getAnimeById(1).awaitAsOne())
+        }
+    }
+
+    @Test
+    fun `original only works before a lookup with enrichment disabled and remains reversible`() = runTest {
+        fresh().use { store ->
+            val original = store.db.animesQueries.getAnimeById(1).awaitAsOne()
+            assertFalse(store.repo.control().enabled)
+            assertNull(store.repo.get(1))
+            assertTrue(store.repo.setOriginalOnly(1, null, true))
+            val record = store.repo.get(1)!!
+            assertTrue(record.state.originalOnly)
+            assertNull(record.state.association)
+            assertFalse(store.repo.control().enabled)
+            assertFalse(store.repo.setOriginalOnly(1, null, true))
+            assertTrue(store.repo.setOriginalOnly(1, record.revision, false))
+            assertFalse(store.repo.get(1)!!.state.originalOnly)
+            assertEquals(original, store.db.animesQueries.getAnimeById(1).awaitAsOne())
         }
     }
 }

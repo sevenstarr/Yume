@@ -281,4 +281,9 @@
     <string name="pref_smart_sync_tracker_summary">Skip completed items and stop at entry in progress</string>
     <!-- Yume metadata backup, 2026-10-20; assisted by Codex -->
     <string name="yume_metadata_backup_decisions">Enriched metadata decisions</string>
+    <string name="yume_cover_options">Cover options</string>
+    <string name="yume_cover_show_original">Show original cover</string>
+    <string name="yume_cover_show_selected">Show selected cover</string>
+    <string name="yume_cover_use_original">Use original cover</string>
+    <string name="yume_cover_use_selected">Use selected cover</string>
 </resources>

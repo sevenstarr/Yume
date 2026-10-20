@@ -379,6 +379,7 @@ class AnimeScreen(
                     create(animeId = animeId)
                 }
                 val anime by vm.state.collectAsStateWithLifecycle()
+                val coverSelection by vm.coverSelection.collectAsStateWithLifecycle()
                 if (anime != null) {
                     val getContent = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) {
                         if (it == null) return@rememberLauncherForActivityResult
@@ -386,6 +387,10 @@ class AnimeScreen(
                     }
                     AnimeImagesDialog(
                         anime = anime!!,
+                        previewOriginal = vm.previewOriginal,
+                        usingOriginal = coverSelection[animeId]?.originalOnly == true,
+                        onToggleOriginal = vm::toggleOriginalPreview,
+                        onUseOriginal = { vm.useOriginalCover(it) },
                         snackbarHostState = vm.snackbarHostState,
                         // AY -->
                         pagerState = vm.pagerState,

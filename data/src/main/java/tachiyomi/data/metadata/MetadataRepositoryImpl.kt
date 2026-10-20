@@ -11,7 +11,9 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -56,7 +58,8 @@ class MetadataRepositoryImpl(
 ) : MetadataRepository {
     private val queries get() = database.metadataQueries
     private val json = Json { encodeDefaults = true }
-    private val imageWrites = Mutex()
+    private val imageWrites = Semaphore(8)
+    private val imageBarrier = Mutex()
 
     override suspend fun control(): MetadataControl {
         queries.initialize()
@@ -246,8 +249,25 @@ class MetadataRepositoryImpl(
         true
     }
 
-    override suspend fun setOriginalOnly(animeId: Long, expectedRevision: Long, originalOnly: Boolean): Boolean =
-        change(animeId, expectedRevision) { it.copy(originalOnly = originalOnly) }
+    override suspend fun setOriginalOnly(animeId: Long, expectedRevision: Long?, originalOnly: Boolean): Boolean {
+        if (expectedRevision != null) return change(animeId, expectedRevision) { it.copy(originalOnly = originalOnly) }
+        return database.transactionWithResult {
+            if (!originalOnly || get(animeId) != null) return@transactionWithResult false
+            val original = queries.original(animeId).awaitAsOneOrNull() ?: return@transactionWithResult false
+            if (original.title.isBlank() || original.title.length > 500 || original.url.length > 4096) {
+                return@transactionWithResult false
+            }
+            val identity = LocalAnimeIdentity(
+                animeId,
+                original.source,
+                original.url,
+                original.title,
+                parentId = original.parent_id,
+            )
+            queries.insertDecision(animeId, encode(MetadataDecisionState(identity)))
+            change(animeId, 0) { it.copy(originalOnly = true) }
+        }
+    }
 
     override suspend fun removeAssociation(animeId: Long, expectedRevision: Long): Boolean =
         change(animeId, expectedRevision) {
@@ -355,7 +375,7 @@ class MetadataRepositoryImpl(
             queries.pruneLookup(now - MetadataCachePolicy.LOOKUP, now)
             queries.limitLookup()
         }
-        imageWrites.withLock {
+        withImageBarrier {
             val keys = queries.expiredImages(now - MetadataCachePolicy.RETAIN, now).awaitAsList().toSet()
             imageCache.remove(keys)
             queries.deleteImageKeys(keys.toList())
@@ -369,17 +389,28 @@ class MetadataRepositoryImpl(
         key: String,
         now: Long,
         write: suspend () -> Unit,
-    ): Boolean = imageWrites.withLock {
+    ): Boolean = imageWrites.withPermit {
         require(key.matches(Regex("yume-metadata-v1:anilist:[1-9][0-9]*:[a-f0-9]{64}:[0-9]+")))
         suspend fun eligible(): Boolean = database.transactionWithResult {
             val control = control()
             val row = get(animeId) ?: return@transactionWithResult false
-            val id = row.state.association?.id ?: return@transactionWithResult false
+            val association = row.state.association ?: return@transactionWithResult false
+            val id = association.id
+            val original = queries.original(animeId).awaitAsOneOrNull() ?: return@transactionWithResult false
+            val identity = row.state.identity
+            if (original.source != identity.sourceId || original.url != identity.sourceUrl ||
+                (
+                    !association.manual &&
+                        (original.title != identity.title || original.parent_id != identity.parentId)
+                    )
+            ) {
+                return@transactionWithResult false
+            }
             control.enabled && control.epoch == epoch && row.revision == revision &&
                 !row.state.originalOnly && !row.state.needsReview && !row.state.requiresRevalidation &&
                 key.startsWith("yume-metadata-v1:${id.provider}:${id.value}:") && readMedia(id, now) != null
         }
-        if (!eligible()) return@withLock false
+        if (!eligible()) return@withPermit false
         // Register before I/O: crash recovery/clear can still remove partially written external assets.
         queries.registerImage(key, now)
         var published = false
@@ -397,10 +428,24 @@ class MetadataRepositoryImpl(
         }
     }
 
-    private suspend fun evictImages() = imageWrites.withLock {
+    private suspend fun evictImages() = withImageBarrier {
         val keys = queries.imageKeys().awaitAsList().toSet()
         imageCache.remove(keys)
         queries.deleteImageKeys(keys.toList())
+    }
+
+    /** Concurrent image loads, with a finite barrier that drains every writer before clear completes. */
+    private suspend fun <T> withImageBarrier(block: suspend () -> T): T = imageBarrier.withLock {
+        var acquired = 0
+        try {
+            repeat(8) {
+                imageWrites.acquire()
+                acquired++
+            }
+            block()
+        } finally {
+            repeat(acquired) { imageWrites.release() }
+        }
     }
 
     private suspend fun invalidateSearching() {

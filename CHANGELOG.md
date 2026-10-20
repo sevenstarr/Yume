@@ -1,6 +1,13 @@
 <!-- Modified for Yume on 2026-10-20: separate fork changelog, assisted by Codex. -->
 # Yume changelog
 
+## Unreleased — resolução de capas, 2026-10-20
+
+- Integrados resolver em lote e interceptor Coil para `Anime`/`AnimeCover`, com prioridade manual/externa/original e fallback após erros de fetch/decode.
+- Adicionados transporte CDN neutro, variantes deduplicadas, cache-only, chaves isoladas, cancelamento por revisão e writes paralelos com barreira de limpeza.
+- Tiles/widgets observam mudanças; visualizador permite ver/usar original reversivelmente. Salvar/compartilhar respeitam capa versus background e o modo escolhido.
+- Opt-in e automação textual permanecem off. Testes JVM/caches sintéticos não substituem validação visual ou benchmark em Android. [Contrato e limites da sessão 7](docs/metadata/cover-resolution.md). Código/documentação assistidos pelo Codex; sem publicação.
+
 ## Unreleased — persistência e cache, 2026-10-20
 
 - Adicionados schema 149/migração 148 aditiva, repositório de decisões/pins/rejeições, leases/revisões/epoch, TTLs e cache negativo/LRU.

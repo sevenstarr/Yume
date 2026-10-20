@@ -39,7 +39,9 @@ interface MetadataRepository {
         now: Long,
     ): Boolean
     suspend fun refresh(ticket: MetadataTicket, result: MetadataResult<MetadataMedia>, now: Long): Boolean
-    suspend fun setOriginalOnly(animeId: Long, expectedRevision: Long, originalOnly: Boolean): Boolean
+
+    /** Null revision creates an original-only decision only if no decision exists; never enables enrichment. */
+    suspend fun setOriginalOnly(animeId: Long, expectedRevision: Long?, originalOnly: Boolean): Boolean
     suspend fun removeAssociation(animeId: Long, expectedRevision: Long): Boolean
     suspend fun reject(animeId: Long, expectedRevision: Long, id: MetadataId): Boolean
     suspend fun readMedia(id: MetadataId, now: Long): MetadataCachedMedia?

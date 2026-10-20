@@ -69,6 +69,8 @@ class AnimeImageFetcher(
                 return fileLoader(customCoverFile)
             }
         }
+        // AM (Yume S7): a removed manual file cannot cache the original under a manual key.
+        check(!options.extras.getOrDefault(manualCoverAttemptKey)) { "Manual cover unavailable" }
 
         // diskCacheKey is thumbnail_url
         if (url == null) error("No cover specified")
@@ -331,7 +333,7 @@ class AnimeImageFetcher(
                 options = options,
                 coverFileLazy = coverCacheLazy,
                 customCoverFileLazy = customCoverCacheLazy,
-                diskCacheKeyLazy = lazy { imageLoader.components.key(data, options)!! },
+                diskCacheKeyLazy = lazy { options.diskCacheKey ?: imageLoader.components.key(data, options)!! },
                 getSource = { sourceManager.get(data.source) as? AnimeHttpSource },
                 callFactoryLazy = callFactoryLazy,
                 imageLoader = imageLoader,
@@ -352,7 +354,7 @@ class AnimeImageFetcher(
                 options = options,
                 coverFileLazy = lazy { coverCache.getCoverFile(data.url) },
                 customCoverFileLazy = lazy { coverCache.getCustomCoverFile(data.animeId) },
-                diskCacheKeyLazy = lazy { imageLoader.components.key(data, options)!! },
+                diskCacheKeyLazy = lazy { options.diskCacheKey ?: imageLoader.components.key(data, options)!! },
                 getSource = { sourceManager.get(data.sourceId) as? AnimeHttpSource },
                 callFactoryLazy = callFactoryLazy,
                 imageLoader = imageLoader,
