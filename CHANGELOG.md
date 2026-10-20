@@ -1,6 +1,13 @@
 <!-- Modified for Yume on 2026-10-20: separate fork changelog, assisted by Codex. -->
 # Yume changelog
 
+## Unreleased — configurações e escolha manual, 2026-10-20
+
+- Adicionados opt-in global inicialmente off, preferência móvel para futuro lote e limpeza separada de cache/dados enriquecidos com explicação e confirmação.
+- Painel por anime com busca editável/páginas/ID/link oficial, candidatos com títulos/ano/formato/miniatura, leitura de ID e confirmação reconhecida antes de fixar o vínculo.
+- Refresh mantém o ID escolhido; correção, rejeição, modo original e remoção usam revisão/epoch/lease sem modificar dados da fonte. Pendências de backup são exibidas para revisão conservadora.
+- Corrigido namespace incompatível do cliente AniList (`ANILIST` → `anilist`). Textos em inglês e português brasileiro. [Contrato e limites](docs/metadata/manual-review.md); UI/TalkBack em Android pendentes, sem automação/lote ou publicação. Trabalho assistido pelo Codex.
+
 ## Unreleased — resolução de capas, 2026-10-20
 
 - Integrados resolver em lote e interceptor Coil para `Anime`/`AnimeCover`, com prioridade manual/externa/original e fallback após erros de fetch/decode.

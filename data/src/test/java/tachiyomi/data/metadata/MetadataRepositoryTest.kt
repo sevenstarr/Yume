@@ -43,7 +43,11 @@ import tachiyomi.domain.metadata.model.MetadataRestoreOutcome
 import tachiyomi.domain.metadata.model.MetadataResult
 import tachiyomi.domain.metadata.model.MetadataSeason
 import tachiyomi.domain.metadata.model.MetadataTitles
+import tachiyomi.domain.metadata.service.MetadataCapabilities
 import tachiyomi.domain.metadata.service.MetadataImageCache
+import tachiyomi.domain.metadata.service.MetadataProvider
+import tachiyomi.domain.metadata.service.MetadataReviewActions
+import tachiyomi.domain.metadata.service.MetadataSearch
 import java.nio.file.Files
 import java.nio.file.Path
 
@@ -664,6 +668,280 @@ class MetadataRepositoryTest {
             assertTrue(store.repo.setOriginalOnly(1, record.revision, false))
             assertFalse(store.repo.get(1)!!.state.originalOnly)
             assertEquals(original, store.db.animesQueries.getAnimeById(1).awaitAsOne())
+        }
+    }
+    private class ReviewProvider(
+        val media: MetadataMedia,
+        var details: suspend (
+            MetadataId,
+        ) -> MetadataResult<MetadataMedia> = { MetadataResult.Success(media.copy(id = it)) },
+    ) : MetadataProvider {
+        var calls = 0
+        override val capabilities = MetadataCapabilities("anilist", 20, emptySet())
+        override suspend fun getById(id: MetadataId): MetadataResult<MetadataMedia> {
+            calls++
+            return details(id)
+        }
+        override suspend fun search(search: MetadataSearch): MetadataResult<MetadataPage> {
+            calls++
+            return MetadataResult.Success(MetadataPage(listOf(media), search.page, false))
+        }
+    }
+
+    @Test
+    fun `explicit review can recover exhausted expired lease without reviving an old ticket`() = runTest {
+        fresh().use { store ->
+            store.repo.setEnabled(true)
+            val abandoned = store.repo.begin(identity, now)!!
+            repeat(3) { assertTrue(store.repo.recordEmission(abandoned, now)) }
+            assertNull(store.repo.beginReview(identity, store.repo.get(1)!!.revision, now))
+            val resumed = store.repo.beginReview(identity, store.repo.get(1)!!.revision, now + 60_001)!!
+            assertFalse(store.repo.cancelAttempt(abandoned))
+            repeat(3) { assertTrue(store.repo.recordEmission(resumed, now + 60_001)) }
+            assertTrue(store.repo.cancelAttempt(resumed))
+            assertEquals("PENDING", store.repo.get(1)!!.state.outcome)
+        }
+    }
+
+    @Test
+    fun `discarding a proposal preserves unavailable association and source edits invalidate confirmation`() = runTest {
+        fresh().use { store ->
+            pin(store)
+            val provider = ReviewProvider(media)
+            val actions = MetadataReviewActions(store.repo, provider) { now }
+            provider.details = { MetadataResult.NotFound }
+            actions.refresh(identity, store.repo.get(1)!!.revision)
+            provider.details = { MetadataResult.Success(media.copy(id = it)) }
+            val proposal = (
+                actions.verify(identity, store.repo.get(1)!!.revision, remote.copy(value = "2"))
+                    as MetadataReviewActions.Result.Value
+                ).value
+            assertEquals("UNAVAILABLE", store.repo.get(1)!!.state.outcome)
+            store.driver.execute(null, "UPDATE animes SET title = 'Different original' WHERE _id = 1", 0).await()
+            assertEquals(MetadataReviewActions.Result.Conflict, actions.confirm(proposal, true))
+            assertEquals(remote, store.repo.get(1)!!.state.association!!.id)
+        }
+    }
+
+    @Test
+    fun `partial identity cannot propose a pin or replace an existing snapshot`() = runTest {
+        fresh().use { store ->
+            pin(store)
+            val provider = ReviewProvider(media) { MetadataResult.Success(media, identityComplete = false) }
+            val actions = MetadataReviewActions(store.repo, provider) { now + 1 }
+            assertEquals(
+                MetadataReviewActions.Result.Failed(MetadataFailureKind.CONTRACT),
+                actions.verify(identity, store.repo.get(1)!!.revision, remote),
+            )
+            assertEquals(now, store.repo.readMedia(remote, now + 1)!!.fetchedAt)
+            assertEquals(remote, store.repo.get(1)!!.state.association!!.id)
+        }
+    }
+
+    @Test
+    fun `season context changed while confirmation is open cannot reuse a validated proposal`() = runTest {
+        fresh().use { store ->
+            pin(store)
+            val actions = MetadataReviewActions(store.repo, ReviewProvider(media)) { now }
+            val proposal = (
+                actions.verify(identity, store.repo.get(1)!!.revision, remote.copy(value = "2"))
+                    as MetadataReviewActions.Result.Value
+                ).value
+            store.driver.execute(null, "UPDATE animes SET season_number = 2 WHERE _id = 1", 0).await()
+            assertEquals(MetadataReviewActions.Result.Conflict, actions.confirm(proposal, true))
+            assertEquals(remote, store.repo.get(1)!!.state.association!!.id)
+        }
+    }
+
+    @Test
+    fun `review disabled cannot emit and enabling does not enqueue`() = runTest {
+        fresh().use { store ->
+            val provider = ReviewProvider(media)
+            val actions = MetadataReviewActions(store.repo, provider) { now }
+            assertEquals(
+                MetadataReviewActions.Result.Failed(MetadataFailureKind.DISABLED),
+                actions.verify(identity, null, remote),
+            )
+            assertEquals(0, provider.calls)
+            store.repo.setEnabled(true)
+            assertEquals(0, provider.calls)
+            assertNull(store.repo.get(1))
+        }
+    }
+
+    @Test
+    fun `false positive can be corrected from original mode without changing source or custom data`() = runTest {
+        fresh().use { store ->
+            pin(store)
+            val original = store.db.animesQueries.getAnimeById(1).awaitAsOne()
+            assertTrue(store.repo.removeAssociation(1, store.repo.get(1)!!.revision))
+            val provider = ReviewProvider(media)
+            val actions = MetadataReviewActions(store.repo, provider) { now }
+            val result = actions.verify(identity, store.repo.get(1)!!.revision, remote.copy(value = "2"))
+                as MetadataReviewActions.Result.Value
+            assertNull(store.repo.get(1)!!.state.association)
+            assertTrue(store.repo.get(1)!!.state.originalOnly)
+            assertEquals(MetadataReviewActions.Result.Value(Unit), actions.confirm(result.value, true))
+            assertEquals("2", store.repo.get(1)!!.state.association!!.id.value)
+            assertTrue(store.repo.get(1)!!.state.association!!.manual)
+            assertFalse(store.repo.get(1)!!.state.originalOnly)
+            assertEquals(original, store.db.animesQueries.getAnimeById(1).awaitAsOne())
+        }
+    }
+
+    @Test
+    fun `search and dismissed proposal preserve existing pin and release leases`() = runTest {
+        fresh().use { store ->
+            pin(store)
+            val provider = ReviewProvider(media)
+            val actions = MetadataReviewActions(store.repo, provider) { now }
+            assertTrue(
+                actions.search(
+                    identity,
+                    store.repo.get(1)!!.revision,
+                    "edited",
+                    1,
+                ) is MetadataReviewActions.Result.Value,
+            )
+            assertTrue(
+                actions.verify(
+                    identity,
+                    store.repo.get(1)!!.revision,
+                    remote.copy(value = "2"),
+                ) is MetadataReviewActions.Result.Value,
+            )
+            assertEquals(remote, store.repo.get(1)!!.state.association!!.id)
+            assertNotNull(store.repo.beginReview(identity, store.repo.get(1)!!.revision, now))
+        }
+    }
+
+    @Test
+    fun `confirmation requires acknowledgement fresh validation and unchanged revision`() = runTest {
+        fresh().use { store ->
+            store.repo.setEnabled(true)
+            var clock = now
+            val actions = MetadataReviewActions(store.repo, ReviewProvider(media)) { clock }
+            val proposal = (actions.verify(identity, null, remote) as MetadataReviewActions.Result.Value).value
+            assertEquals(MetadataReviewActions.Result.Conflict, actions.confirm(proposal, false))
+            clock += 300_000
+            assertEquals(MetadataReviewActions.Result.Conflict, actions.confirm(proposal, true))
+            clock = now
+            store.repo.setOriginalOnly(1, store.repo.get(1)!!.revision, true)
+            assertEquals(MetadataReviewActions.Result.Conflict, actions.confirm(proposal, true))
+            assertNull(store.repo.get(1)!!.state.association)
+        }
+    }
+
+    @Test
+    fun `off and clear invalidate a validated proposal`() = runTest {
+        fresh().use { store ->
+            store.repo.setEnabled(true)
+            val actions = MetadataReviewActions(store.repo, ReviewProvider(media)) { now }
+            val proposal = (actions.verify(identity, null, remote) as MetadataReviewActions.Result.Value).value
+            store.repo.setEnabled(false)
+            store.repo.setEnabled(true)
+            assertEquals(MetadataReviewActions.Result.Conflict, actions.confirm(proposal, true))
+            val next = (
+                actions.verify(
+                    identity,
+                    store.repo.get(1)!!.revision,
+                    remote,
+                ) as MetadataReviewActions.Result.Value
+                ).value
+            store.repo.clearCache()
+            assertEquals(MetadataReviewActions.Result.Conflict, actions.confirm(next, true))
+            assertNull(store.repo.get(1)!!.state.association)
+        }
+    }
+
+    @Test
+    fun `refresh keeps exact pinned identity and does not search for substitutes`() = runTest {
+        fresh().use { store ->
+            pin(store)
+            val provider = ReviewProvider(media)
+            val actions = MetadataReviewActions(store.repo, provider) { now + 10 }
+            assertEquals(
+                MetadataReviewActions.Result.Value(Unit),
+                actions.refresh(identity, store.repo.get(1)!!.revision),
+            )
+            assertEquals(now + 10, store.repo.get(1)!!.state.lastCheckedAt)
+            provider.details = { MetadataResult.NotFound }
+            actions.refresh(identity, store.repo.get(1)!!.revision)
+            assertEquals("UNAVAILABLE", store.repo.get(1)!!.state.outcome)
+            assertEquals(remote, store.repo.get(1)!!.state.association!!.id)
+            assertEquals(2, provider.calls)
+        }
+    }
+
+    @Test
+    fun `wrong identity cannot be confirmed and cooldown prevents another request`() = runTest {
+        fresh().use { store ->
+            pin(store)
+            val provider = ReviewProvider(media)
+            provider.details = { MetadataResult.Success(media.copy(id = remote.copy(value = "99"))) }
+            val actions = MetadataReviewActions(store.repo, provider) { now }
+            assertEquals(
+                MetadataReviewActions.Result.Failed(MetadataFailureKind.CONTRACT),
+                actions.verify(identity, store.repo.get(1)!!.revision, remote),
+            )
+            provider.details =
+                { MetadataResult.Failure(MetadataFailureKind.RATE_LIMITED, retryAtMillis = now + 90_000) }
+            actions.verify(identity, store.repo.get(1)!!.revision, remote)
+            assertEquals(
+                MetadataReviewActions.Result.Failed(MetadataFailureKind.RATE_LIMITED),
+                actions.verify(identity, store.repo.get(1)!!.revision, remote),
+            )
+            assertEquals(2, provider.calls)
+            assertEquals(remote, store.repo.get(1)!!.state.association!!.id)
+        }
+    }
+
+    @Test
+    fun `cancelling review releases only its lease and turning off cancels transport`() = runTest {
+        fresh().use { store ->
+            pin(store)
+            val entered = CompletableDeferred<Unit>()
+            val cancelled = CompletableDeferred<Unit>()
+            val provider = ReviewProvider(media) {
+                entered.complete(Unit)
+                try {
+                    kotlinx.coroutines.awaitCancellation()
+                } finally {
+                    cancelled.complete(Unit)
+                }
+            }
+            val actions = MetadataReviewActions(store.repo, provider) { now }
+            val work = async { actions.verify(identity, store.repo.get(1)!!.revision, remote) }
+            entered.await()
+            store.repo.setEnabled(false)
+            runCurrent()
+            cancelled.await()
+            assertTrue(work.isCancelled)
+            assertEquals(remote, store.repo.get(1)!!.state.association!!.id)
+            assertNull(store.repo.get(1)!!.state.failure)
+            store.repo.setEnabled(true)
+            assertNotNull(store.repo.beginReview(identity, store.repo.get(1)!!.revision, now))
+        }
+    }
+
+    @Test
+    fun `rejection is durable and explicit manual selection can override it`() = runTest {
+        fresh().use { store ->
+            pin(store)
+            val other = remote.copy(value = "2")
+            store.repo.reject(1, store.repo.get(1)!!.revision, other)
+            assertTrue(other in store.repo.get(1)!!.state.rejected)
+            val actions = MetadataReviewActions(store.repo, ReviewProvider(media)) { now }
+            val proposal = (
+                actions.verify(
+                    identity,
+                    store.repo.get(1)!!.revision,
+                    other,
+                ) as MetadataReviewActions.Result.Value
+                ).value
+            actions.confirm(proposal, true)
+            assertEquals(other, store.repo.get(1)!!.state.association!!.id)
+            assertFalse(other in store.repo.get(1)!!.state.rejected)
         }
     }
 }

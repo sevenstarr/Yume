@@ -37,6 +37,8 @@ data class MetadataTicket(
     val originalStamp: String,
     val leaseUntil: Long,
     val leaseId: String,
+    val manualReview: Boolean = false,
+    val previousOutcome: String = "PENDING",
 )
 
 @Serializable

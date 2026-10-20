@@ -177,6 +177,11 @@ private data class Item(
 
 private val items = listOf(
     Item(
+        titleRes = MR.strings.metadata_settings,
+        icon = MaterialSymbols.Rounded.Info,
+        screen = SettingsMetadataScreen,
+    ),
+    Item(
         titleRes = MR.strings.pref_category_appearance,
         subtitleRes = MR.strings.pref_appearance_summary,
         icon = MaterialSymbols.Rounded.Palette,

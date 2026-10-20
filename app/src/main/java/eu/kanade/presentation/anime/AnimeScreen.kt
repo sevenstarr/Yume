@@ -155,6 +155,7 @@ fun AnimeScreen(
     onEditInfoClicked: () -> Unit,
     // <-- AM (CUSTOM_INFORMATION)
     onEditNotesClicked: () -> Unit,
+    onMetadataClicked: () -> Unit,
 
     // For bottom action menu
     onMultiBookmarkClicked: (List<Episode>, bookmarked: Boolean) -> Unit,
@@ -235,6 +236,7 @@ fun AnimeScreen(
             onEditInfoClicked = onEditInfoClicked,
             // <-- AM (CUSTOM_INFORMATION)
             onEditNotesClicked = onEditNotesClicked,
+            onMetadataClicked = onMetadataClicked,
             onMultiBookmarkClicked = onMultiBookmarkClicked,
             // AY -->
             onMultiFillermarkClicked = onMultiFillermarkClicked,
@@ -298,6 +300,7 @@ fun AnimeScreen(
             onEditInfoClicked = onEditInfoClicked,
             // <-- AM (CUSTOM_INFORMATION)
             onEditNotesClicked = onEditNotesClicked,
+            onMetadataClicked = onMetadataClicked,
             onMultiBookmarkClicked = onMultiBookmarkClicked,
             // AY -->
             onMultiFillermarkClicked = onMultiFillermarkClicked,
@@ -375,6 +378,7 @@ private fun AnimeScreenSmallImpl(
     onEditInfoClicked: () -> Unit,
     // <-- AM (CUSTOM_INFORMATION)
     onEditNotesClicked: () -> Unit,
+    onMetadataClicked: () -> Unit,
 
     // For bottom action menu
     onMultiBookmarkClicked: (List<Episode>, bookmarked: Boolean) -> Unit,
@@ -471,6 +475,7 @@ private fun AnimeScreenSmallImpl(
                     onClickEditInfo = onEditInfoClicked.takeIf { state.anime.favorite },
                     // <-- AM (CUSTOM_INFORMATION)
                     onClickEditNotes = onEditNotesClicked,
+                    onClickMetadata = onMetadataClicked,
                     actionModeCounter = selectedEpisodeCount,
                     onCancelActionMode = { onAllEpisodeSelected(false) },
                     onSelectAll = { onAllEpisodeSelected(true) },
@@ -786,6 +791,7 @@ fun AnimeScreenLargeImpl(
     onEditInfoClicked: () -> Unit,
     // <-- AM (CUSTOM_INFORMATION)
     onEditNotesClicked: () -> Unit,
+    onMetadataClicked: () -> Unit,
 
     // For bottom action menu
     onMultiBookmarkClicked: (List<Episode>, bookmarked: Boolean) -> Unit,
@@ -872,6 +878,7 @@ fun AnimeScreenLargeImpl(
                     onClickEditInfo = onEditInfoClicked.takeIf { state.anime.favorite },
                     // <-- AM (CUSTOM_INFORMATION)
                     onClickEditNotes = onEditNotesClicked,
+                    onClickMetadata = onMetadataClicked,
                     onCancelActionMode = { onAllEpisodeSelected(false) },
                     actionModeCounter = selectedEpisodeCount,
                     onSelectAll = { onAllEpisodeSelected(true) },

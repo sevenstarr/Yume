@@ -3,7 +3,7 @@
 
 Derivação independente do [Animiru](https://github.com/animiruorg/Animiru), por sua vez derivado do [Aniyomi](https://github.com/aniyomiorg/aniyomi). O nome **Yume** foi confirmado pelo proprietário em 19/10/2026. O [fork público sevenstarr/Yume](https://github.com/sevenstarr/Yume) foi criado com autorização explícita; os commits da fundação e do baseline ainda estão locais, sem push ou PR.
 
-O objetivo é adicionar enriquecimento **opt-in**, inicialmente com metadados e capas do AniList, preservando biblioteca, extensões, episódios, downloads e progresso. As Sessões 4–7 implementam o [cliente público isolado](docs/metadata/anilist-client.md), o [matcher conservador](docs/metadata/anime-matcher.md), a [persistência/cache/backup](docs/metadata/persistence.md) e a [resolução de capas](docs/metadata/cover-resolution.md). Opt-in e automação textual permanecem off; configuração global, seleção de IDs e sincronização continuam futuras. O tracking AniList já existente é herdado do Animiru.
+O objetivo é adicionar enriquecimento **opt-in**, inicialmente com metadados e capas do AniList, preservando biblioteca, extensões, episódios, downloads e progresso. As Sessões 4–8 implementam o [cliente público isolado](docs/metadata/anilist-client.md), o [matcher conservador](docs/metadata/anime-matcher.md), a [persistência/cache/backup](docs/metadata/persistence.md), a [resolução de capas](docs/metadata/cover-resolution.md) e as [configurações/escolha manual](docs/metadata/manual-review.md). O opt-in começa off; a seleção remota depende de ação explícita e confirmação. Automação textual e sincronização em lote continuam desativadas. O tracking AniList já existente é herdado do Animiru.
 
 ## Estado atual
 
@@ -18,8 +18,9 @@ O objetivo é adicionar enriquecimento **opt-in**, inicialmente com metadados e 
 | Sessão 5 | Normalização, matching puro, proteção de pins e parâmetros propostos com fixtures separadas; [contrato e gate](docs/metadata/anime-matcher.md) |
 | Sessão 6 | Migração SQLDelight, decisões/cache separados, gravação condicional, backup opcional e preservação de personalizados; [contrato e limites](docs/metadata/persistence.md) |
 | Sessão 7 | Resolver/Coil, fallback/cache e reversão à original integrados; testes JVM; aceite visual e performance em Android pendentes; [contrato e limites](docs/metadata/cover-resolution.md) |
+| Sessão 8 | Configurações, busca por título/ID/link, seleção confirmada, refresh e remoção/reversão; [uso, testes e limites](docs/metadata/manual-review.md); validação UI/Android pendente |
 | APK local | Cinco APKs debug gerados; assinatura universal/x86_64 verificada; instalação ainda não validada; nenhuma release |
-| Funcionalidade nova | Camada de capas integrada e ações de original no visualizador; sem configuração global, escolha remota ou worker de enriquecimento ativo; fontes/player/trackers preservados |
+| Funcionalidade nova | Configurações → Metadados externos; detalhes do anime → ⋮ → Metadados externos. Capas e correção manual integradas; sem worker de enriquecimento ativo; fontes/player/trackers preservados |
 
 Não há distribuição pública de APK Yume. Os APKs do upstream pertencem ao Animiru. O código ainda usa o pacote, ícone, nome Android, links e referências de atualização herdados; consulte o [plano de identidade](docs/IDENTITY.md) antes de instalar ou distribuir. Os APKs locais de baseline usam assinatura debug e o pacote herdado com sufixo `.dev`.
 

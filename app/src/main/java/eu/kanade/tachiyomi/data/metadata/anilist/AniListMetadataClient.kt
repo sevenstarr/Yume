@@ -14,7 +14,7 @@ class AniListMetadataClient(network: NetworkHelper, private val json: Json) {
     private val transport = OkHttpAniListTransport(network.client)
     private val budget = AniListBudget()
 
-    /** No consumer is wired yet. Future coordinator supplies its current opt-in policy. */
+    /** Manual review supplies current opt-in policy; a background coordinator is not installed. */
     fun provider(
         isEnabled: () -> Boolean = { false },
     ): MetadataProvider = AniListProvider(transport, json, budget, isEnabled)

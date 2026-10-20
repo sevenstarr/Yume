@@ -23,6 +23,10 @@ interface MetadataRepository {
     suspend fun get(animeId: Long): MetadataRecord?
     fun observe(animeIds: List<Long>): Flow<List<MetadataRecord>>
     suspend fun begin(identity: LocalAnimeIdentity, now: Long): MetadataTicket?
+
+    /** Explicit review may retain original-only while searching; the observed revision must still match. */
+    suspend fun beginReview(identity: LocalAnimeIdentity, expectedRevision: Long?, now: Long): MetadataTicket?
+    suspend fun cancelAttempt(ticket: MetadataTicket): Boolean
     suspend fun recordEmission(ticket: MetadataTicket, now: Long): Boolean
     suspend fun failAttempt(ticket: MetadataTicket, failure: MetadataResult.Failure, now: Long): Boolean
     suspend fun selectManual(

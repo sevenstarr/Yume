@@ -1,5 +1,7 @@
 # Arquitetura preliminar — proposta da Sessão 0
 
+**Atualização da Sessão 8 — 20/10/2026:** [configurações e revisão manual](metadata/manual-review.md) conforme [ADR 0007](DECISIONS/0007-manual-metadata-review.md). UI Voyager/Metro, opt-in SQL inicialmente off, ações explícitas com propostas confirmadas e CAS/epoch, ID/link restrito, miniaturas efêmeras e encerramento de leases. Sem DDL nova, automação ou lote; orçamento agregado/worker continuam na sessão 9. Validação UI/Android/TalkBack pendente. Registros anteriores preservam o estado de cada etapa.
+
 **Atualização da Sessão 7 — 20/10/2026:** integrados [resolver, fallback e exibição de capas](metadata/cover-resolution.md), conforme [ADR 0006](DECISIONS/0006-cover-resolution.md). Índice de IDs ativos compartilhado, interceptor antes do keying Coil, CDN neutro, cache-only, cancelamento/barreira e widgets reativos; visualizador/exportação respeitam modo original. Opt-in off; configuração/seleção remota/sync ainda futuras. Aceite visual/performance exige dispositivo, atualmente indisponível.
 
 **Atualização da Sessão 6 — 20/10/2026:** implementados [persistência, cache e backup](metadata/persistence.md) conforme [ADR 0005](DECISIONS/0005-metadata-persistence.md), com migração aditiva 148/schema 149, decisões separadas dos caches, controle de concorrência e limpeza seletiva do Coil. Backup opcional de decisões e correção de `custom*` no restore. Recurso permanece off e sem consumidor visual/coordenador; integração de capas continua na sessão 7. Registros anteriores são históricos.

@@ -282,7 +282,7 @@ class AniListProvider internal constructor(
     private fun MetadataResult<AniListData>.asFailure(): MetadataResult.Failure = this as MetadataResult.Failure
 
     companion object {
-        const val PROVIDER = "ANILIST"
+        const val PROVIDER = "anilist"
         private val MEDIA_FIELDS = setOf(
             "id", "idMal", "type", "title", "synonyms", "format", "startDate", "season",
             "seasonYear", "episodes", "siteUrl", "coverImage",

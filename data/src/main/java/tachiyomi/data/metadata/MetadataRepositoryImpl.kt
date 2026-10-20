@@ -91,6 +91,19 @@ class MetadataRepositoryImpl(
     override suspend fun begin(
         identity: LocalAnimeIdentity,
         now: Long,
+    ): MetadataTicket? = beginInternal(identity, now, false, null)
+
+    override suspend fun beginReview(
+        identity: LocalAnimeIdentity,
+        expectedRevision: Long?,
+        now: Long,
+    ): MetadataTicket? = beginInternal(identity, now, true, expectedRevision)
+
+    private suspend fun beginInternal(
+        identity: LocalAnimeIdentity,
+        now: Long,
+        manualReview: Boolean,
+        expectedRevision: Long?,
     ): MetadataTicket? = database.transactionWithResult {
         require(now >= 0 && now <= Long.MAX_VALUE - MetadataCachePolicy.RETAIN)
         val control = control()
@@ -102,10 +115,18 @@ class MetadataRepositoryImpl(
             return@transactionWithResult null
         }
         val work = queries.work(identity.animeId).awaitAsOneOrNull()
-        if (work != null && (work.lease_until > now || work.emissions >= 3)) return@transactionWithResult null
+        if (work != null && (work.lease_until > now || (!manualReview && work.emissions >= 3))) {
+            return@transactionWithResult null
+        }
+        if (manualReview && get(identity.animeId)?.revision != expectedRevision) return@transactionWithResult null
         queries.insertDecision(identity.animeId, encode(MetadataDecisionState(identity)))
         val row = checkNotNull(get(identity.animeId))
-        if (row.state.originalOnly) return@transactionWithResult null
+        if (row.state.originalOnly && !manualReview) return@transactionWithResult null
+        val previousOutcome = row.state.outcome.takeUnless { it == "SEARCHING" } ?: when {
+            row.state.originalOnly -> "ORIGINAL_ONLY"
+            row.state.association != null -> "ASSOCIATED"
+            else -> "PENDING"
+        }
         val fingerprint = MetadataTitleNormalizer.fingerprint(identity)
         val changed = row.state.association?.let { !it.manual && it.identityFingerprint != fingerprint } == true
         write(
@@ -120,7 +141,18 @@ class MetadataRepositoryImpl(
         val updated = checkNotNull(get(identity.animeId))
         val leaseUntil = now + MetadataCachePolicy.LEASE
         val leaseId = UUID.randomUUID().toString()
-        queries.lease(identity.animeId, control.epoch, leaseUntil, leaseId, work?.emissions ?: 0)
+        queries.lease(
+            identity.animeId,
+            control.epoch,
+            leaseUntil,
+            leaseId,
+            if (manualReview) {
+                0
+            } else {
+                work?.emissions
+                    ?: 0
+            },
+        )
         MetadataTicket(
             identity.animeId,
             updated.revision,
@@ -130,7 +162,18 @@ class MetadataRepositoryImpl(
             originalStamp(identity.animeId)!!,
             leaseUntil,
             leaseId,
+            manualReview,
+            previousOutcome,
         )
+    }
+
+    override suspend fun cancelAttempt(ticket: MetadataTicket): Boolean = database.transactionWithResult {
+        val row = get(ticket.animeId) ?: return@transactionWithResult false
+        val work = queries.work(ticket.animeId).awaitAsOneOrNull() ?: return@transactionWithResult false
+        if (row.revision != ticket.revision || work.lease_id != ticket.leaseId) return@transactionWithResult false
+        write(row, row.state.copy(outcome = ticket.previousOutcome))
+        queries.deleteWork(ticket.animeId)
+        true
     }
 
     override suspend fun recordEmission(ticket: MetadataTicket, now: Long): Boolean = database.transactionWithResult {
@@ -579,7 +622,7 @@ class MetadataRepositoryImpl(
                 work.epoch == ticket.epoch && work.lease_until == ticket.leaseUntil &&
                 work.lease_id == ticket.leaseId &&
                 MetadataTitleNormalizer.fingerprint(it.state.identity) == ticket.fingerprint &&
-                originalStamp(ticket.animeId) == ticket.originalStamp && !it.state.originalOnly
+                originalStamp(ticket.animeId) == ticket.originalStamp && (!it.state.originalOnly || ticket.manualReview)
         }
     }
 

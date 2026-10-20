@@ -25,7 +25,7 @@ import java.io.IOException
 // AM (Yume metadata tests, 2026-10-20; new code assisted by Codex) -->
 class AniListProviderTest {
     private val json = Json { ignoreUnknownKeys = true }
-    private val id = MetadataId("ANILIST", "7")
+    private val id = MetadataId("anilist", "7")
     private val clock = FakeClock()
     private val budget = AniListBudget(clock) { 0 }
     private val requests = mutableListOf<String>()
@@ -50,6 +50,12 @@ class AniListProviderTest {
     fun `maps all public fields without authentication`() = runTest {
         val result = provider { ok() }.getById(id) as MetadataResult.Success
         val media = result.value
+        assertTrue(tachiyomi.domain.metadata.service.AnimeMatcher.validId(media.id))
+        val identity = tachiyomi.domain.metadata.model.LocalAnimeIdentity(1, 42, "/anime", "Synthetic")
+        assertEquals(
+            media.id,
+            tachiyomi.domain.metadata.service.MetadataManualSelection.propose(identity, media.id, result, true)?.id,
+        )
         assertTrue(result.complete)
         assertEquals("日本語", media.titles.native)
         assertEquals(listOf("Alias"), media.synonyms)

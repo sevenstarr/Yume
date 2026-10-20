@@ -155,6 +155,8 @@ interface AppGraph : ViewModelGraph {
 
     // AM (Yume metadata, 2026-10-20; assisted by Codex) -->
     val aniListMetadataClient: AniListMetadataClient
+    val metadataRepository: tachiyomi.domain.metadata.service.MetadataRepository
+    val metadataPreferences: tachiyomi.domain.metadata.service.MetadataPreferences
     val coverResolver: tachiyomi.domain.metadata.service.CoverResolver
 
     // <-- AM (Yume metadata)
