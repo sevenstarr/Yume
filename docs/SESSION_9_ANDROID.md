@@ -53,4 +53,4 @@ Comandos usados incluem consultas ADB de pacote/versão, hash do APK instalado, 
 
 Bancos, telas, logs e auxiliares em `build/session9-android/`, ignorado. Não publicar dados pessoais, identificadores do aparelho ou preferências gerais. Capturas da tentativa inicial coincidente com uso do celular não são evidência do app.
 
-Entrega documental: revisão integral do diff, JSON validado, invariantes aprovadas e git diff --check. Build/JVM não repetidos por não haver mudança funcional; evidência anterior de 298 testes e CI permanece separada. Commit local, sem nova publicação remota, PR, merge ou início da sessão 10.
+Entrega documental: revisão integral do diff, JSON validado, invariantes aprovadas e git diff --check. Build/JVM locais não repetidos por não haver mudança funcional; evidência anterior de 298 testes e CI permanece separada. Relatórios publicados na branch `fix/session-09-android-validation`; proprietário autorizou PR para `yume-develop` e merge após as verificações aplicáveis. Resultado final da integração registrado na PR. Sem início da sessão 10.
