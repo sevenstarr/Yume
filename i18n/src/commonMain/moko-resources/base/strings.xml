@@ -1095,7 +1095,7 @@
     <string name="metadata_enable">Enable metadata enrichment</string>
     <string name="metadata_enable_explanation">Allow public AniList searches and external cover images. Titles you search are sent to AniList. Enabling does not scan your library. Tracking and episode sources are separate.</string>
     <string name="metadata_mobile_data">Allow mobile data for batch sync</string>
-    <string name="metadata_mobile_data_explanation">Saved for future batch sync. Batch sync is not available yet; explicit searches can use your current connection.</string>
+    <string name="metadata_mobile_data_explanation">Allow batch metadata sync on mobile data. When disabled, batch sync requires an unmetered connection. Explicit searches can use your current connection.</string>
     <string name="metadata_clear_cache">Clear external metadata cache</string>
     <string name="metadata_clear_cache_explanation">Remove cached catalog details, searches and external covers. Keep selected IDs, rejections, original data and local custom covers.</string>
     <string name="metadata_clear_all">Clear all enriched data</string>
