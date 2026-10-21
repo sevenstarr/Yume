@@ -1,5 +1,14 @@
 # Progresso do projeto
 
+## Correção AND-01 — descrição de dados móveis — 21/10/2026
+
+Pedido do proprietário: criar branch de fixes, corrigir o bug identificado nos testes Android, abrir PR e integrar em `yume-develop`. Branch `fix/android-mobile-data-description`, baseada em `origin/yume-develop` atualizado por fetch, SHA `7c38c096541d649070790e74b75cacc93f8f6dfa`. Trabalho assistido pelo Codex; sem início da sessão 10.
+
+- Corrigido `metadata_mobile_data_explanation` em inglês/base e pt-BR: removida a afirmação de que sincronização em lote ainda não existe. A explicação informa permissão de dados móveis, exigência de conexão não limitada quando desligada e uso da conexão atual por pesquisas explícitas.
+- Sem alteração da lógica. Texto conferido contra `MetadataSyncJob.constraints`: `CONNECTED` quando permitido, `UNMETERED` quando desligado, e contra a preferência exibida em `SettingsMetadataScreen`.
+- Verificação local: parse XML dos dois arquivos aprovado, uma ocorrência da chave em cada arquivo e `git diff --check` aprovado. Sem novos testes unitários para alteração exclusivamente textual. Build/testes locais e validação visual em aparelho não repetidos; CI da PR será conferido antes do merge, sem atribuir resultados históricos à correção atual.
+- Autorizados push, PR e merge neste pedido. Pendências funcionais da validação Android anterior permanecem conforme relatório; o achado textual AND-01 é resolvido nas fontes desta branch. Resultado de CI/integração será registrado na PR.
+
 ## Validação Android ampliada da sessão 9 — 20/10/2026
 
 Continuação expressamente autorizada na branch `fix/session-09-android-validation`, após o registro parcial abaixo. Sessão 9 integrada pela PR #2 em `4f956a00f231e61856036cad61977457d1fca47d`, CI aprovado na cabeça `a67454442`. Nenhum código funcional alterado, APK reinstalado ou trabalho da sessão 10 iniciado. `docs/prompt.md` não rastreado preservado.

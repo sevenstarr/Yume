@@ -955,7 +955,7 @@
     <string name="metadata_enable">Ativar enriquecimento de metadados</string>
     <string name="metadata_enable_explanation">Permitir pesquisas públicas no AniList e capas externas. Os títulos pesquisados são enviados ao AniList. A ativação não pesquisa a biblioteca. Rastreamento e fontes de episódios são independentes.</string>
     <string name="metadata_mobile_data">Permitir dados móveis na sincronização em lote</string>
-    <string name="metadata_mobile_data_explanation">Preferência salva para a futura sincronização em lote, ainda indisponível. Pesquisas explícitas podem usar a conexão atual.</string>
+    <string name="metadata_mobile_data_explanation">Permite sincronizar metadados em lote usando dados móveis. Quando desativada, a sincronização em lote exige uma conexão não limitada. Pesquisas explícitas podem usar a conexão atual.</string>
     <string name="metadata_clear_cache">Limpar cache de metadados externos</string>
     <string name="metadata_clear_cache_explanation">Remover detalhes do catálogo, pesquisas e capas externas em cache. Manter IDs selecionados, rejeições, dados originais e capas locais personalizadas.</string>
     <string name="metadata_clear_all">Limpar todos os dados enriquecidos</string>
