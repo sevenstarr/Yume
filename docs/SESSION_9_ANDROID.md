@@ -1,26 +1,56 @@
-# Sessão 9 — rodada Android parcial
+# Sessão 9 — validação no Android
 
-20/10/2026. Testes autorizados no aparelho do proprietário, interrompidos a seu pedido para preservar o uso restante. Não inicia a sessão 10. Trabalho de documentação/testes assistido pelo Codex.
+20/10/2026. Rodada inicial parcial seguida de ampliação expressamente autorizada pelo proprietário no seu aparelho. Testes/documentação assistidos pelo Codex; sessão 10 não iniciada. Implementação já integrada pela [PR #2](https://github.com/sevenstarr/Yume/pull/2), merge `4f956a00f231e61856036cad61977457d1fca47d`. Esta rodada não altera código funcional nem instala outro APK.
 
-| Verificação | Resultado observado |
+## Ambiente e método
+
+Galaxy A05s, Android 15/API 35. APK ARM64 debug `0.20.0.1-8260`, SHA-256 `0863d71b91fcdf70077d3cd19bd526ba8e2984cb3ab4f79fa0a6ea7cab85f4c3`, conferido com o snapshot da sessão 9. ADB autorizado, navegação UIAutomator condicionada ao foco do pacote correto e a um dump novo. SQLite schema 150, cópias privadas com WAL e verificação de integridade antes/depois. Agregados e referências às evidências privadas em [SESSION_9_ANDROID.json](evidence/SESSION_9_ANDROID.json).
+
+O proprietário autorizou consultas reais dos favoritos ao AniList e, separadamente, uma chamada controlada do job diário ignorando prazo/carga. Após rejeição inicial pela revisão automática, a autorização específica foi obtida antes dessa chamada. Não foram alterados relógio ou banco do WorkManager para antecipar o prazo.
+
+## Resultados observados
+
+| Caso | Resultado |
 | --- | --- |
-| Identidade do APK | ARM64 debug, versão 0.20.0.1-8260, SHA-256 `0863d71b91fcdf70077d3cd19bd526ba8e2984cb3ab4f79fa0a6ea7cab85f4c3`, idêntico ao snapshot da sessão 9 |
-| Ambiente | Samsung Galaxy A05s, Android 15/API 35; ADB autorizado; USB carregando |
-| Banco | Schema 150; integridade SQLite aprovada antes/depois |
-| Navegação | Biblioteca, menu, configurações e metadados acessíveis |
-| Idempotência | Três lotes, cada um com 6/6 ignorados, zero erros e zero tentativas do provider; geração 10 → 13 |
-| Preservação | Todas as tabelas mantiveram seus hashes, exceto as duas tabelas operacionais da fila; inclui 165 registros de animes, 393 episódios, histórico, tracking e decisões/cache de metadados |
-| Diário | Configuração existente gerou WorkManager enfileirado, atraso e intervalo de 24 horas, carga e bateria não baixa; execução futura não observada |
-| Restauração | Wi-Fi e dados móveis do Android ligados; preferências originais de metadados restauradas; opção original de manter tela ligada restaurada |
+| Navegação | Biblioteca, configurações/metadados, detalhes, fontes, histórico e downloads acessíveis |
+| Idempotência inicial | Três lotes de seis itens ignorados, zero erros e zero tentativas do provider; cache/TTL |
+| Fila sem rede | Seis pendentes, zero tentativas; pausa preservou fila, retomada manteve pendentes e cancelamento marcou os seis como ignorados |
+| Reinício do processo | Force-stop e reabertura preservaram pausa e os seis pendentes |
+| Opt-out global | Removeu fila e cancelou trabalhos; reativação exigiu confirmação, sem iniciar varredura automática |
+| Bateria | Descarga/nível baixo simulados mantiveram lote pendente sem tentativas; liberação da condição permitiu processamento; simulação restaurada |
+| Atualização real | Consulta de ID já aceito avançou atualização completa e preservou pin. Item com erro histórico também atualizou; causa anterior desconhecida |
+| Revisão manual | Busca retornou candidatos; proposta não substituiu associação. OK desabilitado até reconhecimento; proposta cancelada |
+| Preferências | Modo de capa original alternado e restaurado; gatilho de novos favoritos desligado/religado; diálogos de limpeza abertos e cancelados |
+| Novo favorito | Item temporário entrou como sétimo pendente enquanto pausado; retirado após teste, sem vincular tracking |
+| Reboot com fila | Sete pendentes e pausa persistiram, zero tentativas. Retomada concluiu 7/7 ignorados, zero erros; item retirado descartado sem nova emissão AniList |
+| Reboot com lote concluído | Biblioteca, decisões e preferências persistiram |
+| Diário | WorkManager com atraso/intervalo de 86.400.000 ms, carga e bateria não baixa. Chamada respeitando restrições aguardou; chamada forçada autorizada recusada pelo WorkManager antes do prazo, sem novo lote |
+| Fonte ampliada | Controles visíveis/legíveis em captura a 130%; escala original restaurada |
+| Reprodução | Player exibiu vídeo; logs registraram decoder/quadro de vídeo. Cerca de 19 segundos reproduzidos, saída normal |
+| Download | Iniciou e atingiu 4%; cancelamento deixou fila vazia. Resíduo vazio específico removido; ausência de arquivo parcial conferida |
+| Logs | Seis amostras sem FATAL EXCEPTION; amostras sobrepostas/descontínuas, sem comprovar ausência geral de crashes/ANRs |
 
-O lote anterior do usuário tinha quatro itens para revisão, um ignorado e um erro, com máximo de três tentativas; sua causa não foi diagnosticada nesta rodada. Os novos lotes usaram cache/TTL e não reproduziram o erro. Não limpar cache ou metadados para forçar tráfego sem planejamento.
+## Preservação e restauração
 
-Achado: o subtítulo de dados móveis ainda informa que sincronização em lote não está disponível. Reproduzível em Configurações → External metadata; chave `metadata_mobile_data_explanation`. Correção pendente.
+Integridade SQLite aprovada antes/depois. Seis favoritos originais com linhas integralmente preservadas; IDs/pins, rejeições e modos de capa mantidos. Nenhuma linha preexistente de episódios, histórico, tracking, categorias, vínculos de categorias ou botões personalizados removida ou modificada.
 
-Os testes de rede foram inconclusivos: Wi-Fi foi desligado, mas o cache permitiu conclusão imediata. Não declarar restrição de conectividade validada. Pausa, retomada, cancelamento, processo morto, reboot, Doze, opt-out, novos favoritos, atualização de ID remoto, playback/download, TalkBack e bateria permanecem pendentes.
+A consulta à fonte atualizou um registro público não favorito e acrescentou 37 episódios ao catálogo local (393 → 430). A reprodução acrescentou uma linha de histórico; remoção pela UI limpou sua data, mantendo a linha inativa (5 → 6). Progresso temporário voltou a zero/não visto. Esses efeitos permanecem documentados; não se declara igualdade de todas as tabelas na rodada ampliada.
 
-Comandos efetivamente usados: `adb devices -l`, consultas de versão/pacote, hash binário do APK instalado, `run-as` para cópia privada dos bancos e preferências específicas de metadados, `uiautomator dump`, `input tap`, `screencap`, `svc wifi disable/enable` e `svc power stayon usb`. Cópias SQLite verificadas localmente com Python `sqlite3` e comparadas por tabela. Não foram executados testes instrumentados, coleta sistemática de crash logs ou medição de performance; não se declara cobertura nem ausência de crashes.
+Estado final: seis favoritos originais, fila de metadados concluída, nenhum download ativo/parcial. Opt-in global e novos favoritos ligados, diário/dados móveis do app restaurados. Android: Wi-Fi/dados móveis ligados, escala 0.8, timeout 60000 ms e manter tela ligada 0, conforme valores originais. Simulação de bateria e força de idle desativadas; app na biblioteca. Tela mantida ligada durante os testes, comportamento original restaurado ao encerrar.
 
-Evidências brutas privadas e roteiro auxiliar: `build/session9-android/` (ignorado). Não publicar bancos, telas de outros apps, títulos pessoais, identificadores do dispositivo ou preferências gerais. A primeira tentativa de navegação coincidiu com uso do celular; os toques foram suspensos, o proprietário liberou o aparelho e o roteiro passou a exigir foco do pacote correto e dump novo antes de coletar UI. Capturas dessa tentativa não são evidência do app.
+## Limitações e pendências
 
-Verificação desta entrega documental: diff integral e `git diff --check`; sem alteração funcional, sem repetição de build/JVM. Próxima rodada depende da disponibilidade e autorização do proprietário; sem publicação remota nesta rodada.
+- Diário natural após 24 horas e restrições do lote criado por esse disparador ainda não observados.
+- Doze profundo não alcançado: tentativa parou em QUICK_DOZE_DELAY e foi revertida.
+- Sem benchmark de biblioteca grande, bateria prolongada, TalkBack, instalação limpa ou limpeza destrutiva seguida de restauração.
+- Reprodução curta não valida áudio, episódio completo ou todos os codecs. Download iniciado/cancelado não valida conclusão nem reprodução offline.
+- Alguns testes de rádio concluíram por cache/reconexão; resultados de fila pendente referem-se às cópias que confirmaram pendentes e zero tentativas. Sem estresse/quota real do servidor.
+- Achado pendente: subtítulo `metadata_mobile_data_explanation` ainda afirma que sincronização em lote não está disponível. Sem correção funcional nesta rodada.
+
+## Evidências e entrega
+
+Comandos usados incluem consultas ADB de pacote/versão, hash do APK instalado, run-as para cópias dos bancos/preferências pertinentes, UIAutomator, entrada por texto observado, screencap, rádio/tela/bateria, force-stop, reboot, JobScheduler, deviceidle e amostras de logcat/exit-info. Comparação local com Python/sqlite3; avaliador verificou invariantes e gerou JSON agregado. Sem suíte instrumentada Android.
+
+Bancos, telas, logs e auxiliares em `build/session9-android/`, ignorado. Não publicar dados pessoais, identificadores do aparelho ou preferências gerais. Capturas da tentativa inicial coincidente com uso do celular não são evidência do app.
+
+Entrega documental: revisão integral do diff, JSON validado, invariantes aprovadas e git diff --check. Build/JVM não repetidos por não haver mudança funcional; evidência anterior de 298 testes e CI permanece separada. Commit local, sem nova publicação remota, PR, merge ou início da sessão 10.

@@ -1,5 +1,19 @@
 # Progresso do projeto
 
+## Validação Android ampliada da sessão 9 — 20/10/2026
+
+Continuação expressamente autorizada na branch `fix/session-09-android-validation`, após o registro parcial abaixo. Sessão 9 integrada pela PR #2 em `4f956a00f231e61856036cad61977457d1fca47d`, CI aprovado na cabeça `a67454442`. Nenhum código funcional alterado, APK reinstalado ou trabalho da sessão 10 iniciado. `docs/prompt.md` não rastreado preservado.
+
+- **Fila e persistência:** seis pendentes sem tentativas em teste sem rede; pausa, force-stop/reabertura, retomada e cancelamento conferidos no banco. Opt-out removeu fila/cancelou jobs; reativação não varreu a biblioteca. Restrição de bateria exercitada com descarga/nível baixo simulados e restaurados.
+- **Gatilho e reboot:** favorito temporário acrescentou o sétimo item enquanto pausado. Após retirada e reboot, sete pendentes e pausa persistiram. Retomada concluiu 7/7 ignorados, zero erros/tentativas; sem emissão AniList adicional para o item removido. Outro reboot confirmou persistência após lote concluído.
+- **Consultas e UI:** atualizações reais preservaram pins; erro histórico não reproduzido, causa desconhecida. Busca/proposta e confirmação inicialmente desabilitada verificadas; cancelamento preservou associação. Modos/preferências restaurados; diálogos de limpeza cancelados. Controles legíveis com fonte a 130%, sem auditoria TalkBack. Subtítulo desatualizado `metadata_mobile_data_explanation` permanece pendente.
+- **Diário e Doze:** configuração de 24 horas/carga/bateria confirmada. Proprietário autorizou chamada forçada após bloqueio inicial da revisão automática; WorkManager recusou antecipação, sem criar lote. Diário natural não comprovado. Deep Doze não alcançado (QUICK_DOZE_DELAY), tentativa revertida.
+- **Reprodução/download:** vídeo real por cerca de 19 segundos; download atingiu 4% e foi cancelado, fila vazia e sem parcial ao final. Progresso/histórico temporários limpos pela UI. Sem validar áudio, episódio/download completos ou reprodução offline. Seis amostras sem FATAL EXCEPTION, sem alegar coleta contínua ou ausência geral de falhas.
+- **Integridade:** schema 150 e SQLite íntegro; seis favoritos originais integralmente preservados, IDs/pins/rejeições/modos mantidos. Episódios, histórico e tracking preexistentes intactos. Consulta de fonte atualizou um registro público não favorito e acrescentou 37 episódios; histórico manteve uma nova linha inativa com data limpa, conforme remoção pela UI.
+- **Restauração/entrega:** Wi-Fi/dados móveis ligados, escala 0.8, timeout de 60 s e manter tela ligada desligado, conforme valores originais; bateria/idle simulados restaurados. Preferências restauradas, biblioteca aberta e sem downloads ativos. [Relatório](SESSION_9_ANDROID.md) e [agregados sem dados pessoais](evidence/SESSION_9_ANDROID.json); evidências brutas privadas em diretório ignorado. Avaliador de invariantes, parse JSON, revisão integral do diff e git diff --check aprovados; sem repetir build/JVM nesta alteração documental. Somente commit local, sem push/PR/merge desta rodada.
+
+**Pendências:** diário natural, deep Doze, bateria prolongada, biblioteca grande, TalkBack e limpeza/restauração destrutiva. Esta rodada substitui a lista de testes pendentes do registro parcial, sem declarar aceite Android integral. Aguardar autorização antes de iniciar outra sessão.
+
 ## Validação Android parcial da sessão 9 — 20/10/2026
 
 Continuação autorizada dos testes da sessão 9, sem iniciar a sessão 10. Base `origin/yume-develop` atualizada por fetch, merge da PR #2 confirmado em `4f956a00f231e61856036cad61977457d1fca47d`; CI anterior aprovado na cabeça `a67454442`. Branch local `fix/session-09-android-validation`. `docs/prompt.md` não rastreado preservado.

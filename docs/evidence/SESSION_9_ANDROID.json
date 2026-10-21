@@ -1,0 +1,174 @@
+{
+  "dateLocal": "2026-10-20",
+  "session": 9,
+  "scope": "Expanded physical Android validation; session 10 not started",
+  "device": {
+    "model": "Galaxy A05s",
+    "android": "15",
+    "api": 35
+  },
+  "integrity": {
+    "before": "ok",
+    "after": "ok"
+  },
+  "schema": 150,
+  "favorites": {
+    "before": 6,
+    "after": 6,
+    "sameMembership": true,
+    "allOriginalFavoriteRowsIdentical": true
+  },
+  "manualDecisions": {
+    "sameIdsAndPins": true,
+    "originalCoverModesRestored": true,
+    "rejectionsPreserved": true
+  },
+  "tables": {
+    "animes": {
+      "before": 165,
+      "after": 165,
+      "removed": 0,
+      "modifiedExisting": 1,
+      "added": 0
+    },
+    "episodes": {
+      "before": 393,
+      "after": 430,
+      "removed": 0,
+      "modifiedExisting": 0,
+      "added": 37
+    },
+    "history": {
+      "before": 5,
+      "after": 6,
+      "removed": 0,
+      "modifiedExisting": 0,
+      "added": 1
+    },
+    "anime_sync": {
+      "before": 2,
+      "after": 2,
+      "removed": 0,
+      "modifiedExisting": 0,
+      "added": 0
+    },
+    "categories": {
+      "before": 2,
+      "after": 2,
+      "removed": 0,
+      "modifiedExisting": 0,
+      "added": 0
+    },
+    "animes_categories": {
+      "before": 4,
+      "after": 4,
+      "removed": 0,
+      "modifiedExisting": 0,
+      "added": 0
+    },
+    "custom_buttons": {
+      "before": 1,
+      "after": 1,
+      "removed": 0,
+      "modifiedExisting": 0,
+      "added": 0
+    }
+  },
+  "queue": [
+    {
+      "singleton": 1,
+      "generation": 30,
+      "epoch": 5,
+      "status": "COMPLETED",
+      "on_add": 1,
+      "charging": 0
+    }
+  ],
+  "outcomes": {
+    "SKIPPED": 7
+  },
+  "finalPreferences": {
+    "metadata_sync_daily": "true",
+    "metadata_batch_mobile_data": "true"
+  },
+  "logSamples": [
+    {
+      "file": "r2-after-idle-private.log",
+      "sha256": "a59d517b84836a22a252ecf53751fb8a3e9ce212654adc90dcea2ba451532325",
+      "fatalExceptionCount": 0,
+      "lines": 727
+    },
+    {
+      "file": "r2-before-restart-private.log",
+      "sha256": "9e819673a29834c9ad4ee45a02779bd1b28caeb3258a1b9e91daa7c005838055",
+      "fatalExceptionCount": 0,
+      "lines": 967
+    },
+    {
+      "file": "r2-final-private.log",
+      "sha256": "aeb7b250da0aa2041b204b1f8ae23c13cc978000bf4e23800db3a83ba28623d8",
+      "fatalExceptionCount": 0,
+      "lines": 10249
+    },
+    {
+      "file": "r2-player-probe-private.log",
+      "sha256": "5f1002bc1d40357524ca37cf656215b2754b61a38dd49b974791b8a574b2d65f",
+      "fatalExceptionCount": 0,
+      "lines": 6203
+    },
+    {
+      "file": "r2-post-reboot-private.log",
+      "sha256": "90acd05ee13881d36581789ffd95e78b3b76570d52766eb09806ce31d92aa2bb",
+      "fatalExceptionCount": 0,
+      "lines": 283
+    },
+    {
+      "file": "r2-preboot-private.log",
+      "sha256": "c6cc4f3265ed5a43d761e3e4bc7d3f64ffa8bce8ef46c87f120f5a6652780b92",
+      "fatalExceptionCount": 0,
+      "lines": 1481
+    }
+  ],
+  "limitations": [
+    "Natural daily run after 24 hours not observed; forced JobScheduler call did not make WorkManager dispatch early",
+    "Deep Doze injection stopped at QUICK_DOZE_DELAY and was reverted",
+    "No large-library physical benchmark, long-term battery measurement, TalkBack or destructive full-clear/restore test",
+    "Playback was a short video-decoding probe; audio and full-episode completion were not verified; download was started and cancelled at an observed 4%, not completed",
+    "No new production code, APK installation, repository publication or session 10"
+  ],
+  "temporaryPlaybackCleanup": {
+    "extraHistoryRows": 1,
+    "extraHistoryDatesCleared": true,
+    "lastSecondSeen": 0,
+    "seen": 0,
+    "partialDownloadEntriesRemaining": 0
+  },
+  "caseEvidence": {
+    "pausePending": "r2-paused",
+    "forceStopPaused": "r2-restarted",
+    "resumePending": "r2-resumed",
+    "cancelPending": "r2-cancelled",
+    "globalOptOut": "r2-disabled-confirmed",
+    "realRefresh": "r2-after-refresh",
+    "batteryLowGate": "r2-queued-low",
+    "rebootCompleted": "r2-post-reboot",
+    "newFavoriteEnqueuedWhilePaused": "r2-onadd-confirmed",
+    "rebootPausedQueue": "r2-paused-after-reboot",
+    "resumeAfterReboot": "r2-resumed-after-reboot",
+    "manualConfirmationDisabledUntilAcknowledged": "r2-proposal.xml",
+    "font130Percent": "r2-font130.png",
+    "cancelCacheClear": "r2-cache-cancelled.xml",
+    "cancelFullClear": "r2-clear-all-cancelled.xml",
+    "realRefreshPreviouslyFailedItem": "r2-old-error-refresh.xml",
+    "videoFrame": "r2-player-probe.png",
+    "downloadProgress4Percent": "r2-download-queue.xml",
+    "downloadCancelled": "r2-download-cancelled.xml"
+  },
+  "restoredSystem": {
+    "stayOn": "0",
+    "wifi": "1",
+    "mobileData": "1",
+    "screenTimeout": "60000",
+    "fontScale": "0.8"
+  }
+}
