@@ -1,5 +1,7 @@
 # Arquitetura preliminar — proposta da Sessão 0
 
+**Atualização de 21/10/2026 — pendências sem aparelho:** identidade Android Yume e updater desabilitado por configuração/guarda, conforme [identidade](IDENTITY.md). A edição e a leitura de metadados da fonte local compartilham `LocalAnimeMetadata`: novo arquivo `details.json`, fallback a `info.json` legado e precedência do canônico. Não muda o esquema SQL nem contratos das extensões. O [acompanhamento](NON_DEVICE_PENDING.md) separa checks de host, validações Android e dependências externas.
+
 **Atualização da Sessão 9 — 20/10/2026:** [sincronização durável](metadata/background-sync.md) e [ADR 0008](DECISIONS/0008-durable-metadata-sync.md). Fila SQL/schema 150, fatias WorkManager, gatilhos opt-in de novos favoritos/diário, pausa/retomada/cancelamento com geração/CAS e quota física compartilhada entre consumidores AniList. Automação textual permanece desativada; validação Android/bateria permanece pendente. A implementação atual substitui as indicações históricas de fila/orçamento futuros abaixo.
 
 **Atualização da Sessão 8 — 20/10/2026:** [configurações e revisão manual](metadata/manual-review.md) conforme [ADR 0007](DECISIONS/0007-manual-metadata-review.md). UI Voyager/Metro, opt-in SQL inicialmente off, ações explícitas com propostas confirmadas e CAS/epoch, ID/link restrito, miniaturas efêmeras e encerramento de leases. Sem DDL nova, automação ou lote; orçamento agregado/worker continuam na sessão 9. Validação UI/Android/TalkBack pendente. Registros anteriores preservam o estado de cada etapa.

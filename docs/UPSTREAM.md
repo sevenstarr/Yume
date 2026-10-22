@@ -4,7 +4,9 @@
 
 Consulte [AGENTS.md](../AGENTS.md). A integração usa `yume-develop`, versões estáveis usam `yume-main` e sessões usam `feature/session-XX-descricao`, sempre baseadas no `origin/yume-develop` atualizado. PRs têm base `yume-develop`; publicação e merge exigem autorização. As tabelas e descrições da fundação abaixo são históricas.
 
-Na atualização local, `main` passou a `yume-main` preservando seu SHA auditado; isso não representa uma promoção de versões nem uma release aprovada. As branches locais das sessões 1–9 foram renomeadas ao novo padrão. `git fetch origin` confirmou `origin/yume-develop` e `origin/yume-release`; a adequação remota de `yume-release` para `yume-main`, branch padrão e proteções permanece pendente. As referências de upstream conservam seus nomes originais.
+Na atualização local de 20/10, `main` passou a `yume-main` preservando seu SHA auditado e as branches das sessões 1–9 foram renomeadas ao novo padrão. Em 21/10, sob autorização do proprietário, a branch remota `yume-release` foi renomeada para `yume-main`, mantendo `787b275e8230a748661be1f7c50ebbdd49ea9533` e a função de branch padrão. A referência local foi atualizada por fast-forward e `origin/HEAD` sincronizada. Nenhuma funcionalidade experimental foi promovida à principal. As referências de upstream conservam seus nomes originais.
+
+O ruleset ativo `25605405`, sem atores de bypass, abrange exatamente `yume-develop` e `yume-main`: exige PR, `Build & Test App` da integração GitHub Actions, base atualizada e conversas resolvidas; impede force-push/exclusão. A autorização humana do merge continua exigida pelo protocolo, mesmo com zero revisões técnicas impostas pelo ruleset. O workflow foi alinhado para executar o check também em PRs apenas documentais dirigidas às duas branches.
 
 Data de referência: 19/10/2026. O fork público foi criado com autorização explícita no mesmo dia; a fundação documental continua local, sem push ou PR.
 

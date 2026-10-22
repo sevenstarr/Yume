@@ -1,0 +1,9 @@
+{
+  "uniqueId": "io.github.sevenstarr:yume",
+  "name": "Yume / Animiru / Aniyomi upstream notices",
+  "website": "https://github.com/sevenstarr/Yume",
+  "licenses": [
+    "Yume-Apache-2.0-and-NOTICE"
+  ],
+  "description": "Independent derivative of Animiru/Aniyomi. The source license and original upstream copyright notices are included here. Native dependencies retain their own licenses. Yume changes are owner-directed and assisted by Codex."
+}

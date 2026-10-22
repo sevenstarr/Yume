@@ -1,3 +1,4 @@
+// Yume modification 2026-10-21: host regressions for local metadata files; assisted by Codex.
 plugins {
     alias(mihonx.plugins.android.library)
     alias(mihonx.plugins.spotless)
@@ -31,6 +32,9 @@ dependencies {
 
     implementation(libs.injekt)
     implementation(libs.jsoup)
+
+    testImplementation(libs.bundles.test)
+    testRuntimeOnly(libs.junit.platform.launcher)
 
     // AM -->
     // FFmpeg-kit

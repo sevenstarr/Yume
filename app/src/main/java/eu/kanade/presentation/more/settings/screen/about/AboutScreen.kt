@@ -1,3 +1,4 @@
+// Yume modification 2026-10-21: fork links and unavailable release channel; assisted by Codex.
 package eu.kanade.presentation.more.settings.screen.about
 
 import android.content.Context
@@ -42,7 +43,6 @@ import logcat.LogPriority
 import mihon.app.di.appGraph
 import mihon.icons.materialsymbols.MaterialSymbols
 import mihon.icons.materialsymbols.rounded.Public
-import mihon.icons.simpleicons.Discord
 import mihon.icons.simpleicons.Github
 import mihon.icons.simpleicons.SimpleIcons
 import tachiyomi.core.common.util.lang.withIOContext
@@ -136,7 +136,7 @@ object AboutScreen : Screen() {
                     }
                 }
 
-                if (!BuildConfig.DEBUG) {
+                if (!BuildConfig.DEBUG && updaterEnabled) {
                     item {
                         TextPreferenceWidget(
                             title = stringResource(MR.strings.whats_new),
@@ -151,7 +151,7 @@ object AboutScreen : Screen() {
                         title = stringResource(MR.strings.help_translate),
                         onPreferenceClick = {
                             uriHandler.openUri(
-                                "https://aniyomi.org/docs/contribute#translation",
+                                "https://github.com/sevenstarr/Yume/blob/yume-develop/CONTRIBUTING.md",
                             )
                         },
                     )
@@ -168,7 +168,9 @@ object AboutScreen : Screen() {
                 item {
                     TextPreferenceWidget(
                         title = stringResource(MR.strings.privacy_policy),
-                        onPreferenceClick = { uriHandler.openUri("https://aniyomi.org/privacy/") },
+                        onPreferenceClick = {
+                            uriHandler.openUri("https://github.com/sevenstarr/Yume/blob/yume-develop/docs/PRIVACY.md")
+                        },
                     )
                 }
 
@@ -182,17 +184,12 @@ object AboutScreen : Screen() {
                         LinkIcon(
                             label = stringResource(MR.strings.website),
                             icon = MaterialSymbols.Rounded.Public,
-                            url = "https://aniyomi.org",
-                        )
-                        LinkIcon(
-                            label = "Discord",
-                            icon = SimpleIcons.Discord,
-                            url = "https://discord.gg/yDuHDMwxhv",
+                            url = "https://github.com/sevenstarr/Yume",
                         )
                         LinkIcon(
                             label = "GitHub",
                             icon = SimpleIcons.Github,
-                            url = "https://github.com/animiruorg/Animiru",
+                            url = "https://github.com/sevenstarr/Yume",
                         )
                     }
                 }

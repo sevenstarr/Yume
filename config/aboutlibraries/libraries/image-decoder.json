@@ -1,0 +1,9 @@
+{
+  "uniqueId": "com.github.mihonapp:image-decoder",
+  "name": "Mihon image decoder",
+  "website": "https://github.com/mihonapp/image-decoder/tree/e03b81e18a",
+  "licenses": [
+    "MPL-2.0"
+  ],
+  "description": "MPL-2.0 applies to the image-decoder project. Bundled native codecs retain their own licenses; this entry does not certify every native dependency."
+}

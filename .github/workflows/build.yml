@@ -1,21 +1,10 @@
+# Yume modification 2026-10-21: required checks for every integration PR and Android lint; assisted by Codex.
 name: Build & Test
 on:
   pull_request:
-    paths:
-      - '**'
-      - '!**.md'
-      - '!i18n/src/commonMain/moko-resources/**/strings.xml'
-      - '!i18n/src/commonMain/moko-resources/**/plurals.xml'
-      - 'i18n/src/commonMain/moko-resources/base/strings.xml'
-      - 'i18n/src/commonMain/moko-resources/base/plurals.xml'
-      - '!i18n-aniyomi/src/commonMain/moko-resources/**/strings.xml'
-      - '!i18n-aniyomi/src/commonMain/moko-resources/**/plurals.xml'
-      - 'i18n-aniyomi/src/commonMain/moko-resources/base/strings.xml'
-      - 'i18n-aniyomi/src/commonMain/moko-resources/base/plurals.xml'
-      - '!i18n-animiru/src/commonMain/moko-resources/**/strings.xml'
-      - '!i18n-animiru/src/commonMain/moko-resources/**/plurals.xml'
-      - 'i18n-animiru/src/commonMain/moko-resources/base/strings.xml'
-      - 'i18n-animiru/src/commonMain/moko-resources/base/plurals.xml'
+    branches:
+      - yume-develop
+      - yume-main
   push:
     branches:
       - yume-develop
@@ -61,6 +50,9 @@ jobs:
 
       - name: Verify SQLDelight migrations
         run: ./gradlew verifySqlDelightMigration
+
+      - name: Run Android lint
+        run: ./gradlew :app:lintDebug :data:lintDebug :source-local:lintDebug :presentation-widget:lintDebug
 
       - name: Upload test report
         if: steps.unit_tests.outcome == 'failure'

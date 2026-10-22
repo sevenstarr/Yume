@@ -1,9 +1,11 @@
+// Yume modification 2026-10-21: block the updater and remove upstream release targets; assisted by Codex.
 package eu.kanade.tachiyomi.data.updater
 
 import dev.zacsweers.metro.Inject
 import eu.kanade.tachiyomi.BuildConfig
 import eu.kanade.tachiyomi.util.system.isFossBuildType
 import eu.kanade.tachiyomi.util.system.isPreviewBuildType
+import eu.kanade.tachiyomi.util.system.updaterEnabled
 import tachiyomi.core.common.util.lang.withIOContext
 import tachiyomi.domain.release.interactor.GetApplicationRelease
 
@@ -13,6 +15,7 @@ class AppUpdateChecker(
 ) {
 
     suspend fun checkForUpdate(forceCheck: Boolean = false): GetApplicationRelease.Result {
+        if (!updaterEnabled) return GetApplicationRelease.Result.NoNewUpdate
         // Disable app update checks for older Android versions that we're going to drop support for
         // if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
         //     return GetApplicationRelease.Result.OsTooOld
@@ -35,20 +38,5 @@ class AppUpdateChecker(
     }
 }
 
-val GITHUB_REPO: String by lazy {
-    if (isPreviewBuildType) {
-        "animiruorg/animiru-preview"
-    } else {
-        "animiruorg/Animiru"
-    }
-}
-
-val RELEASE_TAG: String by lazy {
-    if (isPreviewBuildType) {
-        "r${BuildConfig.COMMIT_COUNT}"
-    } else {
-        "v${BuildConfig.VERSION_NAME}"
-    }
-}
-
-val RELEASE_URL = "https://github.com/$GITHUB_REPO/releases/tag/$RELEASE_TAG"
+const val GITHUB_REPO = "sevenstarr/Yume"
+const val RELEASE_URL = "https://github.com/$GITHUB_REPO/releases"

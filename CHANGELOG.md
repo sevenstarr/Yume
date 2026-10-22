@@ -1,6 +1,15 @@
 <!-- Modified for Yume on 2026-10-20: separate fork changelog, assisted by Codex. -->
 # Yume changelog
 
+## Unreleased — pendências sem aparelho e identidade aprovada, 2026-10-21
+
+- Calendário observa o locale da composição e recalcula os dias da semana após troca de idioma; correção dos três erros herdados de lint, sem supressões. Lint passa a bloquear erros e é incluído no check de CI.
+- Nome Android Yume, pacote `io.github.sevenstarr.yume`, marca ¥ original preta/amarela, ícones adaptativo/monocromático/notificações/splash e links próprios. Namespace e sufixos das variantes preservados; nenhum dado do pacote antigo é migrado automaticamente.
+- Updater desativado para toda distribuição e protegido contra consultas forçadas; opção de build que tenta habilitá-lo é recusada até existir canal próprio aprovado.
+- Metadados da fonte local usam uma política única de arquivo: criação em `details.json`, compatibilidade com `info.json` legado e precedência do canônico; streams de leitura fechados. Regressões por reabertura e preservação cobertas por testes JVM.
+- Organização remota `yume-main`/`yume-develop` e proteções configuradas sob autorização; canal privado de vulnerabilidades habilitado. Checks de PR não são mais ignorados por filtros de caminhos documentais.
+- Evidências e limites em [acompanhamento](docs/NON_DEVICE_PENDING.md). Sem release, tag, promoção à principal ou aceite Android integral. Trabalho assistido pelo Codex sob direção do proprietário.
+
 ## Unreleased — sincronização automática e em lote, 2026-10-20
 
 - Fila SQL recuperável (migração 149/schema 150), fatias WorkManager com restrições de rede/bateria/carga, gatilhos opt-in de novos favoritos e atualização diária, progresso e pausa/retomada/cancelamento.

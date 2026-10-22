@@ -45,7 +45,7 @@ Estado final: seis favoritos originais, fila de metadados concluída, nenhum dow
 - Sem benchmark de biblioteca grande, bateria prolongada, TalkBack, instalação limpa ou limpeza destrutiva seguida de restauração.
 - Reprodução curta não valida áudio, episódio completo ou todos os codecs. Download iniciado/cancelado não valida conclusão nem reprodução offline.
 - Alguns testes de rádio concluíram por cache/reconexão; resultados de fila pendente referem-se às cópias que confirmaram pendentes e zero tentativas. Sem estresse/quota real do servidor.
-- Achado pendente: subtítulo `metadata_mobile_data_explanation` ainda afirma que sincronização em lote não está disponível. Sem correção funcional nesta rodada.
+- Achado desta rodada: subtítulo `metadata_mobile_data_explanation` ainda afirmava que sincronização em lote não estava disponível. **Resolvido posteriormente** pela PR #4, merge `25d50a506`; fontes base/pt-BR corrigidas. A observação Android acima permanece histórica, sem alegar nova validação visual da correção.
 
 ## Evidências e entrega
 

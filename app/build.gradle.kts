@@ -1,3 +1,4 @@
+// Yume modification 2026-10-21: approved identity, updater/lint guards and license notices; assisted by Codex.
 import com.android.build.api.variant.ApplicationVariant
 import com.android.build.api.variant.BuildConfigField
 import mihon.gradle.Config
@@ -22,11 +23,17 @@ plugins {
 
 val keystorePropertiesFile = layout.settingsDirectory.file("keystore.properties").asFile
 
+aboutLibraries {
+    collect {
+        configPath = file("../config/aboutlibraries")
+    }
+}
+
 android {
     namespace = "eu.kanade.tachiyomi"
 
     defaultConfig {
-        applicationId = "xyz.Quickdev.Animiru.mi"
+        applicationId = "io.github.sevenstarr.yume"
 
         versionCode = 153
         versionName = "0.20.0.1"
@@ -173,7 +180,7 @@ android {
     }
 
     lint {
-        abortOnError = false
+        abortOnError = true
         checkReleaseBuilds = false
     }
 }
