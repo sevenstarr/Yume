@@ -79,6 +79,37 @@ class CoverTransportTest {
     }
 
     @Test
+    fun `untrusted URL matrix never reaches the HTTP factory`() = runTest {
+        val path = "/file/anilistcdn/media/anime/cover/large/test.jpg"
+        val unsafe = listOf(
+            "http://s4.anilist.co$path",
+            "https://s4.anilist.co.evil.invalid$path",
+            "https://s4.anilist.co@127.0.0.1$path",
+            "https://user:pass@s4.anilist.co$path",
+            "https://s4.anilist.co:444$path",
+            "$url#fragment",
+            "https://s4.anilist.co/file/anilistcdn/media/anime/cover/%2e%2e/private.jpg",
+            "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large%5cprivate.jpg",
+            "https://127.0.0.1$path",
+            "https://[::1]$path",
+            "file:///private.jpg",
+            "data:image/png;base64,AAAA",
+            "https://s4.anilist.co$path?x=" + "a".repeat(4096),
+        )
+        val transport = transport()
+        for (candidate in unsafe) {
+            var refused = false
+            try {
+                transport.read(candidate)
+            } catch (e: CoverFetchFailure) {
+                refused = e.assetFailure
+            }
+            assertTrue(refused, candidate.take(160))
+        }
+        verify(exactly = 0) { factory.newCall(any()) }
+    }
+
+    @Test
     fun `404 and redirect never follow another URL`() = runTest {
         for (code in listOf(404, 410, 302, 429, 503)) {
             val transport = transport()

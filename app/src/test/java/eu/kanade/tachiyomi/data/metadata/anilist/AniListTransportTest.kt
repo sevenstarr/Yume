@@ -117,6 +117,31 @@ class AniListTransportTest {
     }
 
     @Test
+    fun `body at the byte limit is accepted without truncation`() = runTest {
+        val pending = async { transport().execute("{}") }
+        runCurrent()
+        // Multibyte text distinguishes the byte budget from a character budget.
+        val body = "\u00e9".repeat(1024 * 1024)
+        callback.captured.onResponse(call, response(body))
+        assertEquals(body, pending.await().body)
+    }
+
+    @Test
+    fun `multibyte body exceeding the byte budget is rejected`() = runTest {
+        val pending = async {
+            try {
+                transport().execute("{}")
+                false
+            } catch (_: AniListBodyTooLarge) {
+                true
+            }
+        }
+        runCurrent()
+        callback.captured.onResponse(call, response("\u00e9".repeat(1024 * 1024) + "x"))
+        assertTrue(pending.await())
+    }
+
+    @Test
     fun `network callback failure is propagated`() = runTest {
         val transport = transport()
         val pending = async {
