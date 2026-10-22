@@ -1,5 +1,59 @@
 # Progresso do projeto
 
+## Sessão 11 — CI e distribuição de builds — 22/10/2026
+
+Sessão autorizada pelo proprietário. Branch `feature/session-11-ci-distribution`
+criada diretamente em `origin/yume-develop=25d50a506` após fetch concluído.
+O proprietário autorizou expressamente incorporar `33878ff77` e `1b848e794`;
+fast-forward aplicado sem conflitos, preservando os dois commits no histórico.
+Lidos o contexto/subgrafo externo, AGENTS, prompt, progresso, arquitetura e
+evidências da sessão 10. O mapa externo antecede as correções e não foi tratado
+como prova do código atual. `docs/prompt.md` não rastreado foi preservado.
+
+- **CI:** PRs de integração/principal e pushes temáticos executam JDK 21,
+  cache Gradle basic controlado, formatação, testes, SQLDelight, lint e migrações
+  sintéticas. Nenhum secret no CI; `contents: read`, checkout sem persistir
+  credenciais, histórico completo e Actions nos SHAs já adotados. Nome do check
+  obrigatório preservado. Scripts verificam completude dos relatórios e geram
+  cinco APKs debug com SHA-256/proveniência/relatórios de assinatura, retention 7 dias.
+- **Release:** dispatch confirmado somente em `yume-main`, ambiente
+  `release-signing` com gate de prontidão/configuração do proprietário, sem
+  publicação/tag automáticas ou token de escrita. Certificado deve corresponder
+  ao esperado; keystore temporária limpa e nenhum cache de assinatura enviado.
+  Release/foss/preview não herdam chave debug; debug/benchmark mantêm chave de
+  desenvolvimento. Sem chave própria, variantes de distribuição ficam sem assinatura.
+- **Documentação:** `BUILD_DISTRIBUTION.md` cobre download, instalação, custódia,
+  backup/recuperação/rotação, versão/checksum/changelog e updater próprio ainda
+  desativado; arquitetura e changelog atualizados. Rascunho local da PR e comandos
+  em `SESSION_11_PR.md` / `evidence/SESSION_11_COMMANDS.md`. Scripts Python só usam
+  biblioteca padrão; fixtures de testes não contêm chaves nem dados pessoais.
+- **Verificações:** nove testes Python, duas migrações sintéticas, actionlint
+  com label Ubuntu 26.04 declarado localmente e 14 blocos `bash -n` aprovados.
+  Build conjunto `dist=ci` aprovado em 13m52s (66 tarefas executadas, 749
+  atualizadas): 306 testes nos XMLs, zero falhas/erros/ignorados, sendo 86 do app
+  executados e 220 reutilizados. Spotless/SQLDelight aprovados; lint com zero erros
+  e avisos app 204/data 0/fonte local 3/widgets 4. Cinco APKs debug com assinatura
+  v2 verificada, pacote Yume conferido no ARM64 e cinco checksums verificados
+  pelo shell. Corrigidos LF explícito em SHA256SUMS após falha real de CRLF e
+  extração compatível com prefixos atuais do apksigner; digest errado recusado.
+  DSL/relatório de assinatura aprovados em 31s na configuração final. Guarda de
+  chave ausente recusou a configuração com mensagem específica em 15s; duas
+  tentativas anteriores falharam antes dela pela exigência de configuration cache
+  de Isolated Projects. Comando de assinatura corrigido com `--no-isolated-projects`
+  apenas nessa invocação. Detalhes e limites no registro de comandos.
+- **Aceite pendente:** pipeline remoto verde, download/instalação do artifact
+  remoto e assinatura com chave do proprietário. Não houve push, PR, merge remoto,
+  promoção à principal, configuração de ambiente/secrets, tag, Release ou operação
+  de dispositivo. Sessão 10 continua com os limites Android/segurança documentados.
+  Reprodutibilidade bit a bit não medida; não confundir build local com CI remoto.
+
+Configuração de release sem chave/sem caches validada em 29s com updater off;
+nenhum APK de release assinado/R8 foi compilado nesta sessão. Agregados, hashes
+dos APKs e lista dos 14 arquivos em `evidence/SESSION_11.json`. Diff integral e
+verificações de whitespace revisados antes do commit exclusivo da sessão.
+**Implementação local validada; aceite da sessão 11 ainda parcial** pelos itens
+remotos acima. Nenhum início da sessão 12; próxima sessão somente autorizada.
+
 ## Sessão 10 — qualidade, segurança e compatibilidade — 22/10/2026
 
 Pedido explícito para iniciar a sessão 10 do prompt mestre. Fetch concluído após repetição com acesso à rede; criada `feature/session-10-quality` diretamente em `origin/yume-develop` (`25d50a506`). Encontrado commit local de correções ainda não integrado; o proprietário autorizou expressamente incorporá-lo à branch, sem push ou PR. Incorporação por fast-forward de `33878ff77`, mantendo o commit separado. Arquivo não rastreado `docs/prompt.md` preservado. Lidos mapa externo por subgrafo, documentos canônicos, AGENTS, estado/histórico Git e fontes atuais; mapa é anterior às correções incorporadas.

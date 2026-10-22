@@ -1,99 +1,47 @@
-name: Release
-
-permissions:
-  contents: write
+# Yume modification 2026-10-22: manual candidate only, no publication; assisted by Codex.
+name: Release candidate
 
 on:
-  push:
-    branches:
-      - yume-main
-    tags:
-      - v*
+  workflow_dispatch:
+    inputs:
+      approved:
+        description: Owner authorized this signed candidate (does not publish a release)
+        required: true
+        default: false
+        type: boolean
 
-env:
-  ANIMIRU_GITHUB_RELEASE: true
+permissions:
+  contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: release-candidate-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  get_tag:
-    if: github.repository == 'animiruorg/Animiru'
-    name: Extract tag name
-    runs-on: 'ubuntu-26.04'
-    outputs:
-      tag: ${{ steps.extract.outputs.tag }}
-
-    steps:
-      - name: Get tag name
-        id: extract
-        run: echo "tag=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
-
-  build:
-    if: github.repository == 'animiruorg/Animiru'
-    name: Build
-    runs-on: 'ubuntu-26.04'
-    needs: get_tag
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: Set up JDK
-        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
-        with:
-          java-version-file: .github/.java-version
-          distribution: temurin
-
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
-        with:
-          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
-
-      - name: Decode signing keystore
-        run: echo "$SIGNING_KEY" | base64 -d > "${{ runner.temp }}/quickie.keystore"
-        env:
-          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-
-      - name: Build
-        run: ./gradlew assembleRelease -Pdist=github
-        env:
-          storeFile: ${{ runner.temp }}/quickie.keystore
-          storePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyAlias: ${{ secrets.ALIAS }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      - name: Rename APK
-        run: |
-          set -e
-
-          mv app/build/outputs/apk/release/app-universal-release.apk Animiru-${{ needs.get_tag.outputs.tag }}.apk
-          mv app/build/outputs/apk/release/app-arm64-v8a-release.apk Animiru-arm64-v8a-${{ needs.get_tag.outputs.tag }}.apk
-          mv app/build/outputs/apk/release/app-armeabi-v7a-release.apk Animiru-armeabi-v7a-${{ needs.get_tag.outputs.tag }}.apk
-          mv app/build/outputs/apk/release/app-x86-release.apk Animiru-x86-${{ needs.get_tag.outputs.tag }}.apk
-          mv app/build/outputs/apk/release/app-x86_64-release.apk Animiru-x86_64-${{ needs.get_tag.outputs.tag }}.apk
-
-      - name: Upload APK
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: Animiru
-          path: |
-            Animiru-${{ needs.get_tag.outputs.tag }}.apk
-            Animiru-arm64-v8a-${{ needs.get_tag.outputs.tag }}.apk
-            Animiru-armeabi-v7a-${{ needs.get_tag.outputs.tag }}.apk
-            Animiru-x86-${{ needs.get_tag.outputs.tag }}.apk
-            Animiru-x86_64-${{ needs.get_tag.outputs.tag }}.apk
-
-  build_foss:
-    if: github.repository == 'animiruorg/Animiru'
-    name: Build (FOSS)
+  candidate:
+    name: Build signed candidate
+    if: github.repository == 'sevenstarr/Yume' && github.ref == 'refs/heads/yume-main' && inputs.approved
     runs-on: ubuntu-26.04
-    needs: get_tag
-
+    timeout-minutes: 120
+    environment: release-signing
+    defaults:
+      run:
+        shell: bash
     steps:
-      - name: Checkout
+      - name: Check signing readiness
+        env:
+          SIGNING_READY: ${{ vars.YUME_RELEASE_SIGNING_READY }}
+        run: |
+          test "$SIGNING_READY" = true || {
+            echo 'Owner must configure and protect release-signing before enabling candidates.' >&2
+            exit 1
+          }
+
+      - name: Checkout approved main revision
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Set up JDK
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
@@ -101,81 +49,64 @@ jobs:
           java-version-file: .github/.java-version
           distribution: temurin
 
-      - name: Set up Gradle
+      - name: Set up Gradle without cache
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
         with:
+          cache-provider: basic
           cache-disabled: true
 
-      - name: Decode signing keystore
-        run: echo "$SIGNING_KEY" | base64 -d > "${{ runner.temp }}/quickie.keystore"
-        env:
-          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+      - name: Install required Android SDK
+        run: sdkmanager 'platforms;android-37.2' 'build-tools;36.0.0' 'build-tools;37.0.0'
 
-      - name: Build
-        run: ./gradlew assembleFoss -Pdist=foss
-        env:
-          storeFile: ${{ runner.temp }}/quickie.keystore
-          storePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyAlias: ${{ secrets.ALIAS }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-
-      - name: Rename APK
+      - name: Validate candidate sources
         run: |
-          set -e
+          ./gradlew spotlessCheck testDebugUnitTest verifySqlDelightMigration :app:lintDebug :data:lintDebug :source-local:lintDebug :presentation-widget:lintDebug -Pdist=github --console=plain --max-workers=2
+          python3 -m unittest discover -s scripts/tests -v
+          python3 scripts/verify-metadata-migration.py
+          python3 scripts/verify-metadata-sync-migration.py
+          python3 scripts/check-ci-reports.py
 
-          mv app/build/outputs/apk/foss/app-universal-foss.apk Animiru-${{ needs.get_tag.outputs.tag }}-foss.apk
+      - name: Build with owner signing key
+        env:
+          YUME_RELEASE_SIGNING: 'true'
+          YUME_KEYSTORE_BASE64: ${{ secrets.YUME_KEYSTORE_BASE64 }}
+          YUME_KEYSTORE_PATH: ${{ runner.temp }}/yume-release.jks
+          YUME_STORE_PASSWORD: ${{ secrets.YUME_STORE_PASSWORD }}
+          YUME_KEY_ALIAS: ${{ secrets.YUME_KEY_ALIAS }}
+          YUME_KEY_PASSWORD: ${{ secrets.YUME_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          umask 077
+          trap 'rm -f -- "$YUME_KEYSTORE_PATH"' EXIT
+          test -n "$YUME_KEYSTORE_BASE64"
+          printf '%s' "$YUME_KEYSTORE_BASE64" | base64 --decode > "$YUME_KEYSTORE_PATH"
+          unset YUME_KEYSTORE_BASE64
+          ./gradlew :app:assembleRelease -Pdist=github --no-daemon --no-configuration-cache --no-isolated-projects --console=plain --max-workers=2
 
-      - name: Upload APK
+      - name: Verify candidate certificate and prepare checksums
+        env:
+          EXPECTED_CERTIFICATE: ${{ vars.YUME_RELEASE_CERT_SHA256 }}
+        run: |
+          set -euo pipefail
+          test -n "$EXPECTED_CERTIFICATE"
+          for apk in app/build/outputs/apk/release/*.apk; do
+            "$ANDROID_HOME/build-tools/37.0.0/apksigner" verify --verbose --print-certs "$apk" > "$apk.signature.txt"
+            actual=$(sed -n 's/^.*certificate SHA-256 digest: //p' "$apk.signature.txt" | tr -d '\r' | sort -u)
+            test "$actual" = "$EXPECTED_CERTIFICATE"
+          done
+          test -s app/build/outputs/mapping/release/mapping.txt
+          python3 scripts/package-ci-apks.py --variant release --output build/release-candidate
+
+      - name: Upload signed candidate (not a GitHub Release)
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: Animiru-foss
-          path: Animiru-${{ needs.get_tag.outputs.tag }}-foss.apk
+          name: yume-release-candidate-${{ github.sha }}
+          path: |
+            build/release-candidate/
+            app/build/outputs/mapping/release/
+          if-no-files-found: error
+          retention-days: 7
 
-  release:
-    if: github.repository == 'animiruorg/Animiru'
-    name: Create GitHub Release
-    runs-on: ubuntu-26.04
-    needs: [get_tag, build, build_foss]
-
-    steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          merge-multiple: true
-
-      - name: Delete all artifacts
-        uses: geekyeggo/delete-artifact@176a747ab7e287e3ff4787bf8a148716375ca118 # v6.0.0
-        with:
-          failOnError: false
-          name: |
-            Animiru
-            Animiru-foss
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
-        with:
-          tag_name: ${{ needs.get_tag.outputs.tag }}
-          name: Animiru ${{ needs.get_tag.outputs.tag }}
-          body: |
-            Check out the [past release notes](https://github.com/animiruorg/Animiru/releases) if you’re upgrading from an earlier version.
-
-            <!-->
-
-
-
-            <!-->
-
-            > [!TIP]
-            >
-            > ### If you are unsure which version to download then go with `Animiru-${{ needs.get_tag.outputs.tag }}.apk`
-          files: |
-            Animiru-${{ needs.get_tag.outputs.tag }}.apk
-            Animiru-${{ needs.get_tag.outputs.tag }}-foss.apk
-            Animiru-arm64-v8a-${{ needs.get_tag.outputs.tag }}.apk
-            Animiru-armeabi-v7a-${{ needs.get_tag.outputs.tag }}.apk
-            Animiru-x86-${{ needs.get_tag.outputs.tag }}.apk
-            Animiru-x86_64-${{ needs.get_tag.outputs.tag }}.apk
-          draft: true
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Remove temporary keystore
+        if: ${{ always() }}
+        run: rm -f -- "$RUNNER_TEMP/yume-release.jks"

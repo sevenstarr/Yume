@@ -1,4 +1,4 @@
-// Yume modification 2026-10-21: approved identity, updater/lint guards and license notices; assisted by Codex.
+// Yume modifications 2026-10-21/22: approved identity and isolated release signing; assisted by Codex.
 import com.android.build.api.variant.ApplicationVariant
 import com.android.build.api.variant.BuildConfigField
 import mihon.gradle.Config
@@ -46,20 +46,23 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    if (System.getenv("ANIMIRU_GITHUB_RELEASE").toBoolean()) {
+    if (System.getenv("YUME_RELEASE_SIGNING").toBoolean()) {
+        fun signingVariable(name: String): String = System.getenv(name)?.takeIf { it.isNotBlank() }
+            ?: error("Release signing requires $name")
+
         signingConfigs {
-            named("debug") {
-                storeFile = file(System.getenv("storeFile"))
-                storePassword = System.getenv("storePassword")
-                keyAlias = System.getenv("keyAlias")
-                keyPassword = System.getenv("keyPassword")
+            create("yumeRelease") {
+                storeFile = file(signingVariable("YUME_KEYSTORE_PATH"))
+                storePassword = signingVariable("YUME_STORE_PASSWORD")
+                keyAlias = signingVariable("YUME_KEY_ALIAS")
+                keyPassword = signingVariable("YUME_KEY_PASSWORD")
             }
         }
     } else if (keystorePropertiesFile.exists()) {
         val keystoreProperties = FileInputStream(keystorePropertiesFile).use { Properties().apply { load(it) } }
 
         signingConfigs {
-            named("debug") {
+            create("yumeRelease") {
                 storeFile = file(keystoreProperties.getProperty("storeFile"))
                 storePassword = keystoreProperties.getProperty("storePassword")
                 keyAlias = keystoreProperties.getProperty("keyAlias")
@@ -69,7 +72,7 @@ android {
     }
 
     buildTypes {
-        val debug = getByName("debug") {
+        getByName("debug") {
             applicationIdSuffix = ".dev"
             isPseudoLocalesEnabled = true
         }
@@ -77,7 +80,8 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
 
-            signingConfig = debug.signingConfig
+            // Without owner-managed material, release variants are unsigned.
+            signingConfig = signingConfigs.findByName("yumeRelease")
 
             isProfileable = true
 
@@ -102,6 +106,9 @@ android {
         }
         create("benchmark") {
             initWith(release)
+
+            // Profiling requires an installable development target, never the release key.
+            signingConfig = signingConfigs.getByName("debug")
 
             versionNameSuffix = "-benchmark"
             applicationIdSuffix = ".benchmark"

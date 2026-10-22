@@ -1,4 +1,4 @@
-# Yume modification 2026-10-21: required checks for every integration PR and Android lint; assisted by Codex.
+# Yume modification 2026-10-22: secret-free debug CI and temporary artifacts; assisted by Codex.
 name: Build & Test
 on:
   pull_request:
@@ -9,6 +9,8 @@ on:
     branches:
       - yume-develop
       - yume-main
+      - 'feature/**'
+      - 'fix/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -21,10 +23,17 @@ jobs:
   build:
     name: Build & Test App
     runs-on: 'ubuntu-26.04'
+    timeout-minutes: 120
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Dependency Review
         if: github.event_name == 'pull_request'
@@ -39,39 +48,58 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
         with:
-          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+          cache-provider: basic
+          cache-read-only: ${{ github.event_name == 'pull_request' || (github.ref != 'refs/heads/yume-develop' && github.ref != 'refs/heads/yume-main') }}
+
+      - name: Install required Android SDK
+        run: sdkmanager 'platforms;android-37.2' 'build-tools;36.0.0' 'build-tools;37.0.0'
 
       - name: Check code format
-        run: ./gradlew spotlessCheck
+        run: ./gradlew spotlessCheck -Pdist=ci --console=plain --max-workers=2
 
       - name: Run unit tests
         id: unit_tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew testDebugUnitTest -Pdist=ci --console=plain --max-workers=2
 
       - name: Verify SQLDelight migrations
-        run: ./gradlew verifySqlDelightMigration
+        run: ./gradlew verifySqlDelightMigration -Pdist=ci --console=plain --max-workers=2
 
       - name: Run Android lint
-        run: ./gradlew :app:lintDebug :data:lintDebug :source-local:lintDebug :presentation-widget:lintDebug
+        run: ./gradlew :app:lintDebug :data:lintDebug :source-local:lintDebug :presentation-widget:lintDebug -Pdist=ci --console=plain --max-workers=2
 
-      - name: Upload test report
-        if: steps.unit_tests.outcome == 'failure'
+      - name: Check migration data and report completeness
+        run: |
+          python3 -m unittest discover -s scripts/tests -v
+          python3 scripts/verify-metadata-migration.py
+          python3 scripts/verify-metadata-sync-migration.py
+          python3 scripts/check-ci-reports.py
+
+      - name: Upload test and lint reports
+        if: ${{ always() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: test-report-${{ github.sha }}
-          path: app/build/reports/tests/testDebugUnitTest
+          path: |
+            **/build/reports/tests/
+            **/build/test-results/testDebugUnitTest/
+            **/build/reports/lint-results-debug.*
+          retention-days: 7
 
       - name: Build app
-        run: ./gradlew assembleRelease -Pdist=ci
+        run: ./gradlew :app:assembleDebug -Pdist=ci --console=plain --max-workers=2
+
+      - name: Verify debug APK signatures and prepare checksums
+        run: |
+          set -euo pipefail
+          for apk in app/build/outputs/apk/debug/*.apk; do
+            "$ANDROID_HOME/build-tools/37.0.0/apksigner" verify --verbose --print-certs "$apk" > "$apk.signature.txt"
+          done
+          python3 scripts/package-ci-apks.py --variant debug --output build/ci-apks
 
       - name: Upload APK
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: arm64-v8a-${{ github.sha }}
-          path: app/build/outputs/apk/release/app-arm64-v8a-release.apk
-
-      - name: Upload mapping
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: mapping-${{ github.sha }}
-          path: app/build/outputs/mapping/release
+          name: yume-debug-${{ github.sha }}
+          path: build/ci-apks/
+          if-no-files-found: error
+          retention-days: 7

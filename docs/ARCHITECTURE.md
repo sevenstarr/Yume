@@ -1,5 +1,7 @@
 # Arquitetura preliminar — proposta da Sessão 0
 
+**Atualização da Sessão 11 — 22/10/2026:** [CI e distribuição](BUILD_DISTRIBUTION.md) separam APK debug sem secrets e candidato de release manual em ambiente protegido. `yumeRelease` não altera a chave debug; sem chave própria release/foss/preview ficam sem assinatura, enquanto benchmark preserva a chave debug de desenvolvimento. Updater segue desligado. Não há publicação automática nem mudança nos contratos de metadados/dados; execução remota e assinatura do proprietário permanecem pendentes.
+
 **Atualização de 21/10/2026 — pendências sem aparelho:** identidade Android Yume e updater desabilitado por configuração/guarda, conforme [identidade](IDENTITY.md). A edição e a leitura de metadados da fonte local compartilham `LocalAnimeMetadata`: novo arquivo `details.json`, fallback a `info.json` legado e precedência do canônico. Não muda o esquema SQL nem contratos das extensões. O [acompanhamento](NON_DEVICE_PENDING.md) separa checks de host, validações Android e dependências externas.
 
 **Atualização da Sessão 9 — 20/10/2026:** [sincronização durável](metadata/background-sync.md) e [ADR 0008](DECISIONS/0008-durable-metadata-sync.md). Fila SQL/schema 150, fatias WorkManager, gatilhos opt-in de novos favoritos/diário, pausa/retomada/cancelamento com geração/CAS e quota física compartilhada entre consumidores AniList. Automação textual permanece desativada; validação Android/bateria permanece pendente. A implementação atual substitui as indicações históricas de fila/orçamento futuros abaixo.

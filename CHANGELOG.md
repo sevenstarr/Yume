@@ -1,6 +1,12 @@
 <!-- Modified for Yume on 2026-10-20: separate fork changelog, assisted by Codex. -->
 # Yume changelog
 
+## Unreleased — CI e candidatos de release, 2026-10-22
+
+- CI sem secrets em PR/push, cache Gradle restrito, testes/migrações/lint e APKs debug temporários com assinatura verificada, hashes SHA-256 e manifesto de proveniência.
+- Workflow manual de candidato assinado, restrito à principal e ao ambiente de assinatura do proprietário, sem criação de tags ou publicação automática. Release não usa mais chave debug como fallback.
+- [Processo de assinatura, recuperação e distribuição](docs/BUILD_DISTRIBUTION.md). Execução remota e assinatura com chave própria continuam pendentes de autorização/configuração; nenhuma release nesta sessão. Trabalho assistido pelo Codex.
+
 ## Unreleased — pendências sem aparelho e identidade aprovada, 2026-10-21
 
 - Calendário observa o locale da composição e recalcula os dias da semana após troca de idioma; correção dos três erros herdados de lint, sem supressões. Lint passa a bloquear erros e é incluído no check de CI.
