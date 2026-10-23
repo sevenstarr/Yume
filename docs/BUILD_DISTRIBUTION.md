@@ -13,7 +13,7 @@ de raiz para `ANDROID_SDK_ROOT` e o caminho padrão da imagem. Validam o execut�
 e exportam raiz/PATH para passos seguintes. O
 [script oficial da imagem](https://github.com/actions/runner-images/blob/main/images/ubuntu/scripts/build/install-android-sdk.sh)
 confirma essa disposição. Isso trata a falha de PATH abaixo; resultado remoto
-deve ser conferido na cabeça final da PR substituta, antes do merge autorizado.
+deve ser conferido na cabeça final da [PR #6](https://github.com/sevenstarr/Yume/pull/6), antes do merge autorizado.
 As permissões, checks e gates de assinatura/publicação permanecem os mesmos.
 
 **Conferência da sessão 12, 22/10/2026:** PR #5 aberta, cabeça `91a378cee`.
@@ -22,8 +22,9 @@ falhou em `Install required Android SDK`: `sdkmanager: command not found`,
 exit 127 no runner Ubuntu 26.04. Checkout, Dependency Review, JDK e setup Gradle
 passaram; testes, lint, build e upload de APK foram ignorados. O passo de upload
 de relatórios não encontrou arquivos. Não há artifact instalável desta execução.
-Corrigir a preparação/PATH das Command-line Tools e revalidar CI é pendência
-da sessão 11; esta sessão documental não modifica workflows ou configurações.
+A correção de caminho descrita acima foi incorporada na continuação autorizada
+de publicação da sessão 12. A conferência original era documental; esta
+continuação modifica somente o preparo do SDK e registra a validação na PR #6.
 
 `.github/workflows/build.yml` mantém o check **Build & Test App**. Executa em
 PRs para `yume-develop`/`yume-main` e pushes nessas branches e `feature/**`/`fix/**`.

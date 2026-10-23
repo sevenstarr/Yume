@@ -2,6 +2,13 @@
 
 ## Publicação e integração autorizadas da sessão 12 — 22/10/2026
 
+Branch publicada sem force-push; aberta a [PR #6](https://github.com/sevenstarr/Yume/pull/6),
+base `yume-develop`, substituindo a #5. Cabeça inicial `432b3d00c`; reúne seis
+commits e 75 arquivos, incluindo o trabalho anterior preservado. A descrição
+explicita o conjunto, evidências e limites. PR anexada ao chat. Este registro
+documental também será enviado antes de aguardar os checks da cabeça final.
+O resultado final de CI/merge é verificável na PR e será informado na entrega.
+
 O proprietário pediu encerrar a PR #5, criar a PR da sessão 12 e realizar o merge
 em seguida. PR #5 fechada sem merge pelo conector; seu histórico e branch não
 foram apagados. A nova PR reúne os commits já incorporados de correções,

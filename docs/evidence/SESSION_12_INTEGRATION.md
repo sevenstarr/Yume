@@ -5,6 +5,11 @@ a sessão 12 e realizar merge em `yume-develop`. Continuação da mesma sessão.
 
 ## Base e operações
 
+- PR substituta criada: [#6](https://github.com/sevenstarr/Yume/pull/6), base
+  `yume-develop`, compare `feature/session-12-public-docs`, cabeça inicial
+  `432b3d00cdb6af01fcb23a3e798fe214810596f9`; seis commits/75 arquivos.
+  Branch enviada sem force-push e PR anexada ao chat. Atualização documental
+  posterior registra o vínculo antes de validar a cabeça final para merge.
 - Mapa externo lido por contexto/resumo e subgrafo de workflow/build, anterior
   às mudanças atuais. Documentos/fontes/Git atuais conferidos; mapa fora do Git.
 - HEAD inicial `26d290bf4`, branch `feature/session-12-public-docs`, somente
