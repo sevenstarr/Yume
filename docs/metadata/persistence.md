@@ -1,5 +1,10 @@
 # Persistência, cache e backup — Sessão 6
 
+**Leitura atualizada na sessão 12:** registro da sessão 6. Consumidores de
+capas, revisão e background foram implementados nas sessões 7–9; o schema atual
+é 150. Veja [arquitetura atual](../ARCHITECTURE.md) e
+[sincronização](background-sync.md). Os limites de restore Android permanecem.
+
 Implementação assistida pelo Codex em 20/10/2026. Contrato em `MetadataRepository`, implementação SQLDelight singleton no módulo `data`, eviction seletiva de Coil no `app`. Nenhum consumidor de matching/coordenador ou request visual externo é ativado por esta entrega.
 
 ## Dados e comandos

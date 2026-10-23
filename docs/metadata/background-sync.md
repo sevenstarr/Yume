@@ -1,5 +1,12 @@
 # Sincronização automática e em lote — Sessão 9
 
+**Leitura atualizada na sessão 12:** os resultados abaixo pertencem à sessão 9.
+O erro herdado de locale e a identidade/updater foram tratados posteriormente;
+o [relatório de qualidade](../TEST_REPORT.md) e a
+[arquitetura atual](../ARCHITECTURE.md) consolidam esse estado. Limites de
+Android/bateria continuam abertos; CI remoto da sessão 11 falhou antes do
+build conforme [distribuição](../BUILD_DISTRIBUTION.md).
+
 Implementação nova assistida pelo Codex. [ADR 0008](../DECISIONS/0008-durable-metadata-sync.md).
 
 ## Uso e controles

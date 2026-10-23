@@ -12,6 +12,6 @@ Um relato deve conter a versão/commit, ambiente, impacto, passos mínimos e evi
 
 - Mantenha credenciais e material de assinatura fora do Git. `.gitignore` é prevenção, não substitui revisão do conteúdo e histórico.
 - Se um segredo for publicado, revogue/rotacione primeiro e coordene a limpeza com o proprietário; apagar o arquivo no commit seguinte não remove o histórico.
-- Não executar código de PR externo com segredos de assinatura. Os workflows herdados ainda precisam da revisão prevista na sessão 11.
+- Não executar código de PR externo com segredos de assinatura. A sessão 11 preparou CI debug sem secrets e candidato manual com ambiente protegido; execução remota e configuração de assinatura ainda têm gates próprios. Consulte [CI e distribuição](docs/BUILD_DISTRIBUTION.md).
 - Nenhuma chave de release foi criada. Não distribuir builds que usem a identidade ou o updater do Animiru como se fossem Yume.
 - O enriquecimento implementado é opt-in e usa transporte público/CDN separado dos headers de fontes e tokens de trackers. Veja [dados e privacidade](docs/PRIVACY.md); revisões adicionais e validação Android permanecem necessárias.

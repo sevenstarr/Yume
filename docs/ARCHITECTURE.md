@@ -1,108 +1,92 @@
-# Arquitetura preliminar — proposta da Sessão 0
+# Arquitetura atual do Yume
 
-**Atualização da Sessão 11 — 22/10/2026:** [CI e distribuição](BUILD_DISTRIBUTION.md) separam APK debug sem secrets e candidato de release manual em ambiente protegido. `yumeRelease` não altera a chave debug; sem chave própria release/foss/preview ficam sem assinatura, enquanto benchmark preserva a chave debug de desenvolvimento. Updater segue desligado. Não há publicação automática nem mudança nos contratos de metadados/dados; execução remota e assinatura do proprietário permanecem pendentes.
+22/10/2026, sessão 12. Fontes até `91a378cee`, incluindo correções e sessões 10–11 ainda em revisão na PR #5 no início da sessão. Integração conhecida: `25d50a506`. A [evolução nas sessões 0–11](ARCHITECTURE_HISTORY.md) preserva integralmente as propostas anteriores; suas indicações de trabalho futuro não descrevem necessariamente o estado atual.
 
-**Atualização de 21/10/2026 — pendências sem aparelho:** identidade Android Yume e updater desabilitado por configuração/guarda, conforme [identidade](IDENTITY.md). A edição e a leitura de metadados da fonte local compartilham `LocalAnimeMetadata`: novo arquivo `details.json`, fallback a `info.json` legado e precedência do canônico. Não muda o esquema SQL nem contratos das extensões. O [acompanhamento](NON_DEVICE_PENDING.md) separa checks de host, validações Android e dependências externas.
+## Fluxo e limites
 
-**Atualização da Sessão 9 — 20/10/2026:** [sincronização durável](metadata/background-sync.md) e [ADR 0008](DECISIONS/0008-durable-metadata-sync.md). Fila SQL/schema 150, fatias WorkManager, gatilhos opt-in de novos favoritos/diário, pausa/retomada/cancelamento com geração/CAS e quota física compartilhada entre consumidores AniList. Automação textual permanece desativada; validação Android/bateria permanece pendente. A implementação atual substitui as indicações históricas de fila/orçamento futuros abaixo.
-
-**Atualização da Sessão 8 — 20/10/2026:** [configurações e revisão manual](metadata/manual-review.md) conforme [ADR 0007](DECISIONS/0007-manual-metadata-review.md). UI Voyager/Metro, opt-in SQL inicialmente off, ações explícitas com propostas confirmadas e CAS/epoch, ID/link restrito, miniaturas efêmeras e encerramento de leases. Sem DDL nova, automação ou lote; orçamento agregado/worker continuam na sessão 9. Validação UI/Android/TalkBack pendente. Registros anteriores preservam o estado de cada etapa.
-
-**Atualização da Sessão 7 — 20/10/2026:** integrados [resolver, fallback e exibição de capas](metadata/cover-resolution.md), conforme [ADR 0006](DECISIONS/0006-cover-resolution.md). Índice de IDs ativos compartilhado, interceptor antes do keying Coil, CDN neutro, cache-only, cancelamento/barreira e widgets reativos; visualizador/exportação respeitam modo original. Opt-in off; configuração/seleção remota/sync ainda futuras. Aceite visual/performance exige dispositivo, atualmente indisponível.
-
-**Atualização da Sessão 6 — 20/10/2026:** implementados [persistência, cache e backup](metadata/persistence.md) conforme [ADR 0005](DECISIONS/0005-metadata-persistence.md), com migração aditiva 148/schema 149, decisões separadas dos caches, controle de concorrência e limpeza seletiva do Coil. Backup opcional de decisões e correção de `custom*` no restore. Recurso permanece off e sem consumidor visual/coordenador; integração de capas continua na sessão 7. Registros anteriores são históricos.
-
-**Atualização da Sessão 5 — 20/10/2026:** implementados [normalização/matcher puros](metadata/anime-matcher.md), fingerprint, regras de pins/rejeições e proposta de calibração com automação textual desativada, conforme [ADR 0004](DECISIONS/0004-conservative-anime-matcher.md). Cliente e matcher não possuem consumidor UI/worker ativo; persistência, capas e orçamento agregado continuam futuros. As afirmações anteriores de ausência desses componentes são registros históricos.
-
-**Atualização da Sessão 4 — 20/10/2026:** implementados contratos de domínio e [cliente público AniList isolado](metadata/anilist-client.md), conforme [ADR 0003](DECISIONS/0003-anilist-public-client.md). O cliente não possui consumidor de UI/worker ativo; persistência, matcher, capas e orçamento agregado continuam futuros. As afirmações de ausência de implementação abaixo são registros históricos.
-
-**Estado atual — 19/10/2026:** a arquitetura da Etapa B foi aprovada pelo proprietário, conforme [ADR 0002](DECISIONS/0002-metadata-enrichment-architecture.md). A [especificação funcional da Sessão 3](metadata/functional-specification.md) detalha a arquitetura aprovada em [proposed-architecture.md](metadata/proposed-architecture.md). O restante deste arquivo preserva o histórico; declarações abaixo de proposta não aceita foram superadas por esse registro, sem presumir implementação ou aceite dos testes.
-
-**Atualização da Sessão 3 — 19/10/2026:** a [arquitetura proposta de enriquecimento](metadata/proposed-architecture.md), baseada na [Etapa A](metadata/current-architecture.md), passa a ser a proposta canônica para revisão. Ela especifica contratos, identidade, matching, persistência/migração, cache, fallback, integração, erros e alternativas. O [ADR 0002](DECISIONS/0002-metadata-enrichment-architecture.md) está **proposto, não aceito**. O conteúdo abaixo permanece como registro histórico da Sessão 0; suas hipóteses são substituídas pela proposta da Sessão 3 onde divergirem. Nenhum código funcional foi implementado.
-
-**Estado: proposta de metadados, sem implementação e sem ADR de metadados aceito.** Este documento registra a direção técnica solicitada no diagnóstico; não antecipa a especificação/contratos definitivos da Sessão 3. Base: `0b9bb0a347aa7bcee226d8782d98d9abafc34b32`.
-
-Sessão 2 autorizada em 19/10/2026: preparação e verificação do [baseline de build](BUILD_BASELINE.md), sem mudança estrutural ou implementação dos componentes propostos. Os resultados de regressão devem ser consultados antes da especificação da sessão 3.
-
-Atualização da sessão 1 (19/10/2026): nome público confirmado como **Yume**. O [ADR 0001](DECISIONS/0001-local-fork-foundation.md) trata apenas da organização local, branches e preservação de histórico. A [identidade Android](IDENTITY.md) está proposta e ainda não aplicada. A autorização da sessão 1 não equivale à aprovação de contratos definitivos de metadados nem inicia a sessão 3.
-
-## Direção recomendada
-
-Adicionar uma camada de metadados nos módulos existentes `domain`, `data` e `app`. Manter fontes, episódios, progresso, identificadores de origem, `ogTitle`, `thumbnailUrl` e personalizados existentes com a semântica atual. No MVP, os títulos externos servem para pesquisa, identificação e seleção; mudar o título visível automaticamente não faz parte desta proposta.
+Android/Kotlin/Compose, Voyager e DI Metro são herdados. A camada Yume ocupa `domain`, `data`, `app` e consumidores de capas/widgets existentes, sem novo módulo de fontes.
 
 ```mermaid
-flowchart LR
-    S[Extensão: SAnime] --> A[Anime original: fonte + URL + ID local]
-    A --> E[Fluxos herdados de biblioteca e episódios]
-    A --> C[Coordenador opt-in]
-    C --> P[MetadataProvider: AniList público]
-    P --> M[Matcher e revisão manual]
-    M --> D[(Tabela SQLDelight separada)]
-    A --> R[CoverResolver]
-    D --> R
-    U[Preferências e escolha manual] --> R
-    R --> I[Coil: request, chave e fallback]
-    I --> V[Capas na UI / widgets / notificações]
-    I --> O[Capa original como fallback]
+flowchart TD
+    Source[Extensão ou fonte local] --> Anime[Anime original: fonte, URL e ID local]
+    Anime --> Legacy[Biblioteca, episódios, player e downloads herdados]
+    Anime --> Review[Revisão manual opt-in]
+    Anime --> Queue[Fila SQL opt-in]
+    Queue --> Job[WorkManager em fatias]
+    Job --> Coordinator[MetadataSyncCoordinator]
+    Review --> Provider[MetadataProvider / AniList público]
+    Coordinator --> Provider
+    Provider --> Governor[Quota compartilhada AniList]
+    Governor --> API[GraphQL público]
+    Provider --> Matcher[Normalização e matcher conservador]
+    Matcher --> Confirm[Candidatos: confirmação humana]
+    Confirm --> Store[MetadataRepository / SQLDelight]
+    Coordinator --> Store
+    Store --> Resolver[CoverResolver: leitura local]
+    Anime --> Coil[Interceptor Coil e cache]
+    Resolver --> Coil
+    Coil --> Manual[Capa local manual]
+    Coil --> CDN[Externa aceita: transporte CDN neutro]
+    Coil --> Original[Original como fallback]
+    Store --> Backup[Backup opcional de decisões]
 ```
 
-As setas novas são propostas. Nenhuma foi implementada.
+O diagrama mostra responsabilidades, não cada chamada interna. Rolar listas não inicia pesquisa GraphQL. Biblioteca, episódios, progresso e tracking operam sem habilitar enriquecimento. O cliente público não usa mutations nem OAuth do tracker.
 
-## Componentes e isolamento
+## Contratos e implementações
 
-| Componente proposto | Local | Responsabilidade |
-|---|---|---|
-| `MetadataProvider`, modelos de candidatos/associação | `domain/.../metadata/` | Busca por texto e leitura por ID; contrato de dados públicos, sem operações de lista/progresso |
-| `AniListProvider` / transporte público | `app/.../data/metadata/anilist/` | GraphQL com OkHttp e Json existentes, DTOs nulos tolerados, timeouts, cancelamento e erros tipados |
-| `AnimeMatcher` | `domain/.../metadata/` | Normalização conservadora, candidatos e evidências; sem limiares numéricos arbitrários nesta fase |
-| `MetadataRepository` / implementação | `domain` / `data` | Persistência separada, associações manuais, estado, origem, timestamps, cache negativo e limpeza |
-| `CoverResolver` | Contrato em `domain`, implementação em `app` | Resolve seleção/revisão e modo original; fornece snapshot imutável à pipeline e fluxo de revisão à UI |
-| `MetadataCoverInterceptor`, modelo/keyer de capa resolvida | `app/.../data/coil/` e modelo comum em `domain` | Seleciona request visual; permite fallback inclusive após erro de decodificação |
-| `MetadataSyncCoordinator` / novo worker | `app/.../data/metadata/` | Ações explícitas e, mais tarde, lote opt-in, cancelamento, orçamento compartilhado e idempotência |
+| Componente | Responsabilidade e fonte |
+| --- | --- |
+| `MetadataProvider` | `search(MetadataSearch)` e `getById(MetadataId)` retornam `MetadataResult`; [contrato](../domain/src/main/java/tachiyomi/domain/metadata/service/MetadataProvider.kt), [AniList](metadata/anilist-client.md) |
+| `AnimeMatcher` | Normalização, evidências/vetos e respeito a pin/rejeições; [fonte](../domain/src/main/java/tachiyomi/domain/metadata/service/AnimeMatcher.kt), [calibração](metadata/anime-matcher.md) |
+| `MetadataReviewActions` | Proposta confirmada por ID com revisão/epoch/lease; [serviço](../domain/src/main/java/tachiyomi/domain/metadata/service/MetadataReviewActions.kt), [UI](metadata/manual-review.md) |
+| `MetadataRepository` | Opt-in, decisões, snapshots, CAS, limpeza e backup; [contrato](../domain/src/main/java/tachiyomi/domain/metadata/service/MetadataRepository.kt), [persistência](metadata/persistence.md) |
+| `CoverResolver` / `CoverPolicy` | Fluxo por IDs ativos e snapshot local imutável, sem provider; [fonte](../domain/src/main/java/tachiyomi/domain/metadata/service/CoverResolver.kt), [Coil](metadata/cover-resolution.md) |
+| `MetadataSyncQueue` / `MetadataSyncCoordinator` | Geração, tentativas e itens duráveis; [coordenador](../domain/src/main/java/tachiyomi/domain/metadata/service/MetadataSyncCoordinator.kt), [background](metadata/background-sync.md) |
+| `MetadataSyncJob` | Restrições Android e reprogramação entre fatias; [worker](../app/src/main/java/eu/kanade/tachiyomi/data/metadata/MetadataSyncJob.kt) |
+| `AniListHostGovernor` | Quota física entre provider, tracker, AniChart e conversão AniSkip; [fonte](../app/src/main/java/eu/kanade/tachiyomi/data/metadata/anilist/AniListHostGovernor.kt) |
 
-O novo provider **não chama** `Anilist.bind`, `addLibAnime`, `updateLibAnime` ou autenticação do tracker. A infraestrutura de transporte/DTOs pode compartilhar componentes após uma extração pequena e testada. Preservar o cliente OAuth e suas operações, verificando regressão. O ID de um vínculo AniList existente pode evitar busca textual, mas não autoriza criar/modificar lista no serviço.
+Identidade usa ID local e origem `(source, url)`; título não é chave. Namespace do provedor: `anilist`. Payload externo não substitui dados originais/personalizados. Temporada/remake ambíguo exige confirmação. Associação automática textual permanece desativada no produto atual.
 
-Um orçamento compartilhado por host deve abranger tracker, AniChart, conversão AniSkip e novo provider. O interceptor `RateLimitInterceptor` existente é por instância, não basta instanciar mais um. Definir adaptação aos headers e espaçamento contra rajadas; confirmar em testes sem esperar atingir o limite real. Uso inicial abaixo de 30/min, com margem para recursos herdados, é uma política operacional proposta, não garantia de capacidade por IP compartilhado.
+## Persistência, concorrência e backup
 
-## Persistência proposta
+Schema **150**. Migração aditiva `148.sqm`: 148→149; `149.sqm`: 149→150. Migrações antigas não foram reescritas.
 
-Criar `anime_metadata.sq` e uma **nova** migração posterior à `147.sqm` (numeração a reconfirmar no início da implementação). Não editar a migração 147. Nenhuma migração foi escrita nesta sessão.
+| Estrutura | Conteúdo |
+| --- | --- |
+| `metadata_control` | Opt-in default off, epoch e prazo de cooldown |
+| `anime_metadata` / `metadata_work` | Decisão por anime, payload JSON limitado, revisão/generation e lease/tentativas |
+| `metadata_media_cache` / `metadata_lookup_cache` | Snapshots e páginas descartáveis com TTL/limites, separados de pins |
+| `metadata_image_index` | Chaves externas para limpeza seletiva do Coil |
+| `metadata_restore_pending` | Decisões sem destino único após restore, nunca aplicadas por aproximação |
+| `metadata_sync_control` / `metadata_sync_queue` | Geração/estado do lote, gatilhos, itens e tentativas duráveis |
 
-Modelo preliminar: `anime_id` referenciando `animes._id`, provedor, ID remoto, títulos/sinônimos essenciais, ano/formato/temporada disponíveis, URLs retornadas, seleção de capa, estado, evidências de matching, escolha manual, datas de consulta/atualização, última falha e revisão para invalidar a UI. Guardar identidade de origem `(source, url)` para reconciliação de backup; não usar título como chave.
+Esquemas: [metadata.sq](../data/src/main/sqldelight/tachiyomi/data/metadata.sq) e [metadata_sync.sq](../data/src/main/sqldelight/tachiyomi/data/metadata_sync.sq). FK e transações protegem relações. Tickets capturam identidade, revisão e epoch; gravações condicionais recusam respostas inválidas. Limpeza, opt-out e cancelamento invalidam trabalho em andamento.
 
-Permitir uma associação ativa por anime/provedor sem impor unicidade nova aos registros herdados `animes(source,url)`. Associar um mesmo ID remoto a várias fontes locais é válido. Remover um anime pode remover sua associação por FK; remover associação não pode remover anime, episódios ou progresso. Transações e comparação de revisão precisam impedir que uma busca atrasada sobrescreva escolha manual recente.
+Backup inclui decisões por opção explícita, sem IDs locais de banco, cache, imagens, fila ou opt-in. Restore remapeia por fonte/URL e contexto único; decisões do destino prevalecem, conflitos ficam pendentes e vínculos exigem revalidação. A correção Yume preserva campos `custom*` herdados. Backup não promete carregar bytes de capas manuais. Testes SQL/JVM não substituem restore Android/SAF completo.
 
-Backup futuro deve guardar os vínculos como dados opcionais separados e remapear IDs por fonte/URL após restauração. O `BackupAnime.id` atual serve a relações pai/temporada, conforme aviso no código; não transportar esse ID como identidade universal. Não reaproveitar números protobuf reservados. Testar backup antigo sem metadados, novo com metadados, duplicatas e conflitos. Capas binárias não são parte do novo backup proposto; confirmar manutenção das capas manuais existentes separadamente.
+## Capas, rede e cancelamento
 
-## Precedência e comportamento
+Precedência normal: **arquivo local manual → externa aceita → original**. Modo original ignora os níveis substitutos para mostrar a fonte; remover vínculo e apagar arquivo manual são ações distintas. O interceptor atende `Anime` e `AnimeCover` antes do keying Coil. Snapshot com revisão/epoch e invalidação reativa protege UI/widgets contra seleção antiga.
 
-1. Capa local manual já escolhida no Animiru.
-2. Associação/capa externa explicitamente escolhida pelo usuário.
-3. Associação automática aprovada pelo matcher com evidência suficiente.
-4. Capa original da fonte.
+CDN externo usa transporte separado, sem headers/cookies/tokens das extensões. Provider e `CoverPolicy` validam URLs. Falha HTTP/decode tenta variantes permitidas e termina no caminho original; offline respeita cache-only. Binários externos ficam no Coil, fora das capas manuais. Preview de candidato é efêmero.
 
-O modo **ver/restaurar original** ignora os níveis externos; a UI deve distinguir remover associação externa de apagar uma capa local manual. Preferência global começa **desligada**. Desligar não apaga a biblioteca nem produz consultas novas. Limpar enriquecimento remove exclusivamente os dados/cache que lhe pertencem e invalida requests. Original significa o recurso atual da fonte/cache; não se promete recuperar um binário que a fonte já removeu e o app não tem em cache.
+O governor AniList aplica política local de **12 requisições/minuto**, mínimo de cinco segundos e uma emissão em voo até liberar o corpo. Quota/cooldown persistem; ações interativas têm prioridade sobre lote. Isso não garante capacidade em IP compartilhado nem representa o limite contratual atual do serviço. Outros hosts não são limitados por esse governor.
 
-Estados propostos: desativado, pendente, buscando, associado, ambíguo, não encontrado, erro transitório e indisponível. Um pai com várias temporadas, remake, título curto ou dados insuficientes exige revisão. A primeira posição da busca não é prova de correspondência. Limiar e fixtures serão calibrados na sessão apropriada; não há matching automático implementado.
+Worker sequencial: até 20 itens por fatia, sem iniciar outro item após três minutos. Tentativas finitas, geração/epoch e recuperação de lease permitem retomada sem sobrescrever pins. Diário exige carga/bateria adequada; lote respeita rede autorizada. [Contrato completo](metadata/background-sync.md).
 
-## Integração Coil e atualização reativa
+## Decisões, validação e distribuição
 
-Registrar a integração em `App.newImageLoader`, atendendo **ambos** os tipos atuais (`Anime` e `AnimeCover`). O interceptor pode resolver associação local de forma suspensa/fora da thread principal; não pode disparar busca GraphQL por item rolado na tela. Um modelo resolvido deve carregar URL original, URL escolhida, ID local, provedor, ID remoto, revisão e modo de bypass. Keyers ficam síncronos, usando esse snapshot, sem I/O de banco em `key()`.
+| Decisão | Justificativa / registro |
+| --- | --- |
+| Camada separada das extensões/tracking | Preservar origem e comportamento herdado; [ADR 0002](DECISIONS/0002-metadata-enrichment-architecture.md) |
+| Cliente público e falhas tipadas | Isolar OAuth/rede e permitir mocks; [ADR 0003](DECISIONS/0003-anilist-public-client.md) |
+| Matching conservador com revisão | Reduzir trocas de temporada/remake; [ADR 0004](DECISIONS/0004-conservative-anime-matcher.md) |
+| Decisões separadas de cache e CAS | Limpeza e concorrência preservando escolha; [ADR 0005](DECISIONS/0005-metadata-persistence.md) |
+| Resolver local e fallback Coil | Evitar busca por tile e preservar original; [ADR 0006](DECISIONS/0006-cover-resolution.md) |
+| Proposta manual confirmada | Corrigir vínculo sem editar banco; [ADR 0007](DECISIONS/0007-manual-metadata-review.md) |
+| Fila durável e quota compartilhada | Recuperação e orçamento entre consumidores; [ADR 0008](DECISIONS/0008-durable-metadata-sync.md) |
 
-Usar o mecanismo de interceptors do **Coil 3.6.3**, cuja [interface oficial](https://github.com/coil-kt/coil/blob/3.6.3/coil-core/src/commonMain/kotlin/coil3/intercept/Interceptor.kt) e [cadeia oficial](https://github.com/coil-kt/coil/blob/3.6.3/coil-core/src/commonMain/kotlin/coil3/intercept/RealInterceptorChain.kt) foram lidas nesta sessão: `intercept` retorna `ImageResult`, `withRequest` substitui request e `proceed` continua a execução. A proposta é observar erro da tentativa externa e continuar com request da original, com bypass contra recursão e preservação de target/context/size resolver. A API foi verificada no código da versão, mas essa composição ainda precisa de testes reais de cache, cancelamento e decode.
+CI prepara debug sem secrets e candidato manual em ambiente protegido. Updater desligado; release sem chave própria fica sem assinatura. [Distribuição](BUILD_DISTRIBUTION.md), [identidade](IDENTITY.md) e [privacidade](PRIVACY.md) detalham os limites. A sessão 12 não altera contratos nem cria decisão estrutural nova.
 
-`AnimeImageFetcher` oferece carregamento da fonte e arquivo manual; o ramo externo precisa usar cliente HTTP neutro, **sem `AnimeHttpSource.headers`, cookies arbitrários da fonte ou Bearer OAuth**. Não basta passar a URL AniList às factories atuais, pois `executeNetworkRequest` aplica cliente e headers da extensão.
-
-Capas externas usam o cache Coil existente com chaves distinguindo origem/URL/revisão/bypass; não são gravadas no diretório reservado a capas manuais. A tentativa original mantém seu próprio cache e não deve ser armazenada sob a chave da externa. Não alterar `useBackground(true)` ou thumbnails de episódios: banners ficam fora do MVP.
-
-Além do caminho central, o componente Compose de capa deve observar mudanças de revisão/preferência e reconstruir o request sem reconsulta remota. Invalidar memória apenas no fetcher não provoca recomposição de tiles que já estão na tela. Usar fluxo compartilhado/indexado por ID e leitura em lote para listas; widgets precisam ser atualizados explicitamente após mudança e resolver requests fora da UI. O [mapa](INTEGRATION_MAP.md) inclui requests construídos diretamente e consumidores que recebem apenas uma string de URL.
-
-## Verificações futuras necessárias
-
-- Contratos/matcher/precedência com fixtures ambíguas, títulos em vários alfabetos e temporadas.
-- Cliente mockado: sucesso, campos ausentes, GraphQL parcial, erro HTTP, 429/Retry-After, 403, cancelamento e retries finitos.
-- Capas: externa ausente, 404, bytes corrompidos (erro de decoder), offline com/sem cache original, bypass, escolha manual, cache limpo e troca de associação com tela aberta.
-- Migração/backup ida e volta preservando originais, customizações herdadas, biblioteca, episódios, favoritos, histórico e progresso. Investigar antes o defeito candidato de campos `custom*` no restore herdado.
-- Regressão de extensões/player/downloads e performance de scroll em biblioteca grande. Não há promessa de aprovação desses testes nesta sessão.
-
-Aprovação solicitada: direção de isolamento, persistência separada, prioridade manual, opt-in desligado e integração Coil acima. Contratos finais, TTLs, lote automático e alcance visual externo ficam para decisões nas respectivas sessões. Nenhuma decisão estrutural foi marcada como aceita em ADR.
+[TEST_REPORT](TEST_REPORT.md) distingue testes locais, caches Gradle e pendências Android; [demonstração](DEMONSTRATION.md) liga cenários a fontes e comandos. TalkBack, performance visual, bateria, restore integral e distribuição continuam com gates próprios. Os documentos por sessão preservam a época; para comportamento consolidado use este arquivo e as atualizações de [PROGRESS](PROGRESS.md).

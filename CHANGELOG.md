@@ -1,6 +1,12 @@
 <!-- Modified for Yume on 2026-10-20: separate fork changelog, assisted by Codex. -->
 # Yume changelog
 
+## Unreleased — documentação pública e portfólio, 2026-10-22
+
+- README consolidado com comparação entre recursos herdados e incrementos Yume, uso opt-in, instalação, evidências e limitações; duas capturas reais históricas revisadas, com proveniência e hashes.
+- Guias públicos de build e demonstração, arquitetura atual com contratos/esquemas/ADRs e histórico anterior preservado. Origem, sincronização, contribuição e segurança atualizadas.
+- Revisão documental assistida pelo Codex; sem alteração funcional, release ou integração presumida. Capturas atuais de seleção/capas, validações Android e distribuição continuam pendentes.
+
 ## Unreleased — CI e candidatos de release, 2026-10-22
 
 - CI sem secrets em PR/push, cache Gradle restrito, testes/migrações/lint e APKs debug temporários com assinatura verificada, hashes SHA-256 e manifesto de proveniência.

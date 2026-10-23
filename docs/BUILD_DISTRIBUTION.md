@@ -7,6 +7,15 @@ para `yume-main`, tags e publicação exigem autorização do proprietário.
 
 ## CI de PR e push
 
+**Conferência da sessão 12, 22/10/2026:** PR #5 aberta, cabeça `91a378cee`.
+A [execução 39877855871](https://github.com/sevenstarr/Yume/actions/runs/39877855871)
+falhou em `Install required Android SDK`: `sdkmanager: command not found`,
+exit 127 no runner Ubuntu 26.04. Checkout, Dependency Review, JDK e setup Gradle
+passaram; testes, lint, build e upload de APK foram ignorados. O passo de upload
+de relatórios não encontrou arquivos. Não há artifact instalável desta execução.
+Corrigir a preparação/PATH das Command-line Tools e revalidar CI é pendência
+da sessão 11; esta sessão documental não modifica workflows ou configurações.
+
 `.github/workflows/build.yml` mantém o check **Build & Test App**. Executa em
 PRs para `yume-develop`/`yume-main` e pushes nessas branches e `feature/**`/`fix/**`.
 Não há filtros que deixem PRs documentais com check obrigatório pendente.

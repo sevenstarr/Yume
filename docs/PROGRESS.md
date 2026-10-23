@@ -1,5 +1,58 @@
 # Progresso do projeto
 
+## Sessão 12 — documentação pública e portfólio — 22/10/2026
+
+Sessão autorizada pelo proprietário. Fetch concluído após falha de conexão no
+ambiente restrito. Criada `feature/session-12-public-docs` diretamente de
+`origin/yume-develop=25d50a506`; o proprietário autorizou expressamente incorporar
+os quatro commits até `91a378cee`, aplicados por fast-forward sem conflitos.
+Ancestralidade da integração confirmada. `docs/prompt.md` não rastreado preservado.
+Lidos contexto/resumo externos e somente subgrafo de contratos de metadados;
+snapshot anterior às correções, conferido nas fontes atuais. AGENTS, prompt,
+progresso, arquitetura, histórico e critérios anteriores revisados.
+
+- **Entrega:** README com descrição, uso, diferenças herdado/Yume, capturas,
+  instalação/build, estado e limites; arquitetura consolidada com diagrama,
+  contratos, esquema 150, concorrência/backup e ADRs. Texto anterior preservado
+  integralmente em `ARCHITECTURE_HISTORY.md`, sem nova decisão estrutural.
+- **Guias públicos:** `DEVELOPMENT.md` fixa snapshot, ferramentas, PATH do SDK,
+  comandos e saídas sem depender de instruções privadas; `DEMONSTRATION.md` liga
+  decisões a fontes/testes e define critérios observáveis. Origem/sincronização,
+  contribuição, segurança, changelog e NOTICE atualizados. Registros das sessões
+  6–9 apontam o estado consolidado para evitar tratar trabalho implementado como
+  futuro. Recursos herdados, assistência do Codex e papel do mantenedor explícitos.
+- **Capturas:** duas imagens reais de configurações/lote da sessão 9, inspecionadas
+  e copiadas sem edição, hashes/proveniência/versão e alt text documentados.
+  Sem biblioteca, contas ou capas de obras. Rotuladas históricas, anteriores à
+  identidade atual e à correção AND-01; não representam defaults ou novas consultas.
+- **Continuidade da sessão 11:** conector GitHub confirmou PR #5 aberta/não
+  integrada, cabeça `91a378cee`. Run `39877855871`, job `120167752077`, falhou
+  em instalação SDK com `sdkmanager: command not found`, exit 127. Testes/lint/
+  build/upload APK ignorados; relatórios sem arquivos. Aceite remoto permanece
+  incompleto. Corrigir preparação/PATH e revalidar CI é pendência registrada,
+  sem alterar workflow/configuração no escopo documental da sessão 12.
+- **Verificações:** links relativos Markdown/HTML, code fences e alt text;
+  hashes/identidade byte a byte das duas capturas, integridade PNG/ausência de
+  metadados pessoais, LICENSE e histórico preservados. Nove testes Python e
+  duas migrações sintéticas aprovados (11/18 tabelas, FKs/defaults/rollback).
+  Execução dos comandos JVM teve tentativa inicial bloqueada por acesso a JAR/
+  daemon Kotlin; repetição autorizada passou em **3m58s**: **249 testes em 14
+  suítes**, zero falhas/erros/ignorados (79 app executados na repetição;
+  116 domain/54 data executados na primeira e reutilizados na segunda).
+  Conferência documental: 18 Markdown/230 destinos locais, sem ausências.
+  Resultados detalhados no
+  [registro](evidence/SESSION_12_COMMANDS.md) e [snapshot](evidence/SESSION_12.json).
+- **Limites:** sem APK/lint integral novo, clone limpo independente, novo teste
+  Android, captura atual de seleção/capas ou medição de cobertura. Mermaid
+  revisado como fonte, sem nova validação de renderizador. Gates de UI/bateria/
+  restore/segurança, OAuth, provedores/imagens e assinatura continuam abertos.
+
+Documentação consolidada para revisão local, com reprodução independente e
+material visual atual ainda pendentes; não equivale a beta ou aceite Android
+integral. Diff exclusivo da sessão revisado antes do commit. [Rascunho de PR](SESSION_12_PR.md)
+apenas local. Sem push, PR nova, merge remoto, promoção à principal, tag, release
+ou início da sessão 13. Próxima sessão e publicação dependem de autorização.
+
 ## Sessão 11 — envio e PR autorizados — 22/10/2026
 
 O proprietário respondeu **“autorizo, faça a PR”**. Fetch concluído e
