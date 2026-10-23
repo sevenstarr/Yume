@@ -1,4 +1,10 @@
-# Identidade e coexistência — proposta da sessão 1
+# Identidade e coexistência
+
+**Atualização de 21/10/2026:** o proprietário aprovou nome Yume, pacote `io.github.sevenstarr.yume`, updater desligado até canal próprio e marca ¥ minimalista em preto/amarelo. Implementação nesta rodada de pendências sem aparelho: applicationId e nome visível alterados, sufixos/namespace preservados, ícones adaptativo/monocromático/notificações/splash e logo do repositório próprios; links About apontam ao fork. A [marca](BRAND.md), [privacidade técnica](PRIVACY.md) e o [acompanhamento](NON_DEVICE_PENDING.md) registram evidências e limites. Updater bloqueado inclusive em `dist=ci/github/foss`, com recusa de `-Penable-updater=true` e guarda antes de qualquer consulta de release. Nenhuma chave/release criada. Coexistência, transferência por backup e OAuth continuam sem aceite em Android.
+
+O texto e a matriz abaixo preservam a proposta histórica da sessão 1; as decisões de pacote, ícone e updater acima os substituem. Cadastros OAuth e direitos de provedores continuam dependências externas, conforme [revisão](PROVIDER_REVIEW.md).
+
+**Validação parcial de 22/10/2026:** APK ARM64 Yume instalado como novo pacote no Galaxy A05s/API 35, mantendo os dois Animiru existentes. Nome/pacote/assinatura conferidos no APK e onboarding visível. Isso comprova instalação paralela inicial; transferência de dados, OAuth, atualização entre versões e revisão visual completa continuam pendentes. Evidências em [TEST_REPORT.md](TEST_REPORT.md).
 
 **Nome público aprovado: Yume**, em resposta do proprietário em 19/10/2026. A criação do fork público na conta **sevenstarr** foi autorizada e executada posteriormente no mesmo dia. Identidade visual e identificador Android ainda não aprovados. Esta sessão aplicou o nome aos documentos e templates; nenhuma identidade de runtime foi alterada.
 

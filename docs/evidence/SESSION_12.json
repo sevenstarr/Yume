@@ -1,0 +1,164 @@
+{
+  "session": 12,
+  "date": "2026-10-22",
+  "timezone": "America/Sao_Paulo",
+  "status": "public_documentation_prepared_locally_with_explicit_visual_and_independent_reproduction_limits",
+  "branch": "feature/session-12-public-docs",
+  "integrationBase": "25d50a506b36b29c4ae47b76bc354bec4ac6f6ed",
+  "functionalCodeRevision": "91a378cee729b45457a89c691747b49a7d3b7a16",
+  "incorporation": "Four existing commits fast-forwarded after specific owner authorization; no remote merge",
+  "functionalSourceChanged": false,
+  "workflowChanged": false,
+  "licenseUnchanged": true,
+  "graphContext": "External snapshot 25d50a506; contract subgraph only, current sources checked; no graph artifacts in repository",
+  "remotePriorSession": {
+    "pr": 5,
+    "state": "open",
+    "merged": false,
+    "head": "91a378cee729b45457a89c691747b49a7d3b7a16",
+    "run": 39877855871,
+    "job": 120167752077,
+    "conclusion": "failure",
+    "step": "Install required Android SDK",
+    "error": "sdkmanager: command not found",
+    "exitCode": 127,
+    "testsBuildApkUpload": "skipped"
+  },
+  "validation": {
+    "jvmSelected": {
+      "domain": {
+        "suites": 5,
+        "tests": 116,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "data": {
+        "suites": 2,
+        "tests": 54,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "app": {
+        "suites": 7,
+        "tests": 79,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "selectedTotal": 249,
+    "jvmCompleteSuiteRerun": false,
+    "firstAttempt": {
+      "outcome": "failed due to local AccessDenied on presentation-widget JAR; Kotlin daemon access also logged",
+      "secondsReported": 186
+    },
+    "retry": {
+      "outcome": "BUILD SUCCESSFUL",
+      "exitCode": 0,
+      "secondsReported": 238,
+      "tasksExecuted": 10,
+      "tasksUpToDate": 283,
+      "domainData": "116+54 executed in first attempt, UP-TO-DATE in retry",
+      "app": "79 executed in retry"
+    },
+    "pythonExistingTests": {
+      "tests": 9,
+      "result": "passed"
+    },
+    "syntheticMigrations": {
+      "result": "passed",
+      "tablesPreserved": [
+        11,
+        18
+      ]
+    },
+    "documentation": {
+      "markdownFiles": 18,
+      "localTargets": 230,
+      "missing": 0,
+      "codeFencesAndImageAlt": "passed",
+      "architectureHistoryByteIdentical": true
+    },
+    "pngs": {
+      "count": 2,
+      "dimensions": [
+        1080,
+        2400
+      ],
+      "mode": "RGBA",
+      "metadataKeys": [
+        "srgb"
+      ],
+      "unchangedCopies": true,
+      "visuallyInspected": true
+    },
+    "gitDiffWhitespace": "passed"
+  },
+  "limits": [
+    "No new APK build or full lint/SQLDelight Gradle run",
+    "No clean-machine independent reproduction",
+    "Historical screenshots only; current selection/covers pending",
+    "No new Android operations, TalkBack, battery, restore or benchmark",
+    "No Mermaid renderer validation or line coverage measurement",
+    "Prior CI, OAuth/provider/native-license/signing gates still open"
+  ],
+  "publication": {
+    "push": false,
+    "newPullRequest": false,
+    "remoteMerge": false,
+    "releaseOrTag": false,
+    "session13Started": false
+  },
+  "preexistingUntrackedPreserved": [
+    "docs/prompt.md"
+  ],
+  "files": [
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "NOTICE",
+    "README.md",
+    "SECURITY.md",
+    "docs/ARCHITECTURE.md",
+    "docs/ARCHITECTURE_HISTORY.md",
+    "docs/BUILD_DISTRIBUTION.md",
+    "docs/DEMONSTRATION.md",
+    "docs/DEVELOPMENT.md",
+    "docs/PROGRESS.md",
+    "docs/SESSION_12_PR.md",
+    "docs/UPSTREAM.md",
+    "docs/evidence/SESSION_12.json",
+    "docs/evidence/SESSION_12_COMMANDS.md",
+    "docs/metadata/background-sync.md",
+    "docs/metadata/cover-resolution.md",
+    "docs/metadata/manual-review.md",
+    "docs/metadata/persistence.md",
+    "docs/screenshots/README.md",
+    "docs/screenshots/session-09-completed.png",
+    "docs/screenshots/session-09-paused.png"
+  ],
+  "sha256": {
+    "CHANGELOG.md": "007ddf5c777fa7b9426146b8838780a94ecd038e9b4a003b4c68c658a5f23e00",
+    "CONTRIBUTING.md": "f1967c15708d300d3ca6001aa1291cb2990bd4677a804ab17a410d836877274c",
+    "NOTICE": "ec08db75646bb4ca98bf19c63f6438cac0a6f66f3bcab0f57ea7a16cd0ab057e",
+    "README.md": "a07e912d89ef9995eaadaa4490970ce1ea957540c91268b3e0006784d8fb4589",
+    "SECURITY.md": "a243c5a6f8c4630b00635dede98cbbfe47c0391b9cd24a1127065f2ac32bf011",
+    "docs/ARCHITECTURE.md": "8cbcf50e95b3883f100ca23c2d3bac5226cadef0e1ae633569a13303f9c8cec7",
+    "docs/ARCHITECTURE_HISTORY.md": "9045334406904ef4f5d24be519248d20c6061faae8f955b15d306ea1e6067fc0",
+    "docs/BUILD_DISTRIBUTION.md": "382e8a11e01d4d1c1cd91312f0252b1c51e2a99c0694717e25f0abbc403d06ab",
+    "docs/DEMONSTRATION.md": "7cc2c9c7b21337708c8763562ce8f70b9d9312d2745ddac8b768f0f43c287a2e",
+    "docs/DEVELOPMENT.md": "91b2a19df0a2c4c67bfcc1d70ca379dd0ea885490f9305c0043b554f9ebab932",
+    "docs/PROGRESS.md": "029c170e6f1496ff1e1282479d678ffd347942e5a4a1bba5b0c926496881fe83",
+    "docs/SESSION_12_PR.md": "ed740534bc9504c9a5c7640f6926452b66022dc9fa8aab93eba1d7a4999828d0",
+    "docs/UPSTREAM.md": "89e6dd4e1be38ee0b53444621eafe3b8509773ab4691593257f42f432cbd1d20",
+    "docs/evidence/SESSION_12_COMMANDS.md": "e9c4a63214c6653c1c6811bfc23b196e41f275ef1eaae643888209f27b4c040e",
+    "docs/metadata/background-sync.md": "c4ab4c48e13d0a90f8bcf7549d455dbc89d16b24ba3cf99cea53fdafaadb3651",
+    "docs/metadata/cover-resolution.md": "97cb52488c6b0eaedb70870c623b2e53f48d0fbab37a06b81aa67cc4d4a0c712",
+    "docs/metadata/manual-review.md": "b8423cee3f60f695c862d11552b496431491dd7e6942ad3477d6122343408054",
+    "docs/metadata/persistence.md": "647b8d30151670f581823f0d12a1a53bc5f011a84ae370827839f4a1d26e4fdc",
+    "docs/screenshots/README.md": "eded1a5350844ca6e50ed1c742e42b1667464540ee9704ede8b0dd75aeb5396b",
+    "docs/screenshots/session-09-completed.png": "2e466480581de0a43201b3f3610edede172f36b51f744a5280b135f479ef0f7b",
+    "docs/screenshots/session-09-paused.png": "708d58eee4575a38192a96015f3f94a9e1bde0220264b301cf3c26856ca078d4"
+  }
+}

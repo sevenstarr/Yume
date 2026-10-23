@@ -24,3 +24,20 @@ with Codex assistance; no inherited Android feature is claimed as new.
 
 Yume is not endorsed by the upstream projects or metadata/content providers.
 Project names identify provenance; no trademark permission is implied.
+
+Yume modifications through 2026-10-21 include the separate opt-in metadata
+layer, conservative matching and manual review, durable cache/sync, cover
+fallback, fork identity and targeted fixes. These changes were directed by
+the repository owner and assisted by Codex. The original player, sources,
+library, downloads and tracking remain inherited work.
+
+The Apache-2.0 source license is not a declaration that every native binary
+in a resulting APK uses that license. Inherited FFmpeg builds contain
+GPL-enabled native code; component notices and distribution obligations
+must be reviewed separately before distributing a Yume binary.
+
+Yume documentation updated on 2026-10-22 includes public build and
+demonstration guides, current architecture and attribution comparisons,
+with Codex assistance under the repository owner's direction. Selected
+historical screenshots show only the metadata settings interface; no
+anime artwork or personal library data is included in those screenshots.

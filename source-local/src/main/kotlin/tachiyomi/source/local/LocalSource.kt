@@ -1,3 +1,4 @@
+// Yume modification 2026-10-21: share metadata filename policy and close read streams; assisted by Codex.
 package tachiyomi.source.local
 
 import android.content.Context
@@ -24,7 +25,6 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.supervisorScope
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import kotlinx.serialization.json.encodeToStream
 import logcat.LogPriority
 import tachiyomi.core.common.i18n.stringResource
 import tachiyomi.core.common.storage.extension
@@ -63,6 +63,8 @@ class LocalSource(
     private val fetchTypeManager: LocalFetchTypeManager,
     // <-- AY
 ) : AnimeSource, UnmeteredSource {
+
+    private val animeMetadata = LocalAnimeMetadata(json)
 
     @Suppress("PrivatePropertyName")
     private val PopularFilters = AnimeFilterList(OrderBy.Popular(context))
@@ -189,13 +191,7 @@ class LocalSource(
     // AM (CUSTOM_INFORMATION) -->
     fun updateAnimeInfo(anime: SAnime) {
         val directory = fileSystem.getAnimeDirectory(anime.url) ?: return
-        val existingFileName = directory.listFiles()?.find {
-            it.extension == "json" && it.nameWithoutExtension == "details"
-        }?.name
-        val file = directory.createFile(existingFileName ?: "info.json") ?: return
-        file.openOutputStream().use {
-            json.encodeToStream(anime.toJson(), it)
-        }
+        animeMetadata.write(directory, anime.toJson())
     }
 
     private fun SAnime.toJson(): AnimeDetails {
@@ -219,17 +215,14 @@ class LocalSource(
         try {
             val animeDirFiles = fileSystem.getFilesInAnimeDirectory(anime.url)
 
-            animeDirFiles
-                .firstOrNull { it.extension == "json" && it.nameWithoutExtension == "details" }
-                ?.let { file ->
-                    json.decodeFromStream<AnimeDetails>(file.openInputStream()).run {
-                        title?.let { anime.title = it }
-                        author?.let { anime.author = it }
-                        artist?.let { anime.artist = it }
-                        description?.let { anime.description = it }
-                        genre?.let { anime.genre = it.joinToString() }
-                        status?.let { anime.status = it }
-                    }
+            animeMetadata.read(animeDirFiles)
+                ?.run {
+                    title?.let { anime.title = it }
+                    author?.let { anime.author = it }
+                    artist?.let { anime.artist = it }
+                    description?.let { anime.description = it }
+                    genre?.let { anime.genre = it.joinToString() }
+                    status?.let { anime.status = it }
                 }
         } catch (e: Throwable) {
             logcat(LogPriority.ERROR, e) { "Error setting anime details from local metadata for ${anime.title}" }

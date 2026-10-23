@@ -1,0 +1,10 @@
+{
+  "uniqueId": "com.github.jmir1:ffmpeg-kit",
+  "name": "FFmpegKit (inherited GPL-enabled native bundle)",
+  "website": "https://github.com/jmir1/ffmpeg-kit/tree/1.18",
+  "licenses": [
+    "GPL-3.0-or-later",
+    "LGPL-3.0-or-later"
+  ],
+  "description": "The Java wrapper is LGPL-3.0; the inherited 1.18 native bundle contains FFmpeg built with --enable-gpl and identifies GPL version 3 or later. These are component obligations, not alternative licenses for the bundle. Corresponding-source and native subcomponent review remains a distribution gate."
+}

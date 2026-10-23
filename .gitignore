@@ -47,6 +47,8 @@ google-services.json
 *.apks
 *.hprof
 *.log
+__pycache__/
+*.pyc
 *.db
 !data/src/main/sqldelight/149.db
 *.db-shm

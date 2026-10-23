@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="splash">@color/accent_blue</color>
+    <!-- Yume modification 2026-10-21: approved black/yellow splash; assisted by Codex. -->
+    <color name="splash">#080808</color>
 
     <color name="accent_blue">#0058A0</color>
     <color name="icon_background">#FAFAFA</color>

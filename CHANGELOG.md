@@ -1,6 +1,27 @@
 <!-- Modified for Yume on 2026-10-20: separate fork changelog, assisted by Codex. -->
 # Yume changelog
 
+## Unreleased — documentação pública e portfólio, 2026-10-22
+
+- README consolidado com comparação entre recursos herdados e incrementos Yume, uso opt-in, instalação, evidências e limitações; duas capturas reais históricas revisadas, com proveniência e hashes.
+- Guias públicos de build e demonstração, arquitetura atual com contratos/esquemas/ADRs e histórico anterior preservado. Origem, sincronização, contribuição e segurança atualizadas.
+- Revisão documental assistida pelo Codex; sem alteração funcional, release ou integração presumida. Capturas atuais de seleção/capas, validações Android e distribuição continuam pendentes.
+
+## Unreleased — CI e candidatos de release, 2026-10-22
+
+- CI sem secrets em PR/push, cache Gradle restrito, testes/migrações/lint e APKs debug temporários com assinatura verificada, hashes SHA-256 e manifesto de proveniência.
+- Workflow manual de candidato assinado, restrito à principal e ao ambiente de assinatura do proprietário, sem criação de tags ou publicação automática. Release não usa mais chave debug como fallback.
+- [Processo de assinatura, recuperação e distribuição](docs/BUILD_DISTRIBUTION.md). Execução remota e assinatura com chave própria continuam pendentes de autorização/configuração; nenhuma release nesta sessão. Trabalho assistido pelo Codex.
+
+## Unreleased — pendências sem aparelho e identidade aprovada, 2026-10-21
+
+- Calendário observa o locale da composição e recalcula os dias da semana após troca de idioma; correção dos três erros herdados de lint, sem supressões. Lint passa a bloquear erros e é incluído no check de CI.
+- Nome Android Yume, pacote `io.github.sevenstarr.yume`, marca ¥ original preta/amarela, ícones adaptativo/monocromático/notificações/splash e links próprios. Namespace e sufixos das variantes preservados; nenhum dado do pacote antigo é migrado automaticamente.
+- Updater desativado para toda distribuição e protegido contra consultas forçadas; opção de build que tenta habilitá-lo é recusada até existir canal próprio aprovado.
+- Metadados da fonte local usam uma política única de arquivo: criação em `details.json`, compatibilidade com `info.json` legado e precedência do canônico; streams de leitura fechados. Regressões por reabertura e preservação cobertas por testes JVM.
+- Organização remota `yume-main`/`yume-develop` e proteções configuradas sob autorização; canal privado de vulnerabilidades habilitado. Checks de PR não são mais ignorados por filtros de caminhos documentais.
+- Evidências e limites em [acompanhamento](docs/NON_DEVICE_PENDING.md). Sem release, tag, promoção à principal ou aceite Android integral. Trabalho assistido pelo Codex sob direção do proprietário.
+
 ## Unreleased — sincronização automática e em lote, 2026-10-20
 
 - Fila SQL recuperável (migração 149/schema 150), fatias WorkManager com restrições de rede/bateria/carga, gatilhos opt-in de novos favoritos e atualização diária, progresso e pausa/retomada/cancelamento.

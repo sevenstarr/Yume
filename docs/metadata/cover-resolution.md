@@ -1,5 +1,10 @@
 # Resolução e exibição de capas — Sessão 7
 
+**Leitura atualizada na sessão 12:** registro da sessão 7. Configurações/revisão
+e fila/background foram implementados nas sessões 8–9. Consulte a
+[arquitetura atual](../ARCHITECTURE.md) para a composição vigente. Testes
+JVM/Coil não substituem os gates visuais e de performance em Android.
+
 20/10/2026. Implementação nova assistida pelo Codex. Dependência: [persistência da sessão 6](persistence.md), consolidada no commit `bc5624692` com autorização explícita antes deste incremento. O opt-in permanece off; configurações, busca/seleção de IDs e sincronização continuam nas sessões 8/9.
 
 ## Fluxo e precedência

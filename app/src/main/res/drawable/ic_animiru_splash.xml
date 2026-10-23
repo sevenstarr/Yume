@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Yume modification 2026-10-21: original yen mark; assisted by Codex. -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:width="108dp"
         android:height="108dp"
-        android:drawable="@drawable/ic_ani"
+        android:drawable="@drawable/ic_launcher_foreground"
         android:gravity="center" />
 </layer-list>

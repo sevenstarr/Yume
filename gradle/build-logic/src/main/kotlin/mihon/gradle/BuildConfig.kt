@@ -1,3 +1,4 @@
+// Yume modification 2026-10-21: disallow the updater in every distribution; assisted by Codex.
 package mihon.gradle
 
 import org.gradle.api.Project
@@ -31,8 +32,14 @@ val Project.Config: BuildConfig get() = object : BuildConfig {
         ?: (distribution == Distribution.CI || distribution == Distribution.GITHUB)
     // <-- AM
 
-    override val enableUpdater: Boolean = project.flag("enable-updater")
-        ?: (distribution != Distribution.LOCAL)
+    // Yume has no approved distribution endpoint or signing identity yet.
+    override val enableUpdater: Boolean
+        get() {
+            check(project.flag("enable-updater") != true) {
+                "Yume updater is unavailable until its own release channel is approved."
+            }
+            return false
+        }
 
     override val includeDependencyInfo: Boolean = project.flag("include-dependency-info") ?: false
 }

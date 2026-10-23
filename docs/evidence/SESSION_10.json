@@ -1,0 +1,357 @@
+{
+  "dateUtc": "2026-10-22T22:16:54.305742+00:00",
+  "base": "25d50a506b36b29c4ae47b76bc354bec4ac6f6ed",
+  "incorporatedCommit": "33878ff771d5395b89b8a16314c5d8f2ac80efba",
+  "branch": "feature/session-10-quality",
+  "gradle": {
+    "result": "passed",
+    "summary": [
+      "BUILD SUCCESSFUL in 11m",
+      "811 actionable tasks: 66 executed, 745 up-to-date"
+    ],
+    "logSha256": "7abe4b049c667997eaa96593b96e1b4d12a9e4e011f79e0179c99fefcdbed905",
+    "tasks": "testDebugUnitTest :app:assembleDebug verifySqlDelightMigration spotlessCheck :app:lintDebug :data:lintDebug :source-local:lintDebug :presentation-widget:lintDebug",
+    "taskReuse": "See commands: Gradle up-to-date tasks are not claimed as freshly executed test methods"
+  },
+  "tests": {
+    "domain": {
+      "gradleTask": "> Task :domain:testDebugUnitTest UP-TO-DATE",
+      "suites": [
+        {
+          "name": "tachiyomi.domain.anime.interactor.FetchIntervalTest",
+          "tests": 10,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 3.111
+        },
+        {
+          "name": "tachiyomi.domain.episode.service.EpisodeRecognitionTest",
+          "tests": 22,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.093
+        },
+        {
+          "name": "tachiyomi.domain.episode.service.MissingEpisodesTest",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.018
+        },
+        {
+          "name": "tachiyomi.domain.library.model.LibraryFlagsTest",
+          "tests": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.052
+        },
+        {
+          "name": "tachiyomi.domain.metadata.AnimeMatcherTest",
+          "tests": 59,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.778
+        },
+        {
+          "name": "tachiyomi.domain.metadata.CoverPolicyTest",
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.055
+        },
+        {
+          "name": "tachiyomi.domain.metadata.MetadataCalibrationTest",
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 4.748
+        },
+        {
+          "name": "tachiyomi.domain.metadata.MetadataManualInputTest",
+          "tests": 31,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.032
+        },
+        {
+          "name": "tachiyomi.domain.metadata.MetadataTitleNormalizerTest",
+          "tests": 17,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.033
+        },
+        {
+          "name": "tachiyomi.domain.release.interactor.GetApplicationReleaseTest",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.895
+        }
+      ],
+      "totals": {
+        "tests": 162,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "data": {
+      "gradleTask": "> Task :data:testDebugUnitTest UP-TO-DATE",
+      "suites": [
+        {
+          "name": "tachiyomi.data.metadata.MetadataRepositoryTest",
+          "tests": 36,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 4.415
+        },
+        {
+          "name": "tachiyomi.data.metadata.MetadataSyncTest",
+          "tests": 18,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 11.518
+        }
+      ],
+      "totals": {
+        "tests": 54,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "app": {
+      "gradleTask": "> Task :app:testDebugUnitTest",
+      "suites": [
+        {
+          "name": "eu.kanade.tachiyomi.data.backup.MetadataBackupTest",
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.465
+        },
+        {
+          "name": "eu.kanade.tachiyomi.data.coil.CoverTransportTest",
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 6.326
+        },
+        {
+          "name": "eu.kanade.tachiyomi.data.coil.ExternalCoverFetcherTest",
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 1.243
+        },
+        {
+          "name": "eu.kanade.tachiyomi.data.coil.MetadataCoverInterceptorTest",
+          "tests": 14,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 1.352
+        },
+        {
+          "name": "eu.kanade.tachiyomi.data.metadata.anilist.AniListHostGovernorTest",
+          "tests": 14,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.432
+        },
+        {
+          "name": "eu.kanade.tachiyomi.data.metadata.anilist.AniListProviderTest",
+          "tests": 31,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.347
+        },
+        {
+          "name": "eu.kanade.tachiyomi.data.metadata.anilist.AniListTransportTest",
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.401
+        },
+        {
+          "name": "eu.kanade.tachiyomi.data.updater.AppUpdateCheckerTest",
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.153
+        },
+        {
+          "name": "mihon.core.migration.MigratorTest",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.4
+        }
+      ],
+      "totals": {
+        "tests": 86,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "source-local": {
+      "gradleTask": "> Task :source-local:testDebugUnitTest UP-TO-DATE",
+      "suites": [
+        {
+          "name": "tachiyomi.source.local.LocalAnimeMetadataTest",
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 4.162
+        }
+      ],
+      "totals": {
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "lint": {
+    "app": {
+      "errors": 0,
+      "warnings": 204
+    },
+    "data": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "source-local": {
+      "errors": 0,
+      "warnings": 3
+    },
+    "presentation-widget": {
+      "errors": 0,
+      "warnings": 4
+    }
+  },
+  "dependencyAudit": {
+    "dateUtc": "2026-10-22T22:03:54.442584+00:00",
+    "source": "https://api.osv.dev/v1/querybatch",
+    "scope": "Exact Maven declarations in gradle/*.versions.toml only; excludes resolved transitives, BOM-managed artifacts, native binaries and Gradle plugins",
+    "queries": 118,
+    "omittedDeclarations": [
+      "libs.versions.toml:androidx-compose-animation",
+      "libs.versions.toml:androidx-compose-animationGraphics",
+      "libs.versions.toml:androidx-compose-foundation",
+      "libs.versions.toml:androidx-compose-material3",
+      "libs.versions.toml:androidx-compose-material3NavSuite",
+      "libs.versions.toml:androidx-compose-materialIcons",
+      "libs.versions.toml:androidx-compose-runtime",
+      "libs.versions.toml:androidx-compose-runtimeAnnotation",
+      "libs.versions.toml:androidx-compose-ui",
+      "libs.versions.toml:androidx-compose-uiTooling",
+      "libs.versions.toml:androidx-compose-uiToolingPreview",
+      "libs.versions.toml:androidx-compose-uiUtil",
+      "libs.versions.toml:firebase-analytics",
+      "libs.versions.toml:firebase-crashlytics",
+      "libs.versions.toml:junit-platform-launcher"
+    ],
+    "packagesWithAdvisories": 0,
+    "rawSha256": "5fa405ad25599aa575cf4929db821c30f42cf7da0bddee2f87e6b657eaa77e8c"
+  },
+  "security": {
+    "scope": "Current tracked UTF-8 text only; four regex rules, no history, entropy or runtime stores; values redacted",
+    "textFilesScanned": 1960,
+    "matches": [],
+    "permissions": [
+      "android.permission.INTERNET",
+      "android.permission.ACCESS_NETWORK_STATE",
+      "android.permission.ACCESS_WIFI_STATE",
+      "android.permission.WRITE_EXTERNAL_STORAGE",
+      "android.permission.FOREGROUND_SERVICE",
+      "android.permission.WAKE_LOCK",
+      "android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS",
+      "android.permission.REQUEST_INSTALL_PACKAGES",
+      "android.permission.REQUEST_DELETE_PACKAGES",
+      "android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION",
+      "android.permission.QUERY_ALL_PACKAGES",
+      "android.permission.POST_NOTIFICATIONS",
+      "android.permission.READ_APP_SPECIFIC_LOCALES",
+      "android.permission.FOREGROUND_SERVICE_DATA_SYNC"
+    ],
+    "exportedComponents": [
+      {
+        "kind": "activity",
+        "name": ".ui.main.MainActivity",
+        "permission": null
+      },
+      {
+        "kind": "activity",
+        "name": ".ui.deeplink.DeepLinkActivity",
+        "permission": null
+      },
+      {
+        "kind": "activity",
+        "name": ".ui.setting.track.TrackLoginActivity",
+        "permission": null
+      },
+      {
+        "kind": "provider",
+        "name": "rikka.shizuku.ShizukuProvider",
+        "permission": "android.permission.INTERACT_ACROSS_USERS_FULL"
+      }
+    ]
+  },
+  "coveragePercent": null,
+  "androidExecuted": false,
+  "migrations": {
+    "148": "passed; 11 legacy tables compared",
+    "149": "passed; 18 existing tables compared"
+  },
+  "apks": [
+    {
+      "file": "app-arm64-v8a-debug.apk",
+      "bytes": 116045082,
+      "sha256": "1e5715fb17a9717d99535d8b25e749016196a40bf7e83278eef386deed1ca5ae"
+    },
+    {
+      "file": "app-armeabi-v7a-debug.apk",
+      "bytes": 108917052,
+      "sha256": "4a294baf2e7f6069773b14d4e163955dcaddae39a81b8c244273d2a51afb8692"
+    },
+    {
+      "file": "app-universal-debug.apk",
+      "bytes": 317445015,
+      "sha256": "8c2fe02b4b69e1e39c433d022c389e789cb40a3aa0dc2f785aba60b86ab7e5a3"
+    },
+    {
+      "file": "app-x86-debug.apk",
+      "bytes": 119234660,
+      "sha256": "94a757fa08a44e303115c2433a69daf43e41b20f184447a7a06fcd6791f494e1"
+    },
+    {
+      "file": "app-x86_64-debug.apk",
+      "bytes": 126042029,
+      "sha256": "0ea1e6279ea26cbcb9b648ee1eb024e84e65499497209866b9cd56682dbeb8ec"
+    }
+  ]
+}

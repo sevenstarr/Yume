@@ -1,66 +1,54 @@
-# Origem e reprodução do Yume
+# Origem e sincronização do Yume
 
-## Protocolo vigente de branches — 20/10/2026
-
-Consulte [AGENTS.md](../AGENTS.md). A integração usa `yume-develop`, versões estáveis usam `yume-main` e sessões usam `feature/session-XX-descricao`, sempre baseadas no `origin/yume-develop` atualizado. PRs têm base `yume-develop`; publicação e merge exigem autorização. As tabelas e descrições da fundação abaixo são históricas.
-
-Na atualização local, `main` passou a `yume-main` preservando seu SHA auditado; isso não representa uma promoção de versões nem uma release aprovada. As branches locais das sessões 1–9 foram renomeadas ao novo padrão. `git fetch origin` confirmou `origin/yume-develop` e `origin/yume-release`; a adequação remota de `yume-release` para `yume-main`, branch padrão e proteções permanece pendente. As referências de upstream conservam seus nomes originais.
-
-Data de referência: 19/10/2026. O fork público foi criado com autorização explícita no mesmo dia; a fundação documental continua local, sem push ou PR.
+Atualizado em 22/10/2026, sessão 12, com assistência do Codex. Este guia distingue a base importada, o incremento Yume e a integração conhecida. A [auditoria original](UPSTREAM_AUDIT.md) e os snapshots em [upstream/README](upstream/README.md) e [upstream/CONTRIBUTING](upstream/CONTRIBUTING.md) preservam o contexto histórico.
 
 ## Proveniência
 
-| Campo | Valor |
+| Campo | Referência |
 | --- | --- |
-| Upstream canônico | https://github.com/animiruorg/Animiru |
-| Branch auditada | `animiru-new-main` |
-| Base fixada | `0b9bb0a347aa7bcee226d8782d98d9abafc34b32` |
-| Data do commit upstream | 16/10/2026 |
-| Release de comparação | `v0.20.0.1`; não é equivalente ao HEAD auditado |
-| Repositório local | `Animiru/` dentro do workspace Yume; nome da pasta preservado |
-| Remote local | `upstream` → `https://github.com/animiruorg/Animiru.git` |
-| Fork público | https://github.com/sevenstarr/Yume; página confirma origem `animiruorg/Animiru` |
-| Remote `origin` Yume | `https://github.com/sevenstarr/Yume.git`, configurado após criação e verificação |
-| Branch padrão remota atual | `animiru-new-main`, herdada da criação do fork; configurações GitHub não alteradas |
-| Branch de integração local | `main`, no SHA da base |
-| Branch desta sessão | `chore/session-1-foundation`, descendente de `main` |
+| Projeto pai | [animiruorg/Animiru](https://github.com/animiruorg/Animiru), derivado de Aniyomi, com trabalho herdado de Mihon/Tachiyomi e seus contribuidores |
+| Branch upstream auditada | `animiru-new-main` |
+| Base importada fixada | `0b9bb0a347aa7bcee226d8782d98d9abafc34b32`, commit de 16/10/2026 |
+| Release usada na comparação inicial | `v0.20.0.1`; não equivale ao HEAD importado |
+| Fork | [sevenstarr/Yume](https://github.com/sevenstarr/Yume), criado sob autorização em 19/10/2026; [evidência](evidence/FORK_CREATION.json) |
+| Remotos do workspace | `origin`: `https://github.com/sevenstarr/Yume.git`; `upstream`: `https://github.com/animiruorg/Animiru.git` |
+| Integração conhecida no fetch inicial da sessão 12 | `origin/yume-develop=25d50a506b36b29c4ae47b76bc354bec4ac6f6ed` |
+| Código adicional documentado | Até `91a378cee729b45457a89c691747b49a7d3b7a16`, correções/sessões 10–11 na PR #5; incorporado localmente à sessão 12 com autorização, sem integração remota presumida |
 
-Não foi executado `git init`, importação por cópia sem histórico, rebase de commits upstream ou troca de autores. A branch original `animiru-new-main` permanece disponível. O clone inicial era raso; o resultado da obtenção do histórico completo consta nas [evidências da sessão 1](evidence/SESSION_1.json).
+O histórico e autores importados foram preservados, sem `git init` sobre uma cópia de arquivos nem rebase para atribuir trabalho herdado. O clone original era raso; a obtenção do histórico completo consta nas [evidências da fundação](evidence/SESSION_1.json). Não houve atualização do upstream funcional como parte desta sessão documental.
 
-Os snapshots em `docs/upstream/` preservam README, CONTRIBUTING e CODE_OF_CONDUCT da base. Links relativos nesses snapshots pertencem ao contexto original; para navegação atual use os documentos da raiz. O changelog original continua abaixo da seção Yume em `CHANGELOG.md`.
+## Branches atuais e histórico de organização
 
-## Reproduzir somente a base
+`yume-develop` recebe funcionalidades aprovadas por PR; `yume-main` é reservada para versões estáveis/releases. Sessões usam `feature/session-XX-descricao` e correções `fix/descricao`, sempre a partir de `origin/yume-develop` atualizado. Consulte [AGENTS](../AGENTS.md).
 
-Instruções, não comandos executados nesta ordem na sessão:
+A fundação usou nomes antigos como `main` e `chore/session-1-foundation`; são referências históricas nos registros. Em 20/10 as branches locais foram adequadas ao protocolo. Em 21/10 a remota `yume-release` foi renomeada para `yume-main`, preservando `787b275e8230a748661be1f7c50ebbdd49ea9533` e função de branch padrão. Isso não promoveu funcionalidades experimentais à principal.
 
-```powershell
+Proteções foram registradas em 21/10 no ruleset `25605405` para integração/principal: PR, `Build & Test App`, base atualizada, conversas resolvidas e bloqueio de force-push/exclusão, sem atores de bypass. É um registro daquela conferência, não uma nova auditoria de configuração nesta sessão. Autorização humana de merge continua exigida.
+
+## Reproduzir a base upstream
+
+```sh
 git clone https://github.com/animiruorg/Animiru.git Animiru-reference
 git -C Animiru-reference switch --detach 0b9bb0a347aa7bcee226d8782d98d9abafc34b32
 ```
 
-A sessão 2 deverá preparar JDK/SDK, compilar essa referência e registrar testes. O commit fixado é um ponto de partida auditado, ainda sem baseline de execução. Não confundir com uma garantia de build verde.
+Use a referência separada para comparar comportamento, sem alterar seu checkout Yume. A sessão 2 registrou [baseline de build/testes](BUILD_BASELINE.md); seus APKs tinham identidade herdada e não são releases Yume. Para compilar o incremento atual, use [DEVELOPMENT](DEVELOPMENT.md).
 
-## Criação do fork remoto
+## Sincronizar futuramente com o upstream
 
-**Executado em 19/10/2026 após resposta explícita “autorizo” à criação pública de `sevenstarr/Yume`.** Formulário GitHub utilizado com owner sevenstarr, nome Yume e cópia apenas da branch padrão. API confirmou ID `1426233623`, URL/clone URL e visibilidade pública; a página do repositório confirmou `forked from animiruorg/Animiru`. Registro em [FORK_CREATION.json](evidence/FORK_CREATION.json).
+Procedimento a executar somente para um escopo de atualização autorizado:
 
-Configurado localmente `git remote add origin https://github.com/sevenstarr/Yume.git`. Nenhum push, PR, release, mudança de branch padrão ou configuração GitHub foi executado. As instruções abaixo descrevem o procedimento de criação/verificação utilizado e a separação das etapas futuras.
+1. Garanta checkout limpo ou preserve trabalho em andamento sem movê-lo silenciosamente. Registre SHAs Yume/upstream e escopo da atualização.
+2. Execute `git fetch origin` e `git fetch upstream --tags`. Num clone novo, adicione `upstream` com a URL acima se ainda não existir. Fetch não promove branches.
+3. Crie branch temática diretamente do `origin/yume-develop` recém-atualizado. Compare histórico/diff com o SHA upstream escolhido e revise identidade, updater, Gradle, migrações, licenças e dependências antes de incorporar.
+4. Faça merge do SHA upstream revisado, preservando histórico/autores. Resolva conflitos mantendo comportamento herdado e incremento; decisões arquiteturais/requisitos incompatíveis exigem escolha do proprietário. Não descarte mudanças ou use force-push como atalho.
+5. Execute build, testes, migrações, lint e regressões pertinentes de banco/backup, extensões, reprodução/download, identidade e capas. Registre conflitos, decisões e limitações em progresso/ADRs quando necessário.
+6. Atualize novamente a base de integração antes de PR e revalide. Envio, PR e merge exigem autorização; checks obrigatórios devem passar na cabeça final. Atualize a base documentada somente após integração confirmada.
 
-A [orientação oficial do GitHub](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo) descreve a criação de um fork com vínculo ao repositório pai. No [formulário de fork do Animiru](https://github.com/animiruorg/Animiru/fork), confirmar conta/organização, nome `Yume`, visibilidade resultante e depois criar. Não usar importação para um repositório vazio como substituto desse vínculo.
+Ausência de conflito Git não prova ausência de regressão. Não promova upstream diretamente a `yume-main`. Tags, releases e exclusão de branches exigem autorização própria.
 
-Após criação autorizada, verificar a relação de fork na API ou na indicação de origem da página, confirmar a URL real e só então adicionar `origin`. A publicação das branches locais, configuração da branch padrão `yume-main`, proteções e abertura de PR precisam de autorização. O [rascunho do PR](SESSION_1_PR.md) já pode ser revisado localmente.
+## Diferenças e atribuição
 
-Os gatilhos foram alinhados ao protocolo: build em push para `yume-develop`/`yume-main` e PRs; release em `yume-main` ou tags `v*`; o workflow de release contém guardas `github.repository == 'animiruorg/Animiru'`. Não se declarou CI Yume verde nem se habilitou publicação. Não importar segredos de assinatura upstream. Antes de qualquer push autorizado, revisar gatilhos, permissões e efeitos da execução dos workflows; a configuração completa de CI/release é a sessão 11.
+O incremento Yume inclui cliente público/matcher/revisão, SQL/cache/backup, resolver Coil, fila/quota e configurações de metadados; também identidade própria, updater desligado, correções pontuais e CI. Biblioteca, fontes, player, downloads e tracking continuam herdados. Compare a [tabela do README](../README.md), [arquitetura](ARCHITECTURE.md), [changelog](../CHANGELOG.md) e commits para avaliar o alcance real.
 
-## Sincronização futura
-
-1. Começar com checkout limpo e registrar a base Yume e o SHA upstream pretendido.
-2. Buscar o upstream sem mover automaticamente `yume-develop` ou `yume-main`: `git fetch upstream --tags`.
-3. Executar `git fetch origin`, conferir `origin/yume-develop` e criar uma branch `feature/session-XX-upstream` diretamente dessa referência; comparar os SHAs antes de incorporar upstream.
-4. Fazer merge do SHA upstream revisado, preservando commits/autoria. Resolver conflitos com foco nas pequenas mudanças do fork; não usar reset destrutivo nem force-push.
-5. Rodar build, testes e regressões de banco/backup/identidade pertinentes; revisar atribuições e atualizar a base documentada somente após integração.
-6. Preparar revisão. Envio, PR e integração no remoto seguem a autorização vigente.
-
-## Diferenças atuais
-
-Somente documentação, avisos, templates e `.gitignore`. Código Kotlin, SQL, recursos, manifesto, dependências, Gradle Wrapper e workflows não foram alterados. A identidade Android futura é tratada em [IDENTITY.md](IDENTITY.md).
+Preserve [LICENSE](../LICENSE), [NOTICE](../NOTICE), avisos nos fontes e créditos. O [levantamento de licenças](LICENSE_REVIEW.md) não certifica todas as dependências nativas/imagens. Código assistido pelo Codex é identificado; o mantenedor dirige/revisa/autoriza o trabalho sem reivindicar autoria dos recursos importados. Nem build aprovado nem fork público equivalem a aprovação de distribuição de binários.

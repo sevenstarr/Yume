@@ -1,0 +1,211 @@
+{
+  "session": 11,
+  "date": "2026-10-22",
+  "timezone": "America/Sao_Paulo",
+  "branch": "feature/session-11-ci-distribution",
+  "integrationBase": "25d50a506b36b29c4ae47b76bc354bec4ac6f6ed",
+  "authorizedIncorporations": [
+    "33878ff77",
+    "1b848e794"
+  ],
+  "gradle": {
+    "distribution": "ci",
+    "status": "passed",
+    "durationSeconds": 832,
+    "tasksExecuted": 66,
+    "tasksUpToDate": 749,
+    "testExecution": {
+      "app": "executed",
+      "domain": "UP-TO-DATE",
+      "data": "UP-TO-DATE",
+      "source-local": "UP-TO-DATE"
+    },
+    "sqlDelightDebugRelease": "UP-TO-DATE",
+    "spotless": "passed"
+  },
+  "reports": {
+    "tests": {
+      "app": {
+        "tests": 86,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "domain": {
+        "tests": 162,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "data": {
+        "tests": 54,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "source-local": {
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "lint": {
+      "app": {
+        "errors": 0,
+        "warnings": 204
+      },
+      "data": {
+        "errors": 0,
+        "warnings": 0
+      },
+      "source-local": {
+        "errors": 0,
+        "warnings": 3
+      },
+      "presentation-widget": {
+        "errors": 0,
+        "warnings": 4
+      }
+    }
+  },
+  "jvmTestTotal": 306,
+  "pythonGateTests": {
+    "total": 9,
+    "status": "passed",
+    "apkFixturesAreSyntheticText": true
+  },
+  "syntheticMigrations": {
+    "status": "passed",
+    "legacyTablesCompared": [
+      11,
+      18
+    ],
+    "userDataUsed": false
+  },
+  "static": {
+    "actionlint": "1.7.12",
+    "ubuntu2604LabelDeclaredLocally": true,
+    "workflowSyntaxExpressions": "passed",
+    "bashSyntaxRunBlocks": 14,
+    "shellcheck": "not run",
+    "pyflakes": "not run"
+  },
+  "signingConfiguration": {
+    "variants": {
+      "debug": "debug",
+      "release": "none",
+      "foss": "none",
+      "preview": "none",
+      "benchmark": "debug",
+      "nonMinifiedFoss": "debug",
+      "nonMinifiedPreview": "debug",
+      "nonMinifiedRelease": "debug",
+      "benchmarkFoss": "debug",
+      "benchmarkPreview": "debug",
+      "benchmarkRelease": "debug",
+      "debugAndroidTest": "debug"
+    },
+    "spotlessAndReportDurationSeconds": 31,
+    "missingOwnerKey": "rejected with specific error in 15s",
+    "releaseConfigWithoutKey": "passed in 29s, updater false",
+    "ownerKeyUsed": false,
+    "signedReleaseApkBuild": "not run"
+  },
+  "localArtifact": {
+    "commit": "1b848e7945ee5b804a1a2d61137273e17b577b4c",
+    "trackedChanges": true,
+    "variant": "debug",
+    "applicationId": "io.github.sevenstarr.yume.dev",
+    "apks": [
+      {
+        "file": "Yume-arm64-v8a-debug.apk",
+        "source": "app-arm64-v8a-debug.apk",
+        "abi": "arm64-v8a",
+        "versionName": "0.20.0.1-8272",
+        "versionCode": 153,
+        "bytes": 117450260,
+        "sha256": "10408c7ebc9360773a649b4eee5f827425733546eb72233348c566488f51b399"
+      },
+      {
+        "file": "Yume-armeabi-v7a-debug.apk",
+        "source": "app-armeabi-v7a-debug.apk",
+        "abi": "armeabi-v7a",
+        "versionName": "0.20.0.1-8272",
+        "versionCode": 153,
+        "bytes": 110322230,
+        "sha256": "967c02b01b5205fa060d3d9c4e9e1b624103fbd2effcdbc480fc26d666d61226"
+      },
+      {
+        "file": "Yume-universal-debug.apk",
+        "source": "app-universal-debug.apk",
+        "abi": "universal",
+        "versionName": "0.20.0.1-8272",
+        "versionCode": 153,
+        "bytes": 318850193,
+        "sha256": "e0521b6c83a1ad6a323e8328c8f748702f3497c6904143691e43a65ef1db63f8"
+      },
+      {
+        "file": "Yume-x86-debug.apk",
+        "source": "app-x86-debug.apk",
+        "abi": "x86",
+        "versionName": "0.20.0.1-8272",
+        "versionCode": 153,
+        "bytes": 120639838,
+        "sha256": "e0d37ea700ab6359c7930f5a33d979a661de330a51bff820674084a95f77e4d2"
+      },
+      {
+        "file": "Yume-x86_64-debug.apk",
+        "source": "app-x86_64-debug.apk",
+        "abi": "x86_64",
+        "versionName": "0.20.0.1-8272",
+        "versionCode": 153,
+        "bytes": 127447207,
+        "sha256": "0463a013251b67c17587e706310029f13428625437b3ec8af223c9c3f99e7ac0"
+      }
+    ]
+  },
+  "artifactChecks": {
+    "allFiveSignatures": "apksigner verify passed, v2 true",
+    "allFiveChecksums": "sha256sum --check passed",
+    "badCertificateDigest": "rejected",
+    "arm64Manifest": {
+      "minSdk": 26,
+      "targetSdk": 36
+    },
+    "localPath": "build/session11/ci-apks-verified",
+    "remoteArtifact": false,
+    "installedOnAndroid": false
+  },
+  "correctedFindings": [
+    "Windows CRLF checksums replaced with LF and regression assertion",
+    "Certificate parser handles current V2 Signer prefix and CRLF",
+    "Signed invocation disables Isolated Projects along with configuration cache"
+  ],
+  "acceptance": {
+    "localImplementationValidated": true,
+    "remotePipelineGreen": false,
+    "remoteArtifactInstalled": false,
+    "ownerSigningConfiguredAndTested": false,
+    "sessionFullyAccepted": false,
+    "pushed": false,
+    "prOpened": false,
+    "published": false
+  },
+  "changedFiles": [
+    ".github/workflows/build.yml",
+    ".github/workflows/release.yml",
+    ".gitignore",
+    "CHANGELOG.md",
+    "app/build.gradle.kts",
+    "docs/ARCHITECTURE.md",
+    "docs/BUILD_DISTRIBUTION.md",
+    "docs/PROGRESS.md",
+    "docs/SESSION_11_PR.md",
+    "docs/evidence/SESSION_11.json",
+    "docs/evidence/SESSION_11_COMMANDS.md",
+    "scripts/check-ci-reports.py",
+    "scripts/package-ci-apks.py",
+    "scripts/tests/test_ci_artifacts.py"
+  ]
+}

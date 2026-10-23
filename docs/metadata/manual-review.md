@@ -1,5 +1,11 @@
 # Configurações e escolha manual — Sessão 8
 
+**Leitura atualizada na sessão 12:** este é o registro da sessão 8. As menções
+a lote/governor como futuros foram superadas pela [sessão 9](background-sync.md)
+e o texto de dados móveis foi corrigido em `25d50a506`. Para comportamento
+consolidado consulte a [arquitetura atual](../ARCHITECTURE.md) e o
+[README](../../README.md). A validação Android integral continua pendente.
+
 20/10/2026. Implementação nova assistida pelo Codex, na branch `feat/session-8-metadata-controls`, sobre `d8a60d7c9`. Nenhuma alteração anterior não commitada encontrada. [ADR 0007](../DECISIONS/0007-manual-metadata-review.md).
 
 ## Uso

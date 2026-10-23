@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Animiru</string>
+    <!-- Yume modification 2026-10-21: approved fork display name; assisted by Codex. -->
+    <string name="app_name" translatable="false">Yume</string>
 
     <!-- Generic strings -->
     <string name="on">On</string>

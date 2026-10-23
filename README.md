@@ -1,49 +1,76 @@
-<!-- Modified for Yume on 2026-10-20: fork identity, session status and attribution; assisted by Codex. -->
+<!-- Yume documentation updated 2026-10-22 with Codex assistance; upstream credits preserved. -->
 # Yume
 
-Derivação independente do [Animiru](https://github.com/animiruorg/Animiru), por sua vez derivado do [Aniyomi](https://github.com/aniyomiorg/aniyomi). O nome **Yume** foi confirmado pelo proprietário em 19/10/2026. O [fork público sevenstarr/Yume](https://github.com/sevenstarr/Yume) contém o progresso publicado; as sessões 1–8 foram integradas em `yume-develop` pela PR #1.
+<img src=".github/assets/logo.png" alt="Marca Yume: símbolo ¥ amarelo sobre preto" width="112">
 
-O objetivo é adicionar enriquecimento **opt-in**, inicialmente com metadados e capas do AniList, preservando biblioteca, extensões, episódios, downloads e progresso. As Sessões 4–9 implementam o [cliente público isolado](docs/metadata/anilist-client.md), o [matcher conservador](docs/metadata/anime-matcher.md), a [persistência/cache/backup](docs/metadata/persistence.md), a [resolução de capas](docs/metadata/cover-resolution.md), as [configurações/escolha manual](docs/metadata/manual-review.md) e a [sincronização em lote](docs/metadata/background-sync.md). Opt-in global, novos favoritos e agendamento diário começam desligados. O lote atualiza vínculos aceitos e pesquisa candidatos para revisão; associação automática textual permanece desativada. O tracking AniList já existente é herdado do Animiru.
+Yume é um fork independente do [Animiru](https://github.com/animiruorg/Animiru), derivado do [Aniyomi](https://github.com/aniyomiorg/aniyomi). Adiciona **metadados e capas AniList opt-in**, com escolha manual, fallback para a capa original e sincronização recuperável. Fontes de episódios e tracking continuam separados desse enriquecimento.
 
-## Estado atual
+**Experimental, sem release Yume publicada.** Esta documentação descreve o incremento até as sessões 10–12. A [PR #6](https://github.com/sevenstarr/Yume/pull/6) reúne correções, qualidade, CI e documentação e substitui a PR #5, encerrada a pedido do proprietário. Consulte nela o estado da integração e os checks da cabeça final; [progresso e evidências](docs/PROGRESS.md) distinguem implementação, publicação e aceite Android.
 
-| Área | Situação |
+[Compilar e testar](docs/DEVELOPMENT.md) · [Arquitetura](docs/ARCHITECTURE.md) · [Demonstração técnica](docs/DEMONSTRATION.md) · [Origem](docs/UPSTREAM.md) · [Privacidade](docs/PRIVACY.md)
+
+## O que vem do upstream e o que mudou
+
+| Recurso | Origem / contribuição Yume |
 | --- | --- |
-| Base | `animiruorg/Animiru`, `animiru-new-main`, commit `0b9bb0a347aa7bcee226d8782d98d9abafc34b32` |
-| Sessão 0 | Reconhecimento concluído; [auditoria](docs/UPSTREAM_AUDIT.md) |
-| Sessão 1 | Fork público criado e progresso publicado; identidade Android pendente |
-| Sessão 2 | Build debug e 52 testes passaram; lint com 3 erros herdados; [baseline e limitações](docs/BUILD_BASELINE.md) |
-| Sessão 3 | Arquitetura aprovada e [especificação funcional](docs/metadata/functional-specification.md) documentada |
-| Sessão 4 | Cliente AniList com busca/ID, tratamento de falhas e testes sem rede; [escopo e limites](docs/metadata/anilist-client.md) |
-| Sessão 5 | Normalização, matching puro, proteção de pins e parâmetros propostos com fixtures separadas; [contrato e gate](docs/metadata/anime-matcher.md) |
-| Sessão 6 | Migração SQLDelight, decisões/cache separados, gravação condicional, backup opcional e preservação de personalizados; [contrato e limites](docs/metadata/persistence.md) |
-| Sessão 7 | Resolver/Coil, fallback/cache e reversão à original integrados; testes JVM; aceite visual e performance em Android pendentes; [contrato e limites](docs/metadata/cover-resolution.md) |
-| Sessão 8 | Configurações, busca por título/ID/link, seleção confirmada, refresh e remoção/reversão; [uso, testes e limites](docs/metadata/manual-review.md); validação UI/Android pendente |
-| Sessão 9 | Fila SQL/WorkManager, gatilhos opcionais, pausa/retomada/cancelamento e quota AniList compartilhada; [contrato e limites](docs/metadata/background-sync.md); bateria/Doze/UI em Android pendentes |
-| APK local | Cinco APKs debug gerados; assinatura universal/x86_64 verificada; instalação ainda não validada; nenhuma release |
-| Funcionalidade nova | Configurações → Metadados externos; detalhes do anime → ⋮ → Metadados externos. Capas, correção manual e lote opt-in integrados; originais preservados e chamadas AniList próprias limitadas em conjunto |
+| Biblioteca, favoritos, categorias, histórico e progresso | Herdados do Animiru e seus antecessores |
+| Extensões, fontes, episódios, player e downloads | Herdados; nenhuma fonte ou mídia é fornecida pelo Yume |
+| Tracking AniList e outros serviços | Herdado; login/listas remotas não são o novo enriquecimento |
+| Busca pública AniList por título, ID ou link aceito | Camada Yume isolada, sem login no tracker |
+| Revisão de candidatos e pin manual | Yume; confirmação explícita e proteção contra respostas atrasadas |
+| Capas externas e retorno à original | Yume; capa local manual tem prioridade, depois externa aceita e original |
+| Persistência e backup de decisões | Yume; tabelas separadas, cache descartável e bloco opcional no backup |
+| Lote, novos favoritos e diário opcional | Yume; fila durável, pausa/retomada/cancelamento e quota AniList compartilhada |
+| Identidade, updater e correções pontuais | Pacote/marca Yume, updater desligado, correções de locale e metadados locais |
+| CI e evidências | Pipeline adaptado, artifacts debug temporários e correção do caminho de `sdkmanager`; [checks de integração](https://github.com/sevenstarr/Yume/pull/6) |
 
-Não há distribuição pública de APK Yume. Os APKs do upstream pertencem ao Animiru. O código ainda usa o pacote, ícone, nome Android, links e referências de atualização herdados; consulte o [plano de identidade](docs/IDENTITY.md) antes de instalar ou distribuir. Os APKs locais de baseline usam assinatura debug e o pacote herdado com sufixo `.dev`.
+Enriquecimento global, novos favoritos e diário começam **desligados**. Ativar o recurso não varre a biblioteca. A pesquisa textual gera candidatos para revisão; **associação automática por texto permanece desativada**. Banners e troca automática de títulos visíveis ficam fora do MVP.
 
-## Desenvolvimento
+## Usar o enriquecimento
 
-O upstream exige JDK **21**, Gradle **9.7.1** pelo wrapper e as versões Android declaradas em `gradle/mihon.versions.toml`. A [sessão 2](docs/BUILD_BASELINE.md) registra ferramentas, comandos realmente executados, tempos, resultados e bloqueios. O [script PowerShell](scripts/run-baseline.ps1) repete as verificações com logs e dois workers por padrão; as tarefas principais são:
+1. Abra **Configurações → Metadados externos** e leia o aviso de envio de consultas ao AniList antes de ativar.
+2. Nos detalhes de um anime, abra **⋮ → Metadados externos**. Pesquise por título, ID AniList ou link oficial aceito.
+3. Revise título, ano, formato e temporada. A associação só é gravada após revisar a proposta e confirmar as diferenças.
+4. **Atualizar metadados deste anime** renova o ID aceito. **Usar original** mantém o vínculo; **Remover associação** pede confirmação e volta à original.
+5. Nas configurações, habilite lote/gatilhos apenas se desejar. Ações manuais usam a conexão atual; lote respeita a preferência móvel e as restrições de energia.
+
+Desligar conserva decisões e biblioteca. Limpar cache externo conserva pins; limpar todos os dados enriquecidos remove vínculos e cache e desliga o recurso. Capas locais manuais e dados herdados têm escopo separado. [Guia detalhado](docs/metadata/manual-review.md) · [Lote atual](docs/metadata/background-sync.md).
+
+## Capturas reais
+
+Capturas históricas da sessão 9, Galaxy A05s/Android 15, antes da identidade visual Yume atual. Mostram lote pausado e concluído com seis itens ignorados por cache/TTL. Os interruptores já estavam ligados pelo usuário; isso **não mostra os defaults**. O texto antigo de dados móveis foi corrigido em `25d50a506`. Não são mockups nem evidência de nova consulta bem-sucedida.
+
+<img src="docs/screenshots/session-09-paused.png" alt="Captura histórica real: lote pausado em zero de seis itens, com ações de retomar ou cancelar" width="260"> <img src="docs/screenshots/session-09-completed.png" alt="Captura histórica real: lote concluído com seis itens ignorados e zero erros, sem comprovar consultas externas" width="260">
+
+[Proveniência, hashes e limites](docs/screenshots/README.md). Capturas atuais de seleção manual/capas e auditoria de acessibilidade permanecem pendentes.
+
+## Instalação e build local
+
+Requer Android **8.0/API 26 ou superior**. Não há download de release Yume recomendado neste estágio. Para avaliação técnica, [compile o snapshot documentado](docs/DEVELOPMENT.md) ou use um artifact de CI do SHA revisado, quando disponível e aprovado. APKs do Animiru não contêm as mudanças Yume.
+
+O build usa JDK **21**, wrapper Gradle **9.7.1**, SDK **37.2**, target **36** e NDK **29.0.14206865**. Após configurar JDK/SDK conforme o guia:
 
 ```powershell
-./gradlew.bat :app:assembleDebug
-./gradlew.bat spotlessCheck
-./gradlew.bat testDebugUnitTest
-./gradlew.bat verifySqlDelightMigration
-./gradlew.bat :app:lintDebug
+./gradlew.bat :app:assembleDebug -Pdist=ci --console=plain --max-workers=2
 ```
 
-O checkout da referência upstream permite estabelecer a linha de base sem as mudanças documentais. Veja [origem e reprodução](docs/UPSTREAM.md), [contribuição](CONTRIBUTING.md), [segurança](SECURITY.md) e [progresso](docs/PROGRESS.md).
+APKs em `app/build/outputs/apk/debug/`. Pacote debug: `io.github.sevenstarr.yume.dev`; release: `io.github.sevenstarr.yume`. São instalações separadas do Animiru e entre si, sem transferência automática de dados. Certificados debug podem variar entre máquinas/CI. Não desinstale um aplicativo com dados pessoais para contornar incompatibilidade de assinatura. [Checksum, assinatura e instalação](docs/BUILD_DISTRIBUTION.md).
 
-## Autoria e licença
+## Evidências e limitações
 
-Biblioteca, extensões, reprodução, downloads, categorias, temas, backups e tracking são recursos herdados. O [changelog](CHANGELOG.md) distingue as mudanças Yume do histórico original. A documentação e o script de baseline foram produzidos com assistência do Codex; o histórico identifica os commits de automação, sem atribuí-los a uma pessoa como implementação própria. A revisão e as decisões de publicação cabem ao proprietário.
+A sessão 11 registrou 306 testes JVM nos relatórios, sem falhas/erros/ignorados, build debug e migrações aprovados e lint com zero erros e avisos remanescentes. Parte dos resultados foi reutilizada pelo Gradle; isso não mede cobertura de linhas nem comprova aceite Android completo. [Relatório de qualidade](docs/TEST_REPORT.md) · [Evidências de CI local](docs/evidence/SESSION_11_COMMANDS.md).
 
-O texto [Apache-2.0](LICENSE) foi preservado. [NOTICE](NOTICE) registra a origem e as atribuições; o [levantamento de licença](docs/LICENSE_REVIEW.md) documenta obrigações e pendências de componentes e imagens. Yume não representa as equipes Animiru, Aniyomi, Mihon ou os provedores de metadados.
+Na primeira PR de CI, a [execução 39877855871](https://github.com/sevenstarr/Yume/actions/runs/39877855871) falhou antes dos testes/build por `sdkmanager: command not found` (exit 127). A [PR #6](https://github.com/sevenstarr/Yume/pull/6) corrige a chamada por caminho explícito nos workflows. Seus checks registram a validação remota atual; assinatura válida ou CI aprovado não substituem os testes Android pendentes.
+
+Permanecem abertos: restore Android integral, reprodução/download completos e offline, TalkBack, desempenho em biblioteca representativa, bateria/diário natural/deep Doze e atualização de APKs próprios. Testes JDBC com 2.000 itens não medem scroll ou bateria. Updater desligado; OAuth próprio, revisão de provedores/imagens, licenças nativas e assinatura do proprietário são dependências da distribuição. [Pendências](docs/NON_DEVICE_PENDING.md) · [Revisão de provedores](docs/PROVIDER_REVIEW.md).
+
+## Contribuição, autoria e créditos
+
+O mantenedor definiu escopo, nome e identidade, autorizou etapas e decide revisão, integração e publicação. Codex auxiliou análise, implementação, testes e documentação das mudanças Yume, identificadas no histórico e nos avisos. Isso não comprova revisão humana linha a linha nem transfere autoria herdada. O [roteiro técnico](docs/DEMONSTRATION.md) permite avaliar decisões, código e testes.
+
+Leia [CONTRIBUTING](CONTRIBUTING.md), [SECURITY](SECURITY.md), [CHANGELOG](CHANGELOG.md) e o [protocolo](AGENTS.md). Relatos específicos do fork pertencem ao Yume; vulnerabilidades seguem o canal privado em SECURITY.
+
+O texto [Apache-2.0](LICENSE), avisos e histórico upstream foram preservados. [NOTICE](NOTICE) e o [levantamento de licenças](docs/LICENSE_REVIEW.md) distinguem código, componentes nativos e imagens. A licença da raiz não declara licença única para todo APK. Yume não representa Animiru, Aniyomi, Mihon, Tachiyomi ou os provedores.
 
 Avisos preservados do README upstream:
 
@@ -65,4 +92,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-Os [README](docs/upstream/README.md) e [créditos de contribuição](docs/upstream/CONTRIBUTING.md) originais foram preservados como snapshots históricos. Seus canais e downloads referem-se ao upstream. O aplicativo não hospeda conteúdo e não tem afiliação com os provedores de conteúdo disponíveis.
+Os [README](docs/upstream/README.md) e [créditos de contribuição](docs/upstream/CONTRIBUTING.md) originais permanecem como snapshots. Seus downloads e canais pertencem ao upstream. O aplicativo não hospeda conteúdo nem tem afiliação com provedores de conteúdo.

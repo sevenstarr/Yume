@@ -1,0 +1,183 @@
+{
+  "date": "2026-10-22",
+  "base": "25d50a506b36b29c4ae47b76bc354bec4ac6f6ed",
+  "branch": "fix/non-device-pending-items",
+  "build": {
+    "result": "passed",
+    "duration": "32m 37s",
+    "tasks": "testDebugUnitTest :app:assembleDebug verifySqlDelightMigration spotlessCheck :app:lintDebug :data:lintDebug :source-local:lintDebug :presentation-widget:lintDebug",
+    "maxWorkers": 2,
+    "jdk": "21.0.11"
+  },
+  "tests": {
+    "domain": {
+      "suites": 10,
+      "tests": 162,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "data": {
+      "suites": 2,
+      "tests": 54,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "suites": 9,
+      "tests": 83,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "source-local": {
+      "suites": 1,
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "app": {
+      "errors": 0,
+      "warnings": 204,
+      "nonObservableLocale": 0
+    },
+    "data": {
+      "errors": 0,
+      "warnings": 0,
+      "nonObservableLocale": 0
+    },
+    "source-local": {
+      "errors": 0,
+      "warnings": 3,
+      "nonObservableLocale": 0
+    },
+    "presentation-widget": {
+      "errors": 0,
+      "warnings": 4,
+      "nonObservableLocale": 0
+    }
+  },
+  "apk": [
+    {
+      "file": "app/build/outputs/apk/debug/app-arm64-v8a-debug.apk",
+      "sha256": "d087ead7d176dfb77d023c58b6b9b812121af572226d0da7256b8813cc58a52c",
+      "bytes": 116049134
+    },
+    {
+      "file": "app/build/outputs/apk/debug/app-armeabi-v7a-debug.apk",
+      "sha256": "5886f046c6167f5193006e2c15d3b61c532aeb546c2d8c636c846907e82a768f",
+      "bytes": 108921104
+    },
+    {
+      "file": "app/build/outputs/apk/debug/app-universal-debug.apk",
+      "sha256": "567a63e570717895f2b5fc97af4c2568d48505f4822dacc9ff8c94e50848f95b",
+      "bytes": 317449067
+    },
+    {
+      "file": "app/build/outputs/apk/debug/app-x86-debug.apk",
+      "sha256": "87816dbb0548946393331f0e92e66ef49c5601c204af6cce7638d560f00a021f",
+      "bytes": 119238712
+    },
+    {
+      "file": "app/build/outputs/apk/debug/app-x86_64-debug.apk",
+      "sha256": "21d98b52aaa8936ea1e0de715d9fc5bf425a9cd6ff9c28f7ec8bcd395ada7857",
+      "bytes": 126046081
+    }
+  ],
+  "signature": {
+    "arm64V2": true
+  },
+  "migrationsPython": {
+    "148": "passed",
+    "149": "passed"
+  },
+  "android": {
+    "model": "Galaxy A05s",
+    "api": 35,
+    "package": "io.github.sevenstarr.yume.dev",
+    "install": "success, separate new package",
+    "launch": "am start Status ok; onboarding visible",
+    "coexistence": "old release/debug and new Yume package installed",
+    "onboarding": "theme step passed; storage selection incomplete after foreground changed",
+    "testFolder": "Yume-QA-20261022",
+    "limits": "No complete UI/TalkBack, restore, playback/download, Doze, natural daily or battery/performance acceptance"
+  },
+  "secretPatternScan": {
+    "textFilesScanned": 1958,
+    "rules": [
+      "private_key",
+      "github_token",
+      "aws_access_key"
+    ],
+    "findings": [],
+    "limits": "Pattern scan only; no entropy scan, revocation check, or proof of absence of secrets in full history"
+  },
+  "dependencies": {
+    "count": 266,
+    "missingLicense": []
+  },
+  "files": [
+    ".github/assets/logo.png",
+    ".github/assets/logo.svg",
+    ".github/workflows/build.yml",
+    "CHANGELOG.md",
+    "NOTICE",
+    "README.md",
+    "SECURITY.md",
+    "app/build.gradle.kts",
+    "app/src/main/java/eu/kanade/presentation/more/settings/screen/about/AboutScreen.kt",
+    "app/src/main/java/eu/kanade/tachiyomi/data/updater/AppUpdateChecker.kt",
+    "app/src/main/java/mihon/feature/upcoming/components/calendar/Calendar.kt",
+    "app/src/main/java/mihon/feature/upcoming/components/calendar/CalendarHeader.kt",
+    "app/src/main/res/drawable/ic_ani.xml",
+    "app/src/main/res/drawable/ic_ani_monochrome_launcher.xml",
+    "app/src/main/res/drawable/ic_animiru_splash.xml",
+    "app/src/main/res/drawable/ic_launcher_background.xml",
+    "app/src/main/res/drawable/ic_launcher_foreground.xml",
+    "app/src/main/res/mipmap/ic_launcher.xml",
+    "app/src/main/res/mipmap/ic_launcher_round.xml",
+    "app/src/main/res/values/colors.xml",
+    "app/src/test/java/eu/kanade/tachiyomi/data/updater/AppUpdateCheckerTest.kt",
+    "config/aboutlibraries/libraries/ffmpeg-kit.json",
+    "config/aboutlibraries/libraries/image-decoder.json",
+    "config/aboutlibraries/libraries/yume.json",
+    "config/aboutlibraries/licenses/GPL-3.0-or-later.json",
+    "config/aboutlibraries/licenses/LGPL-3.0-or-later.json",
+    "config/aboutlibraries/licenses/MPL-2.0.json",
+    "config/aboutlibraries/licenses/Yume-Apache-2.0-and-NOTICE.json",
+    "docs/ARCHITECTURE.md",
+    "docs/BRAND.md",
+    "docs/IDENTITY.md",
+    "docs/NON_DEVICE_PENDING.md",
+    "docs/PRIVACY.md",
+    "docs/PROGRESS.md",
+    "docs/PROVIDER_REVIEW.md",
+    "docs/SESSION_9_ANDROID.md",
+    "docs/TEST_REPORT.md",
+    "docs/UPSTREAM.md",
+    "docs/evidence/NON_DEVICE_PENDING.json",
+    "gradle/build-logic/src/main/kotlin/mihon/gradle/BuildConfig.kt",
+    "i18n/src/commonMain/moko-resources/base/strings.xml",
+    "source-local/build.gradle.kts",
+    "source-local/src/main/kotlin/tachiyomi/source/local/LocalAnimeMetadata.kt",
+    "source-local/src/main/kotlin/tachiyomi/source/local/LocalSource.kt",
+    "source-local/src/test/kotlin/tachiyomi/source/local/LocalAnimeMetadataTest.kt"
+  ],
+  "limitations": [
+    "No coverage percentage measured",
+    "OAuth clients absent per owner",
+    "AniList confirmation deferred per owner",
+    "No release/tag/push/PR/merge",
+    "Private WorkManager copy rejected by automatic review; no extraction via that command"
+  ],
+  "updaterNegativeCheck": {
+    "task": ":app:generateDebugBuildConfig -Penable-updater=true",
+    "result": "expected failure verified",
+    "seconds": 17,
+    "message": "Yume updater is unavailable until its own release channel is approved."
+  }
+}

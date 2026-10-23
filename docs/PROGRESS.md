@@ -1,5 +1,194 @@
 # Progresso do projeto
 
+## Publicação e integração autorizadas da sessão 12 — 22/10/2026
+
+Branch publicada sem force-push; aberta a [PR #6](https://github.com/sevenstarr/Yume/pull/6),
+base `yume-develop`, substituindo a #5. Cabeça inicial `432b3d00c`; reúne seis
+commits e 75 arquivos, incluindo o trabalho anterior preservado. A descrição
+explicita o conjunto, evidências e limites. PR anexada ao chat. Este registro
+documental também será enviado antes de aguardar os checks da cabeça final.
+O resultado final de CI/merge é verificável na PR e será informado na entrega.
+
+O proprietário pediu encerrar a PR #5, criar a PR da sessão 12 e realizar o merge
+em seguida. PR #5 fechada sem merge pelo conector; seu histórico e branch não
+foram apagados. A nova PR reúne os commits já incorporados de correções,
+qualidade, CI e documentação; não perde o escopo da PR substituída.
+
+Continuidade conferida novamente: contexto/resumo e subgrafo externos (snapshot
+anterior às sessões 10–12), AGENTS/prompt/progresso/arquitetura, status, cinco
+commits e estatísticas de HEAD. `docs/prompt.md` preservado. Fetch passou após
+repetição autorizada; `git merge origin/yume-develop` retornou `Already up to date`
+em `25d50a506`, sem conflitos conhecidos.
+
+Para corrigir o bloqueio de CI observado na PR #5, os workflows build/release
+chamam o executável de Command-line Tools por caminho explícito, verificam sua
+presença e exportam raiz/PATH. A disposição foi conferida no script oficial da
+imagem Ubuntu; sem nova Action/dependência, mudança de secrets, permissões,
+proteções ou bypass de checks. Correção de infraestrutura necessária à integração
+autorizada, sem alterar o código Android ou iniciar outra sessão.
+
+Validação local da correção e evidências anteriores ficam no
+[registro de publicação](evidence/SESSION_12_INTEGRATION.md). O merge exige
+checks obrigatórios verdes na cabeça final e base atualizada. O pedido já
+autoriza envio, criação e merge; nenhuma nova autorização será solicitada para
+essas etapas. Resultado remoto será conferido e informado na PR e na entrega,
+sem declarar merge antes da confirmação. Sem promoção a `yume-main`, tag,
+release, operação de dispositivo ou início da sessão 13.
+
+## Sessão 12 — documentação pública e portfólio — 22/10/2026
+
+Sessão autorizada pelo proprietário. Fetch concluído após falha de conexão no
+ambiente restrito. Criada `feature/session-12-public-docs` diretamente de
+`origin/yume-develop=25d50a506`; o proprietário autorizou expressamente incorporar
+os quatro commits até `91a378cee`, aplicados por fast-forward sem conflitos.
+Ancestralidade da integração confirmada. `docs/prompt.md` não rastreado preservado.
+Lidos contexto/resumo externos e somente subgrafo de contratos de metadados;
+snapshot anterior às correções, conferido nas fontes atuais. AGENTS, prompt,
+progresso, arquitetura, histórico e critérios anteriores revisados.
+
+- **Entrega:** README com descrição, uso, diferenças herdado/Yume, capturas,
+  instalação/build, estado e limites; arquitetura consolidada com diagrama,
+  contratos, esquema 150, concorrência/backup e ADRs. Texto anterior preservado
+  integralmente em `ARCHITECTURE_HISTORY.md`, sem nova decisão estrutural.
+- **Guias públicos:** `DEVELOPMENT.md` fixa snapshot, ferramentas, PATH do SDK,
+  comandos e saídas sem depender de instruções privadas; `DEMONSTRATION.md` liga
+  decisões a fontes/testes e define critérios observáveis. Origem/sincronização,
+  contribuição, segurança, changelog e NOTICE atualizados. Registros das sessões
+  6–9 apontam o estado consolidado para evitar tratar trabalho implementado como
+  futuro. Recursos herdados, assistência do Codex e papel do mantenedor explícitos.
+- **Capturas:** duas imagens reais de configurações/lote da sessão 9, inspecionadas
+  e copiadas sem edição, hashes/proveniência/versão e alt text documentados.
+  Sem biblioteca, contas ou capas de obras. Rotuladas históricas, anteriores à
+  identidade atual e à correção AND-01; não representam defaults ou novas consultas.
+- **Continuidade da sessão 11:** conector GitHub confirmou PR #5 aberta/não
+  integrada, cabeça `91a378cee`. Run `39877855871`, job `120167752077`, falhou
+  em instalação SDK com `sdkmanager: command not found`, exit 127. Testes/lint/
+  build/upload APK ignorados; relatórios sem arquivos. Aceite remoto permanece
+  incompleto. Corrigir preparação/PATH e revalidar CI é pendência registrada,
+  sem alterar workflow/configuração no escopo documental da sessão 12.
+- **Verificações:** links relativos Markdown/HTML, code fences e alt text;
+  hashes/identidade byte a byte das duas capturas, integridade PNG/ausência de
+  metadados pessoais, LICENSE e histórico preservados. Nove testes Python e
+  duas migrações sintéticas aprovados (11/18 tabelas, FKs/defaults/rollback).
+  Execução dos comandos JVM teve tentativa inicial bloqueada por acesso a JAR/
+  daemon Kotlin; repetição autorizada passou em **3m58s**: **249 testes em 14
+  suítes**, zero falhas/erros/ignorados (79 app executados na repetição;
+  116 domain/54 data executados na primeira e reutilizados na segunda).
+  Conferência documental: 18 Markdown/230 destinos locais, sem ausências.
+  Resultados detalhados no
+  [registro](evidence/SESSION_12_COMMANDS.md) e [snapshot](evidence/SESSION_12.json).
+- **Limites:** sem APK/lint integral novo, clone limpo independente, novo teste
+  Android, captura atual de seleção/capas ou medição de cobertura. Mermaid
+  revisado como fonte, sem nova validação de renderizador. Gates de UI/bateria/
+  restore/segurança, OAuth, provedores/imagens e assinatura continuam abertos.
+
+Documentação consolidada para revisão local, com reprodução independente e
+material visual atual ainda pendentes; não equivale a beta ou aceite Android
+integral. Diff exclusivo da sessão revisado antes do commit. [Rascunho de PR](SESSION_12_PR.md)
+apenas local. Sem push, PR nova, merge remoto, promoção à principal, tag, release
+ou início da sessão 13. Próxima sessão e publicação dependem de autorização.
+
+## Sessão 11 — envio e PR autorizados — 22/10/2026
+
+O proprietário respondeu **“autorizo, faça a PR”**. Fetch concluído e
+`git merge origin/yume-develop` retornou `Already up to date`; integração ainda
+em `25d50a506`. Branch temática enviada sem force-push. Aberta a
+[PR #5](https://github.com/sevenstarr/Yume/pull/5), base `yume-develop`, compare
+`feature/session-11-ci-distribution`, cabeça inicial `7778efb59`. O escopo inicial
+remoto abrange 60 arquivos nos três commits autorizados: identidade/correções
+`33878ff77`, qualidade `1b848e794` e CI/distribuição `7778efb59`. A descrição
+explicita esse conjunto, os testes locais e os riscos/itens de aceite pendentes.
+
+Esta continuação altera somente o registro documental de autorização/PR.
+Diff completo e whitespace revisados; os checks funcionais anteriores continuam
+válidos para o código inalterado, sem alegar nova execução JVM/build. Resultados
+de CI remoto devem ser conferidos na cabeça final da PR; não há evidência de
+pipeline verde neste registro. O snapshot `evidence/SESSION_11.json` permanece
+histórico do encerramento local anterior ao envio, com seus limites preservados.
+
+`docs/prompt.md` não rastreado preservado. PR anexada ao chat; sem merge, promoção
+a `yume-main`, alteração de proteções/ambiente/secrets, assinatura, tag ou Release.
+Integração e demais passos continuam sujeitos à autorização específica; sessão
+12 não iniciada. A URL e o estado remoto conferido serão informados na entrega.
+
+## Sessão 11 — CI e distribuição de builds — 22/10/2026
+
+Sessão autorizada pelo proprietário. Branch `feature/session-11-ci-distribution`
+criada diretamente em `origin/yume-develop=25d50a506` após fetch concluído.
+O proprietário autorizou expressamente incorporar `33878ff77` e `1b848e794`;
+fast-forward aplicado sem conflitos, preservando os dois commits no histórico.
+Lidos o contexto/subgrafo externo, AGENTS, prompt, progresso, arquitetura e
+evidências da sessão 10. O mapa externo antecede as correções e não foi tratado
+como prova do código atual. `docs/prompt.md` não rastreado foi preservado.
+
+- **CI:** PRs de integração/principal e pushes temáticos executam JDK 21,
+  cache Gradle basic controlado, formatação, testes, SQLDelight, lint e migrações
+  sintéticas. Nenhum secret no CI; `contents: read`, checkout sem persistir
+  credenciais, histórico completo e Actions nos SHAs já adotados. Nome do check
+  obrigatório preservado. Scripts verificam completude dos relatórios e geram
+  cinco APKs debug com SHA-256/proveniência/relatórios de assinatura, retention 7 dias.
+- **Release:** dispatch confirmado somente em `yume-main`, ambiente
+  `release-signing` com gate de prontidão/configuração do proprietário, sem
+  publicação/tag automáticas ou token de escrita. Certificado deve corresponder
+  ao esperado; keystore temporária limpa e nenhum cache de assinatura enviado.
+  Release/foss/preview não herdam chave debug; debug/benchmark mantêm chave de
+  desenvolvimento. Sem chave própria, variantes de distribuição ficam sem assinatura.
+- **Documentação:** `BUILD_DISTRIBUTION.md` cobre download, instalação, custódia,
+  backup/recuperação/rotação, versão/checksum/changelog e updater próprio ainda
+  desativado; arquitetura e changelog atualizados. Rascunho local da PR e comandos
+  em `SESSION_11_PR.md` / `evidence/SESSION_11_COMMANDS.md`. Scripts Python só usam
+  biblioteca padrão; fixtures de testes não contêm chaves nem dados pessoais.
+- **Verificações:** nove testes Python, duas migrações sintéticas, actionlint
+  com label Ubuntu 26.04 declarado localmente e 14 blocos `bash -n` aprovados.
+  Build conjunto `dist=ci` aprovado em 13m52s (66 tarefas executadas, 749
+  atualizadas): 306 testes nos XMLs, zero falhas/erros/ignorados, sendo 86 do app
+  executados e 220 reutilizados. Spotless/SQLDelight aprovados; lint com zero erros
+  e avisos app 204/data 0/fonte local 3/widgets 4. Cinco APKs debug com assinatura
+  v2 verificada, pacote Yume conferido no ARM64 e cinco checksums verificados
+  pelo shell. Corrigidos LF explícito em SHA256SUMS após falha real de CRLF e
+  extração compatível com prefixos atuais do apksigner; digest errado recusado.
+  DSL/relatório de assinatura aprovados em 31s na configuração final. Guarda de
+  chave ausente recusou a configuração com mensagem específica em 15s; duas
+  tentativas anteriores falharam antes dela pela exigência de configuration cache
+  de Isolated Projects. Comando de assinatura corrigido com `--no-isolated-projects`
+  apenas nessa invocação. Detalhes e limites no registro de comandos.
+- **Aceite pendente:** pipeline remoto verde, download/instalação do artifact
+  remoto e assinatura com chave do proprietário. Não houve push, PR, merge remoto,
+  promoção à principal, configuração de ambiente/secrets, tag, Release ou operação
+  de dispositivo. Sessão 10 continua com os limites Android/segurança documentados.
+  Reprodutibilidade bit a bit não medida; não confundir build local com CI remoto.
+
+Configuração de release sem chave/sem caches validada em 29s com updater off;
+nenhum APK de release assinado/R8 foi compilado nesta sessão. Agregados, hashes
+dos APKs e lista dos 14 arquivos em `evidence/SESSION_11.json`. Diff integral e
+verificações de whitespace revisados antes do commit exclusivo da sessão.
+**Implementação local validada; aceite da sessão 11 ainda parcial** pelos itens
+remotos acima. Nenhum início da sessão 12; próxima sessão somente autorizada.
+
+## Sessão 10 — qualidade, segurança e compatibilidade — 22/10/2026
+
+Pedido explícito para iniciar a sessão 10 do prompt mestre. Fetch concluído após repetição com acesso à rede; criada `feature/session-10-quality` diretamente em `origin/yume-develop` (`25d50a506`). Encontrado commit local de correções ainda não integrado; o proprietário autorizou expressamente incorporá-lo à branch, sem push ou PR. Incorporação por fast-forward de `33878ff77`, mantendo o commit separado. Arquivo não rastreado `docs/prompt.md` preservado. Lidos mapa externo por subgrafo, documentos canônicos, AGENTS, estado/histórico Git e fontes atuais; mapa é anterior às correções incorporadas.
+
+- **Implementação:** três testes novos: 13 URLs hostis recusadas antes de criar chamada CDN; resposta AniList UTF-8 de 2 MiB aceita integralmente e um byte além recusado. Nenhum fonte de produção alterado nesta sessão. Script reproduzível `scripts/check-declared-dependencies.py`, consulta OSV por coordenadas públicas, versões explícitas, omissões documentadas e falha de consulta propagada.
+- **Verificações:** 306 testes nos XMLs, zero falhas/erros: 86 do app executados nesta rodada e 220 reutilizados pelo Gradle (domain 162, data 54, source-local quatro). Migrações sintéticas novamente aprovadas, preservando 11/18 tabelas e rollback. Check conjunto aprovado em 11 minutos: build debug (cinco APKs), SQLDelight, Spotless e lint dos quatro módulos. Zero erros de lint; avisos app 204, data zero, fonte local três e widgets quatro. Assinatura v2 do ARM64 validada. Tentativa restrita falhou em 4m49 por acesso ao JAR de presentation-widget; repetição com acesso aos caches passou, sem contorno no código.
+- **Segurança:** OSV consultado para 118 coordenadas/versões, zero pacotes com alertas retornados; 15 declarações omitidas. Não cobre transitivas/BOMs/plugins/nativos nem garante indexação. Quatro padrões de segredo em 1.960 arquivos textuais rastreados, zero correspondências. Manifesto fonte: 14 permissões/quatro componentes explicitamente exportados; logs da camada de metadados/transporte revisados estaticamente. Política herdada de HTTP/CAs de usuário, WebView Safe Browsing desligado, callbacks OAuth e dependências nativas registrados como riscos anteriores à distribuição; nenhuma política de fontes alterada sem regressão.
+- **Documentação/evidência:** `docs/TEST_REPORT.md` atualizado com matriz por requisito, limites de cobertura e critérios manuais; histórico anterior preservado. `docs/evidence/SESSION_10_COMMANDS.md`, `SESSION_10.json` e rascunho local `docs/SESSION_10_PR.md`. Logs/respostas completos somente em `build/session10/`, ignorado; nenhum artefato Graphify ou dado privado versionado.
+- **Limites:** sem operação de aparelho, instrumentação/UI, benchmark de scroll/heap/rede, bateria/diário natural/deep Doze, reprodução/download completos ou restore Android integral nesta sessão. Cobertura percentual não medida. Relatório documental entregue com riscos e testes manuais explícitos; não é aceite geral Android nem autorização para distribuir. Confirmação AniList continua adiada e automação textual off.
+
+Encerramento local com revisão integral do diff e commit exclusivo da sessão. Sem push, PR remoto, merge em integração/principal, tag ou release. Validações manuais e integração permanecem pendentes; sessão 11 somente após autorização separada.
+
+## Consolidação das pendências — 22/10/2026
+
+O proprietário autorizou começar a resolver as pendências listadas, adiando a confirmação AniList. Retomada explicitamente na branch existente `fix/non-device-pending-items`, com as alterações locais anteriores preservadas e revisadas. Fetch concluído; HEAD e integração remota conhecida em `25d50a506`. Mapa externo consultado por subgrafo; corresponde à base, sem as alterações locais. Prompt mestre, arquitetura, progresso, protocolo e histórico conferidos.
+
+- Consolidadas correções já preparadas: locale reativo no calendário, identidade Yume/pacote próprio/ícones, updater bloqueado em todas as distribuições e antes de consultas forçadas, política unificada de metadados locais (`details.json` > `info.json`) e streams fechados. Configuração de licenças/avisos AboutLibraries, links do fork, privacidade e revisão do provedor documentados. Configurações remotas descritas nos documentos são resultados da rodada anterior; nenhuma nova alteração de configuração nesta retomada.
+- **Validação atual:** check conjunto de JVM, APK debug, migrações SQLDelight, Spotless e quatro módulos de lint aprovado em **32m 37s**. **303 testes** (162 domain, 54 data, 83 app, quatro source-local), zero falhas/erros/ignorados. App lint: **zero erros, 204 avisos e zero NonObservableLocale**, sem supressões; data zero issues, fonte local três avisos, widgets quatro. Scripts Python das migrações 148/149 aprovados novamente. Cinco APKs gerados; ARM64 com assinatura v2 e label/pacote Yume confirmados. Teste negativo `:app:generateDebugBuildConfig -Penable-updater=true` falhou como esperado em 17s, com mensagem específica do bloqueio; não é falha do build normal.
+- **Android parcial:** Galaxy A05s/API 35, instalação nova `io.github.sevenstarr.yume.dev`, versão `0.20.0.1-8270`. Dois pacotes Animiru anteriores preservados e coexistentes. Inicialização Status ok; após desbloqueio pelo proprietário, onboarding visível e avanço até pasta de armazenamento. Criada somente pasta dedicada `Yume-QA-20261022`; escolha não concluída após mudança do primeiro plano para outro aplicativo. Interações interrompidas; sem restauração, importação de biblioteca pessoal ou aceite visual completo.
+- **Evidências:** [relatório de qualidade](TEST_REPORT.md), [acompanhamento](NON_DEVICE_PENDING.md) e [snapshot agregado/manifesto](evidence/NON_DEVICE_PENDING.json). Logs e XMLs privados somente em build ignorado. Varredura limitada de três padrões de segredo em 1.958 arquivos textuais sem achados; não certifica histórico completo, dependências ou ausência geral de segredos. Cobertura percentual não medida.
+- **Limites:** diário natural, deep Doze, bateria prolongada, performance de biblioteca representativa, TalkBack, reprodução/download completos/offline e limpeza/restauração Android continuam abertos. Tentativa de extração privada do WorkManager foi rejeitada pela revisão automática por exigir autorização específica; nenhum contorno realizado. Proprietário confirmou ausência de clientes OAuth próprios. Confirmação AniList adiada; automação textual continua off; gates de assinatura/distribuição permanecem. AND-01 já corrigido e restore `custom*` já implementado na sessão 6 não são bugs locais ainda sem correção; falta validação Android correspondente.
+
+Rodada consolidada localmente, com limitações explícitas; não é aceite integral da sessão 10. Sem push, PR, merge, tag ou release. Próxima sessão depende do protocolo e da autorização do proprietário.
+
 ## Correção AND-01 — descrição de dados móveis — 21/10/2026
 
 Pedido do proprietário: criar branch de fixes, corrigir o bug identificado nos testes Android, abrir PR e integrar em `yume-develop`. Branch `fix/android-mobile-data-description`, baseada em `origin/yume-develop` atualizado por fetch, SHA `7c38c096541d649070790e74b75cacc93f8f6dfa`. Trabalho assistido pelo Codex; sem início da sessão 10.
