@@ -7,6 +7,15 @@ para `yume-main`, tags e publicação exigem autorização do proprietário.
 
 ## CI de PR e push
 
+**Correção na publicação da sessão 12:** ambos os workflows chamam agora
+`$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager` explicitamente, com fallback
+de raiz para `ANDROID_SDK_ROOT` e o caminho padrão da imagem. Validam o executável
+e exportam raiz/PATH para passos seguintes. O
+[script oficial da imagem](https://github.com/actions/runner-images/blob/main/images/ubuntu/scripts/build/install-android-sdk.sh)
+confirma essa disposição. Isso trata a falha de PATH abaixo; resultado remoto
+deve ser conferido na cabeça final da PR substituta, antes do merge autorizado.
+As permissões, checks e gates de assinatura/publicação permanecem os mesmos.
+
 **Conferência da sessão 12, 22/10/2026:** PR #5 aberta, cabeça `91a378cee`.
 A [execução 39877855871](https://github.com/sevenstarr/Yume/actions/runs/39877855871)
 falhou em `Install required Android SDK`: `sdkmanager: command not found`,

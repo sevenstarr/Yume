@@ -1,5 +1,33 @@
 # Progresso do projeto
 
+## Publicação e integração autorizadas da sessão 12 — 22/10/2026
+
+O proprietário pediu encerrar a PR #5, criar a PR da sessão 12 e realizar o merge
+em seguida. PR #5 fechada sem merge pelo conector; seu histórico e branch não
+foram apagados. A nova PR reúne os commits já incorporados de correções,
+qualidade, CI e documentação; não perde o escopo da PR substituída.
+
+Continuidade conferida novamente: contexto/resumo e subgrafo externos (snapshot
+anterior às sessões 10–12), AGENTS/prompt/progresso/arquitetura, status, cinco
+commits e estatísticas de HEAD. `docs/prompt.md` preservado. Fetch passou após
+repetição autorizada; `git merge origin/yume-develop` retornou `Already up to date`
+em `25d50a506`, sem conflitos conhecidos.
+
+Para corrigir o bloqueio de CI observado na PR #5, os workflows build/release
+chamam o executável de Command-line Tools por caminho explícito, verificam sua
+presença e exportam raiz/PATH. A disposição foi conferida no script oficial da
+imagem Ubuntu; sem nova Action/dependência, mudança de secrets, permissões,
+proteções ou bypass de checks. Correção de infraestrutura necessária à integração
+autorizada, sem alterar o código Android ou iniciar outra sessão.
+
+Validação local da correção e evidências anteriores ficam no
+[registro de publicação](evidence/SESSION_12_INTEGRATION.md). O merge exige
+checks obrigatórios verdes na cabeça final e base atualizada. O pedido já
+autoriza envio, criação e merge; nenhuma nova autorização será solicitada para
+essas etapas. Resultado remoto será conferido e informado na PR e na entrega,
+sem declarar merge antes da confirmação. Sem promoção a `yume-main`, tag,
+release, operação de dispositivo ou início da sessão 13.
+
 ## Sessão 12 — documentação pública e portfólio — 22/10/2026
 
 Sessão autorizada pelo proprietário. Fetch concluído após falha de conexão no

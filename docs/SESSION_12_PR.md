@@ -1,51 +1,62 @@
-# docs: consolidate public guides and project portfolio
+# docs: integrate session 12 guides and validated fork changes
 
 ## Problema e resultado
 
-O README e os guias de origem/contribuição misturavam a fundação histórica com
-o comportamento atual. A arquitetura ainda apresentava componentes implementados
-como propostas futuras. Esta revisão permite entender o incremento Yume, preparar
-o ambiente por instruções públicas e avaliar decisões/testes sem prompt privado.
+O README e a arquitetura ainda misturavam propostas antigas com o incremento
+atual. Esta PR consolida documentação pública e demonstração técnica e incorpora
+as correções, qualidade e CI previamente revisados na PR #5, encerrada a pedido
+do proprietário. Corrige também o bloqueio de `sdkmanager` fora do PATH no CI.
 
-## Mudanças
+## Mudanças e origem
 
-- README com comparação upstream/Yume, uso opt-in, instalação/build, limites e
-  autoria assistida pelo Codex; licença e atribuições preservadas.
-- Arquitetura consolidada com fluxo Mermaid, contratos, tabelas/schema,
-  concorrência/backup e decisões; texto anterior preservado integralmente.
-- Guias de desenvolvimento e demonstração com snapshot fixado, comandos,
-  fontes de testes, resultados esperados e limites de evidência Android.
-- Duas capturas reais históricas de configurações/lote, revisadas, sem edição,
-  com alt text, contexto e hashes. Não representam a identidade Yume atual.
-- Origem/sincronização, contribuição, segurança, changelog e avisos atualizados;
-  documentos das sessões 6–9 identificam suas limitações históricas.
+- Documentação da sessão 12: comparação upstream/Yume, guias públicos de build
+  e demonstração, arquitetura/contratos/schema/ADRs e histórico preservado,
+  contribuição, segurança, origem/sincronização, changelog e avisos.
+- Duas capturas reais históricas de configurações/lote, revisadas e sem edição,
+  com alt text, proveniência e hashes; sem biblioteca/contas/capas de obras.
+- Commits incorporados e preservados: identidade Android Yume/updater desligado,
+  locale e fonte local; testes/relatório de qualidade; CI debug sem secrets e
+  candidato release manual com assinatura própria. Não atribui recursos herdados
+  de biblioteca/player/fontes/downloads/tracking como novos.
+- Correção necessária de CI: chamada explícita a Command-line Tools nos workflows
+  build/release, validação do executável e exportação da raiz/PATH. Mantém runner,
+  permissões mínimas, verificações obrigatórias e gates de assinatura/publicação.
 
-## Base, escopo e validação
+Branch criada diretamente de `origin/yume-develop=25d50a506`, atualizada por
+fetch/merge sem conflitos. O proprietário autorizou incorporar os commits até
+`91a378cee`, enviar esta branch, substituir a PR #5 e realizar merge somente
+após os checks obrigatórios verdes na cabeça final. Trabalho assistido pelo Codex.
 
-Branch criada diretamente de `origin/yume-develop=25d50a506` após fetch.
-Proprietário autorizou incorporar os quatro commits até `91a378cee` por
-fast-forward; esses commits permanecem separados do commit documental da sessão.
-PR futura deve usar base `yume-develop`, após novo fetch/merge e revalidação.
-Nenhuma alteração funcional ou de workflow nesta sessão.
+## Validação
 
-Resultados locais e comandos: [SESSION_12_COMMANDS](evidence/SESSION_12_COMMANDS.md).
-Incluem links locais, revisão de imagens/hashes, licença/histórico preservados,
-testes demonstráveis, scripts de migração e checks de diff. Diferenciam a falha
-de acesso da primeira tentativa, repetição e resultados históricos reutilizados.
+- Sessão 12: 249 testes JVM selecionados/14 suítes, zero falhas/erros/ignorados.
+  Domain/data 170 executados na primeira tentativa e reutilizados na repetição;
+  app 79 executados na repetição aprovada em 3m58s. Primeira tentativa teve falha
+  de acesso local ao JAR/daemon; nenhum fonte alterado para contornar a falha.
+- Nove testes Python e duas migrações sintéticas aprovados; 18 Markdown/230
+  destinos locais conferidos. LICENSE/histórico/capturas preservados byte a byte.
+- Correção SDK: actionlint e 14 blocos `bash -n` aprovados; quatro smoke cases
+  cobrem raiz com espaços, fallback, executável ausente e falha propagada.
+  Smoke usa instalador sintético; shellcheck/pyflakes não executados.
+- Evidências anteriores da sessão 11: build debug, SQLDelight, Spotless e lint
+  locais aprovados; 306 testes nos XMLs, parte reutilizada, zero erros de lint
+  e 211 avisos. Cinco APKs debug com assinatura v2 e hashes verificados localmente.
 
-## Critérios de aceite e limites
+Registros: [sessão 12](evidence/SESSION_12_COMMANDS.md),
+[publicação/correção CI](evidence/SESSION_12_INTEGRATION.md),
+[sessão 11](evidence/SESSION_11_COMMANDS.md), [qualidade](TEST_REPORT.md).
+O run anterior da PR #5 falhou por `sdkmanager: command not found` (exit 127),
+antes dos testes/build; o CI desta PR deve validar a correção na cabeça final.
 
-- [x] Descrição/diferenças/estado/origem/autoria conferíveis no código/histórico.
-- [x] Build e testes descritos com versões, snapshot e caminhos de saída públicos.
-- [x] Contratos, persistência, decisões e cenários demonstráveis ligados às fontes.
-- [x] Capturas reais com contexto e limitações, sem biblioteca ou arte de obras.
-- [ ] Capturas atuais de seleção/capas e validação visual completa em Android.
-- [ ] Reprodução integral em máquina limpa por leitor independente.
+## Aceite e limites
 
-Na conferência remota, PR #5 permanece aberta. O
-[run 39877855871](https://github.com/sevenstarr/Yume/actions/runs/39877855871)
-falhou por `sdkmanager: command not found` (exit 127), antes de testes/build.
-Corrigir e revalidar o CI é pendência anterior; não declarar pipeline verde ou
-artifact instalável. Demais gates Android, OAuth/provedores, licenças nativas e
-assinatura/distribuição permanecem. Não há tag/release, publicação desta sessão
-ou início da sessão 13. Este arquivo é apenas um rascunho local, sem PR criada.
+- Documentação/atribuição/contratos e comandos públicos preparados para revisão.
+- Checks remotos obrigatórios e sincronização da base condicionam o merge.
+- Capturas atuais de seleção/capas, reprodução independente em máquina limpa e
+  validação Android completa permanecem pendentes: UI/TalkBack, performance,
+  bateria/Doze, reprodução/download/restore completos e atualização de APK próprio.
+- OAuth próprio, políticas/direitos de provedores/imagens, licenças nativas e
+  assinatura/distribuição têm gates próprios. Updater/automação textual off.
+
+Esta integração não promove a `yume-main`, não cria tag/release nem inicia a
+sessão 13. Publicação de binário e assinatura do proprietário não são executadas.
