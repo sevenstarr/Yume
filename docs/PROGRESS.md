@@ -1,5 +1,28 @@
 # Progresso do projeto
 
+## Sessão 11 — envio e PR autorizados — 22/10/2026
+
+O proprietário respondeu **“autorizo, faça a PR”**. Fetch concluído e
+`git merge origin/yume-develop` retornou `Already up to date`; integração ainda
+em `25d50a506`. Branch temática enviada sem force-push. Aberta a
+[PR #5](https://github.com/sevenstarr/Yume/pull/5), base `yume-develop`, compare
+`feature/session-11-ci-distribution`, cabeça inicial `7778efb59`. O escopo inicial
+remoto abrange 60 arquivos nos três commits autorizados: identidade/correções
+`33878ff77`, qualidade `1b848e794` e CI/distribuição `7778efb59`. A descrição
+explicita esse conjunto, os testes locais e os riscos/itens de aceite pendentes.
+
+Esta continuação altera somente o registro documental de autorização/PR.
+Diff completo e whitespace revisados; os checks funcionais anteriores continuam
+válidos para o código inalterado, sem alegar nova execução JVM/build. Resultados
+de CI remoto devem ser conferidos na cabeça final da PR; não há evidência de
+pipeline verde neste registro. O snapshot `evidence/SESSION_11.json` permanece
+histórico do encerramento local anterior ao envio, com seus limites preservados.
+
+`docs/prompt.md` não rastreado preservado. PR anexada ao chat; sem merge, promoção
+a `yume-main`, alteração de proteções/ambiente/secrets, assinatura, tag ou Release.
+Integração e demais passos continuam sujeitos à autorização específica; sessão
+12 não iniciada. A URL e o estado remoto conferido serão informados na entrega.
+
 ## Sessão 11 — CI e distribuição de builds — 22/10/2026
 
 Sessão autorizada pelo proprietário. Branch `feature/session-11-ci-distribution`

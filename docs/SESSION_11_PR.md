@@ -1,9 +1,10 @@
-# Rascunho local — CI debug e candidatos de release do Yume
+# PR #5 — identidade, qualidade e distribuição do Yume
 
 Base: `yume-develop`; compare: `feature/session-11-ci-distribution`.
-Envio e abertura de PR ainda não autorizados. A branch incorpora, por autorização
+[PR aberta](https://github.com/sevenstarr/Yume/pull/5), após autorização explícita
+do proprietário em 22/10/2026. A branch incorpora, por autorização
 expressa e fast-forward, `33878ff77` e `1b848e794` como commits separados. A PR
-futura também deverá revisar essas correções e o relatório da sessão 10.
+também inclui essas correções e o relatório da sessão 10 no escopo de revisão.
 
 O CI herdado gerava release com chave debug e o workflow de release ainda
 referenciava o upstream. Agora PRs/pushes verificam formatação, testes, migrações
@@ -31,9 +32,10 @@ desenvolvimento para preservar o profiler. [Processo](BUILD_DISTRIBUTION.md).
   assinatura com chave do proprietário ainda pendentes. Não marcar esses itens
   como aprovados a partir do build local.
 
-Antes de abrir PR, atualizar `origin/yume-develop`, incorporar mudanças se houver,
-revalidar e obter autorização de push/PR. Não integrar com checks obrigatórios
-pendentes/falhando. A configuração do ambiente/secrets e a promoção à principal
+Antes da abertura, fetch e incorporação de `origin/yume-develop` confirmaram
+branch atualizada em `25d50a506`, sem conflitos locais. Push/PR foram autorizados;
+o CI remoto permanece pendente de verificação na cabeça final. Não integrar com
+checks obrigatórios pendentes/falhando. A configuração do ambiente/secrets e a promoção à principal
 dependem de autorização própria. As lacunas Android, OAuth, provedores e
 dependências nativas da sessão 10 permanecem bloqueios anteriores à distribuição.
 
